@@ -1,306 +1,323 @@
 /* =========================================================
-   SKILL UP - AUTH.JS
-   REGISTER + LOGIN + LOGOUT
+SKILL UP - AUTH.JS
+LIVE RENDER BACKEND
 ========================================================= */
 
-const API = window.location.origin;
-
+const API =
+"https://skill-up-portal-backend.onrender.com";
 
 /* =========================================================
-   MESSAGE
+MESSAGE
 ========================================================= */
 
 function showMessage(message, type = "error") {
 
-    const box = document.getElementById("registerMessage");
+```
+const box =
+    document.getElementById("registerMessage");
 
-    if (!box) return;
+if (!box) return;
 
-    box.textContent = message;
+box.textContent = message;
+box.style.display = "block";
 
-    box.style.display = "block";
+if (type === "success") {
 
-    if (type === "success") {
-        box.style.color = "#15803d";
-        box.style.background = "#dcfce7";
-        box.style.border = "1px solid #86efac";
-    } else {
-        box.style.color = "#b91c1c";
-        box.style.background = "#fee2e2";
-        box.style.border = "1px solid #fecaca";
-    }
+    box.style.color = "#15803d";
+    box.style.background = "#dcfce7";
+    box.style.border = "1px solid #86efac";
+
+} else {
+
+    box.style.color = "#b91c1c";
+    box.style.background = "#fee2e2";
+    box.style.border = "1px solid #fecaca";
+
+}
+```
+
 }
 
-
 /* =========================================================
-   REGISTER
+PAGE LOAD
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+"DOMContentLoaded",
+function () {
 
-    const registerForm = document.getElementById("registerForm");
+```
+    /* =================================================
+       REGISTER
+    ================================================= */
+
+    const registerForm =
+        document.getElementById("registerForm");
+
 
     if (registerForm) {
 
-        registerForm.addEventListener("submit", async function (event) {
+        registerForm.addEventListener(
+            "submit",
+            async function (event) {
 
-            /* VERY IMPORTANT */
-            event.preventDefault();
-            event.stopPropagation();
-
-            console.log("REGISTER FORM SUBMITTED");
-
-            const name = document.getElementById("registerName")?.value.trim();
-            const email = document.getElementById("registerEmail")?.value.trim();
-            const password = document.getElementById("registerPassword")?.value;
-            const college = document.getElementById("registerCollege")?.value.trim();
-            const branch = document.getElementById("registerBranch")?.value;
-            const year = document.getElementById("registerYear")?.value;
+                event.preventDefault();
+                event.stopPropagation();
 
 
-            /* =================================================
-               VALIDATION
-            ================================================= */
+                const name =
+                    document
+                        .getElementById("registerName")
+                        ?.value
+                        .trim();
 
-            if (!name || !email || !password) {
+                const email =
+                    document
+                        .getElementById("registerEmail")
+                        ?.value
+                        .trim();
 
-                showMessage(
-                    "Please enter Name, Email and Password."
-                );
+                const password =
+                    document
+                        .getElementById("registerPassword")
+                        ?.value;
 
-                return;
-            }
+                const college =
+                    document
+                        .getElementById("registerCollege")
+                        ?.value
+                        .trim();
 
+                const branch =
+                    document
+                        .getElementById("registerBranch")
+                        ?.value;
 
-            if (password.length < 6) {
-
-                showMessage(
-                    "Password must be at least 6 characters."
-                );
-
-                return;
-            }
-
-
-            try {
-
-                console.log("Sending registration request...");
-                console.log("API:", API + "/api/register");
-
-
-                /* =================================================
-                   API REQUEST
-                ================================================= */
-
-                const response = await fetch(API + "/api/register", {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        name: name,
-                        email: email,
-                        password: password,
-                        college: college,
-                        branch: branch,
-                        year: year
-
-                    })
-
-                });
+                const year =
+                    document
+                        .getElementById("registerYear")
+                        ?.value;
 
 
-                console.log(
-                    "Register response status:",
-                    response.status
-                );
-
-
-                /* =================================================
-                   RESPONSE
-                ================================================= */
-
-                let data;
-
-                try {
-
-                    data = await response.json();
-
-                } catch (error) {
-
-                    data = {
-                        success: false,
-                        message: "Server returned an invalid response."
-                    };
-
-                }
-
-
-                console.log("Register response:", data);
-
-
-                /* =================================================
-                   ERROR
-                ================================================= */
-
-                if (!response.ok || !data.success) {
+                if (!name || !email || !password) {
 
                     showMessage(
-                        data.message || "Registration failed."
+                        "Please enter Name, Email and Password."
                     );
 
                     return;
                 }
 
 
-                /* =================================================
-                   SUCCESS
-                ================================================= */
+                if (password.length < 6) {
 
-                showMessage(
-                    "Account created successfully! Redirecting...",
-                    "success"
-                );
-
-
-                /* Save login information */
-
-                if (data.token) {
-
-                    localStorage.setItem(
-                        "token",
-                        data.token
+                    showMessage(
+                        "Password must be at least 6 characters."
                     );
 
+                    return;
                 }
 
 
-                if (data.user) {
+                try {
+
+                    console.log(
+                        "REGISTER URL:",
+                        API + "/api/register"
+                    );
+
+
+                    const response =
+                        await fetch(
+                            API + "/api/register",
+                            {
+
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+
+                                        name:
+                                            name,
+
+                                        email:
+                                            email,
+
+                                        password:
+                                            password,
+
+                                        college:
+                                            college,
+
+                                        branch:
+                                            branch,
+
+                                        year:
+                                            year
+
+                                    })
+
+                            }
+                        );
+
+
+                    const raw =
+                        await response.text();
+
+
+                    console.log(
+                        "REGISTER STATUS:",
+                        response.status
+                    );
+
+                    console.log(
+                        "REGISTER RESPONSE:",
+                        raw
+                    );
+
+
+                    let data = null;
+
+
+                    try {
+
+                        data =
+                            JSON.parse(raw);
+
+                    } catch (error) {
+
+                        data = null;
+
+                    }
+
+
+                    if (!response.ok) {
+
+                        showMessage(
+                            data?.message ||
+                            `Registration failed (${response.status})`
+                        );
+
+                        return;
+                    }
+
+
+                    showMessage(
+                        data?.message ||
+                        "Account created successfully!",
+                        "success"
+                    );
+
+
+                    if (data?.token) {
+
+                        localStorage.setItem(
+                            "token",
+                            data.token
+                        );
+
+                    }
+
+
+                    if (data?.user) {
+
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(
+                                data.user
+                            )
+                        );
+
+                    }
+
 
                     localStorage.setItem(
-                        "user",
-                        JSON.stringify(data.user)
+                        "loggedIn",
+                        "true"
+                    );
+
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "./login.html";
+
+                        },
+                        1000
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "REGISTER ERROR:",
+                        error
+                    );
+
+
+                    showMessage(
+                        "Cannot connect to server."
                     );
 
                 }
-
-
-                localStorage.setItem(
-                    "loggedIn",
-                    "true"
-                );
-
-
-                /* =================================================
-                   REDIRECT
-                ================================================= */
-
-                setTimeout(function () {
-
-                    window.location.href = "./login.html";
-
-                }, 1000);
-
-
-            } catch (error) {
-
-                console.error(
-                    "REGISTER ERROR:",
-                    error
-                );
-
-
-                showMessage(
-                    "Cannot connect to server. Please make sure backend is running."
-                );
 
             }
-
-        });
+        );
 
     }
 
 
-    /* =========================================================
+    /* =================================================
        LOGIN
-    ========================================================= */
+    ================================================= */
 
-    const loginForm = document.getElementById("loginForm");
+    const loginForm =
+        document.getElementById("loginForm");
+
 
     if (loginForm) {
 
-        loginForm.addEventListener("submit", async function (event) {
+        loginForm.addEventListener(
+            "submit",
+            async function (event) {
 
-            event.preventDefault();
-            event.stopPropagation();
-
-
-            const email =
-                document.getElementById("loginEmail")?.value.trim();
-
-            const password =
-                document.getElementById("loginPassword")?.value;
+                event.preventDefault();
+                event.stopPropagation();
 
 
-            if (!email || !password) {
+                const email =
+                    document
+                        .getElementById("loginEmail")
+                        ?.value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById("loginPassword")
+                        ?.value;
+
 
                 const message =
-                    document.getElementById("loginMessage");
-
-                if (message) {
-
-                    message.textContent =
-                        "Please enter email and password.";
-
-                    message.style.display = "block";
-
-                }
-
-                return;
-            }
+                    document.getElementById(
+                        "loginMessage"
+                    );
 
 
-            try {
-
-                const response = await fetch(
-                    API + "/api/login",
-                    {
-
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-
-                        body: JSON.stringify({
-
-                            email: email,
-                            password: password
-
-                        })
-
-                    }
-                );
-
-
-                const data = await response.json();
-
-
-                if (!response.ok || !data.success) {
-
-                    const message =
-                        document.getElementById("loginMessage");
+                if (!email || !password) {
 
                     if (message) {
 
                         message.textContent =
-                            data.message || "Login failed.";
+                            "Please enter email and password.";
 
-                        message.style.display = "block";
+                        message.style.display =
+                            "block";
 
                     }
 
@@ -308,78 +325,213 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
 
-                /* Save login */
+                try {
 
-                if (data.token) {
-
-                    localStorage.setItem(
-                        "token",
-                        data.token
+                    console.log(
+                        "LOGIN URL:",
+                        API + "/api/login"
                     );
 
-                }
+
+                    const response =
+                        await fetch(
+                            API + "/api/login",
+                            {
+
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+
+                                        email:
+                                            email,
+
+                                        password:
+                                            password
+
+                                    })
+
+                            }
+                        );
 
 
-                if (data.user) {
+                    const raw =
+                        await response.text();
 
-                    localStorage.setItem(
-                        "user",
-                        JSON.stringify(data.user)
+
+                    console.log(
+                        "LOGIN STATUS:",
+                        response.status
                     );
 
-                }
+                    console.log(
+                        "LOGIN RESPONSE:",
+                        raw
+                    );
 
 
-                localStorage.setItem(
-                    "loggedIn",
-                    "true"
-                );
+                    let data = null;
 
 
-                /* Redirect */
+                    try {
 
-                window.location.href =
-                    "./dashboard.html";
+                        data =
+                            JSON.parse(raw);
 
+                    } catch (error) {
 
-            } catch (error) {
+                        data = null;
 
-                console.error(
-                    "LOGIN ERROR:",
-                    error
-                );
+                    }
 
 
-                const message =
-                    document.getElementById("loginMessage");
+                    /* =================================
+                       LOGIN ERROR
+                    ================================= */
 
-                if (message) {
+                    if (!response.ok) {
 
-                    message.textContent =
-                        "Cannot connect to server.";
+                        if (message) {
 
-                    message.style.display = "block";
+                            message.textContent =
+                                data?.message ||
+                                `Login failed (${response.status})`;
+
+                            message.style.display =
+                                "block";
+
+                        }
+
+                        return;
+                    }
+
+
+                    /* =================================
+                       SAVE TOKEN
+                    ================================= */
+
+                    if (data?.token) {
+
+                        localStorage.setItem(
+                            "token",
+                            data.token
+                        );
+
+                    }
+
+
+                    /* =================================
+                       SAVE USER
+                    ================================= */
+
+                    if (data?.user) {
+
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(
+                                data.user
+                            )
+                        );
+
+                    }
+
+
+                    localStorage.setItem(
+                        "loggedIn",
+                        "true"
+                    );
+
+
+                    /* =================================
+                       SUCCESS MESSAGE
+                    ================================= */
+
+                    if (message) {
+
+                        message.textContent =
+                            data?.message ||
+                            "Login successful!";
+
+                        message.style.display =
+                            "block";
+
+                        message.style.color =
+                            "#15803d";
+
+                        message.style.background =
+                            "#dcfce7";
+
+                        message.style.border =
+                            "1px solid #86efac";
+
+                    }
+
+
+                    /* =================================
+                       REDIRECT
+                    ================================= */
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "./index.html";
+
+                        },
+                        800
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "LOGIN ERROR:",
+                        error
+                    );
+
+
+                    if (message) {
+
+                        message.textContent =
+                            "Cannot connect to server.";
+
+                        message.style.display =
+                            "block";
+
+                    }
 
                 }
 
             }
-
-        });
+        );
 
     }
 
-});
+}
+```
 
+);
 
 /* =========================================================
-   LOGOUT
+LOGOUT
 ========================================================= */
 
 function logout() {
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("loggedIn");
+```
+localStorage.removeItem("token");
 
-    window.location.href = "./login.html";
+localStorage.removeItem("user");
+
+localStorage.removeItem("loggedIn");
+
+window.location.href =
+    "./login.html";
+```
+
 }
