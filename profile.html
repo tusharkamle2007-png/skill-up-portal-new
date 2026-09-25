@@ -2099,17 +2099,37 @@ function getJSON(key, fallback){
    CENTRAL PROFILE
 ===================================================== */
 
-function getCentralProfile(){
+function getCentralProfile() {
 
-    return getJSON(
-        "skillUpProfile",
-        {}
-    ) || {};
+    const profile =
+        getJSON("skillUpProfile", null);
 
+    const assessment =
+        getJSON("assessmentResult", null);
+
+    // Assessment ka latest data available hai
+    // to profile ke andar merge karo
+    if (assessment) {
+
+        const merged = {
+            ...(profile || {}),
+            ...assessment,
+            assessment: assessment
+        };
+
+        localStorage.setItem(
+            "skillUpProfile",
+            JSON.stringify(merged)
+        );
+
+        return merged;
+    }
+
+    return profile || {};
 }
 
 
-function saveCentralProfile(data){
+function saveCentralProfile(data) {
 
     const oldProfile =
         getCentralProfile();
@@ -2123,7 +2143,6 @@ function saveCentralProfile(data){
         "skillUpProfile",
         JSON.stringify(newProfile)
     );
-
 }
 
 
@@ -2300,50 +2319,51 @@ function removeProfilePhoto(){
    ASSESSMENT
 ===================================================== */
 
-function loadAssessment(){
+function loadAssessment() {
 
-    /*
-     * Assessment is saved by assessment.html in:
-     * 1. skillUpProfile
-     * 2. assessmentResult
-     *
-     * Profile should always prefer the latest assessment.
-     */
+    const profile =
+        getJSON("skillUpProfile", null);
 
-    let assessment = null;
+    const assessment =
+        getJSON("assessmentResult", null);
 
-    /* =====================================================
-       1. LATEST PROFILE DATA
-    ===================================================== */
+    const oldAssessment =
+        getJSON("skillUpAssessment", null);
 
-    try {
+    const latest =
+        assessment ||
+        oldAssessment ||
+        (profile && profile.assessment) ||
+        profile;
 
-        const profile =
-            JSON.parse(
-                localStorage.getItem(
-                    "skillUpProfile"
-                )
-            );
+    if (!latest) {
 
-        if(
-            profile &&
-            profile.assessmentCompleted
-        ){
+        document.getElementById(
+            "assessmentData"
+        ).style.display = "none";
 
-            assessment = profile;
+        document.getElementById(
+            "noAssessment"
+        ).style.display = "block";
 
-        }
-
-    }
-    catch(error){
-
-        console.error(
-            "skillUpProfile read error:",
-            error
-        );
-
+        return;
     }
 
+    latestAssessment = latest;
+
+    const updatedProfile = {
+        ...(profile || {}),
+        ...latest,
+        assessment: latest
+    };
+
+    localStorage.setItem(
+        "skillUpProfile",
+        JSON.stringify(updatedProfile)
+    );
+
+    showAssessment(latestAssessment);
+}
 
     /* =====================================================
        2. ASSESSMENT RESULT FALLBACK
