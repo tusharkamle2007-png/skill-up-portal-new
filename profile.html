@@ -2150,82 +2150,64 @@ function saveCentralProfile(data) {
    USER
 ===================================================== */
 
-function loadUser(){
-
-    let user =
-        getJSON("user", null);
+function loadAssessment() {
 
     const profile =
-        getCentralProfile();
+        getJSON("skillUpProfile", null);
 
-    if(!user){
-        user = {};
+    const assessmentResult =
+        getJSON("assessmentResult", null);
+
+    const skillUpAssessment =
+        getJSON("skillUpAssessment", null);
+
+    let latest = null;
+
+    // Latest assessment ko priority
+    if (assessmentResult) {
+        latest = assessmentResult;
+    } 
+    else if (skillUpAssessment) {
+        latest = skillUpAssessment;
+    } 
+    else if (profile && profile.assessment) {
+        latest = profile.assessment;
+    } 
+    else if (profile && profile.assessmentCompleted) {
+        latest = profile;
     }
 
-    currentUser = {
-        ...profile,
-        ...user
+    if (!latest) {
+
+        document.getElementById("assessmentData").style.display = "none";
+        document.getElementById("noAssessment").style.display = "block";
+
+        return;
+    }
+
+    latestAssessment = latest;
+
+    // Profile ke andar bhi latest assessment save karo
+    const updatedProfile = {
+        ...(profile || {}),
+        ...latest,
+        assessment: latest,
+        assessmentCompleted: true
     };
 
-    displayProfile();
+    localStorage.setItem(
+        "skillUpProfile",
+        JSON.stringify(updatedProfile)
+    );
 
+    // Central profile variable bhi update
+    currentUser = {
+        ...currentUser,
+        ...updatedProfile
+    };
+
+    showAssessment(latestAssessment);
 }
-
-
-function displayProfile(){
-
-    const name =
-        currentUser.name ||
-        currentUser.studentName ||
-        "Student";
-
-    const email =
-        currentUser.email ||
-        "-";
-
-    const college =
-        currentUser.college ||
-        currentUser.collegeName ||
-        "College not added";
-
-    const branch =
-        currentUser.branch ||
-        currentUser.stream ||
-        "Branch not added";
-
-    const year =
-        currentUser.year ||
-        currentUser.studyYear ||
-        "-";
-
-
-    document.getElementById(
-        "profileName"
-    ).textContent = name;
-
-
-    document.getElementById(
-        "profileEmail"
-    ).textContent = email;
-
-
-    document.getElementById(
-        "profileCollege"
-    ).textContent = college;
-
-
-    document.getElementById(
-        "profileBranch"
-    ).textContent = branch;
-
-
-    document.getElementById(
-        "profileYear"
-    ).textContent = year;
-
-}
-
-
 /* =====================================================
    PROFILE PHOTO
 ===================================================== */
