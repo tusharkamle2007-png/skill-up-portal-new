@@ -484,372 +484,247 @@
 <footer>
     © 2026 Skill Up. All rights reserved.
 </footer>
-
 <script>
 
-    // =====================================================
-    // LIVE RENDER BACKEND
-    // =====================================================
+const API_BASE =
+    "https://skill-up-portal-backend.onrender.com/api";
 
-    const API_BASE =
-        "https://skill-up-portal-backend.onrender.com/api";
-
-
-    // =====================================================
-    // REGISTER
-    // =====================================================
-
-    document
-        .getElementById("registerForm")
-        .addEventListener("submit", registerUser);
+document
+    .getElementById("registerForm")
+    .addEventListener("submit", registerUser);
 
 
-    async function registerUser(event) {
+async function registerUser(event) {
 
-        event.preventDefault();
+    event.preventDefault();
 
-        console.log("REGISTER FUNCTION STARTED");
+    const name =
+        document.getElementById("registerName").value.trim();
 
+    const email =
+        document.getElementById("registerEmail").value.trim();
 
-        const name =
-            document
-                .getElementById("registerName")
-                .value
-                .trim();
+    const password =
+        document.getElementById("registerPassword").value;
 
-        const email =
-            document
-                .getElementById("registerEmail")
-                .value
-                .trim();
+    const college =
+        document.getElementById("registerCollege").value.trim();
 
-        const password =
-            document
-                .getElementById("registerPassword")
-                .value;
+    const branch =
+        document.getElementById("registerBranch").value;
 
-        const college =
-            document
-                .getElementById("registerCollege")
-                .value
-                .trim();
+    const year =
+        document.getElementById("registerYear").value;
 
-        const branch =
-            document
-                .getElementById("registerBranch")
-                .value;
-
-        const year =
-            document
-                .getElementById("registerYear")
-                .value;
-
-        const message =
-            document.getElementById(
-                "registerMessage"
-            );
-
-        const button =
-            document.getElementById(
-                "registerButton"
-            );
+    const button =
+        document.getElementById("registerButton");
 
 
-        // =================================================
-        // VALIDATION
-        // =================================================
+    if (!name) {
+        showRegisterMessage("Please enter your full name.", false);
+        return;
+    }
 
-        if (!name) {
+    if (!email) {
+        showRegisterMessage("Please enter your email.", false);
+        return;
+    }
 
-            showRegisterMessage(
-                "Please enter your full name.",
-                false
-            );
-
-            return;
-        }
-
-        if (!email) {
-
-            showRegisterMessage(
-                "Please enter your email.",
-                false
-            );
-
-            return;
-        }
-
-        if (!password) {
-
-            showRegisterMessage(
-                "Please enter a password.",
-                false
-            );
-
-            return;
-        }
-
-        if (password.length < 6) {
-
-            showRegisterMessage(
-                "Password must be at least 6 characters.",
-                false
-            );
-
-            return;
-        }
+    if (password.length < 6) {
+        showRegisterMessage(
+            "Password must be at least 6 characters.",
+            false
+        );
+        return;
+    }
 
 
-        // =================================================
-        // LOADING
-        // =================================================
-
-        button.disabled = true;
-
-        button.textContent =
-            "Creating Account...";
+    button.disabled = true;
+    button.textContent = "Creating Account...";
 
 
-        // =================================================
-        // SEND DIRECTLY TO RENDER
-        // =================================================
+    try {
+
+        console.log(
+            "REGISTER URL:",
+            API_BASE + "/register"
+        );
+
+
+        const response = await fetch(
+            API_BASE + "/register",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password,
+                    college: college,
+                    branch: branch,
+                    year: year
+                })
+            }
+        );
+
+
+        console.log(
+            "REGISTER STATUS:",
+            response.status
+        );
+
+
+        const text = await response.text();
+
+        console.log(
+            "RAW SERVER RESPONSE:",
+            text
+        );
+
+
+        let data = null;
 
         try {
-
-            console.log(
-                "Sending registration request to:",
-                API_BASE + "/register"
-            );
-
-
-            const response =
-                await fetch(
-                    API_BASE + "/register",
-                    {
-
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:
-                            JSON.stringify({
-
-                                name:
-                                    name,
-
-                                email:
-                                    email,
-
-                                password:
-                                    password,
-
-                                college:
-                                    college,
-
-                                branch:
-                                    branch,
-
-                                year:
-                                    year
-
-                            })
-
-                    }
-                );
+            data = JSON.parse(text);
+        } catch (e) {
+            console.log("Response was not JSON.");
+        }
 
 
-            console.log(
-                "Server status:",
-                response.status
-            );
+        // ==========================================
+        // SERVER ERROR
+        // ==========================================
 
-
-            let data = null;
-
-
-            try {
-
-                data =
-                    await response.json();
-
-            } catch (jsonError) {
-
-                console.error(
-                    "JSON ERROR:",
-                    jsonError
-                );
-
-            }
-
-
-            console.log(
-                "Server response:",
-                data
-            );
-
-
-            // =================================================
-            // SERVER ERROR
-            // =================================================
-
-            if (
-                !response.ok ||
-                !data ||
-                !data.success
-            ) {
-
-                showRegisterMessage(
-
-                    data?.message ||
-                    "Registration failed. Please try again.",
-
-                    false
-
-                );
-
-                button.disabled = false;
-
-                button.textContent =
-                    "Create Account";
-
-                return;
-            }
-
-
-            // =================================================
-            // SAVE TOKEN
-            // =================================================
-
-            if (data.token) {
-
-                localStorage.setItem(
-                    "token",
-                    data.token
-                );
-
-            }
-
-
-            // =================================================
-            // SAVE USER
-            // =================================================
-
-            if (data.user) {
-
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(
-                        data.user
-                    )
-                );
-
-            }
-
-
-            localStorage.setItem(
-                "loggedIn",
-                "true"
-            );
-
+        if (!response.ok) {
 
             showRegisterMessage(
-                "Account created successfully! Redirecting...",
-                true
-            );
-
-
-            button.textContent =
-                "Account Created ✓";
-
-
-            setTimeout(
-                function () {
-
-                    window.location.href =
-                        "./login.html";
-
-                },
-                1000
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "REGISTER ERROR:",
-                error
-            );
-
-
-            showRegisterMessage(
-                "Cannot connect to server. Please try again.",
+                data?.message ||
+                `Registration failed (${response.status})`,
                 false
             );
 
-
             button.disabled = false;
+            button.textContent = "Create Account";
 
-            button.textContent =
-                "Create Account";
-
+            return;
         }
 
-    }
 
+        // ==========================================
+        // SUCCESS
+        // ==========================================
 
-    // =====================================================
-    // MESSAGE
-    // =====================================================
+        if (data?.token) {
 
-    function showRegisterMessage(
-        text,
-        success
-    ) {
-
-        const message =
-            document.getElementById(
-                "registerMessage"
+            localStorage.setItem(
+                "token",
+                data.token
             );
 
-
-        message.style.display =
-            "block";
-
-        message.textContent =
-            text;
+        }
 
 
-        if (success) {
+        if (data?.user) {
 
-            message.style.color =
-                "#15803d";
-
-            message.style.background =
-                "#dcfce7";
-
-            message.style.border =
-                "1px solid #86efac";
-
-        } else {
-
-            message.style.color =
-                "#b91c1c";
-
-            message.style.background =
-                "#fee2e2";
-
-            message.style.border =
-                "1px solid #fecaca";
+            localStorage.setItem(
+                "user",
+                JSON.stringify(data.user)
+            );
 
         }
 
+
+        localStorage.setItem(
+            "loggedIn",
+            "true"
+        );
+
+
+        showRegisterMessage(
+            data?.message ||
+            "Account created successfully!",
+            true
+        );
+
+
+        button.textContent =
+            "Account Created ✓";
+
+
+        setTimeout(() => {
+
+            window.location.href =
+                "./login.html";
+
+        }, 1200);
+
+
+    } catch (error) {
+
+        console.error(
+            "REGISTER ERROR:",
+            error
+        );
+
+
+        showRegisterMessage(
+            "Cannot connect to the backend server.",
+            false
+        );
+
+
+        button.disabled = false;
+        button.textContent = "Create Account";
+
     }
 
+}
+
+
+function showRegisterMessage(
+    text,
+    success
+) {
+
+    const message =
+        document.getElementById(
+            "registerMessage"
+        );
+
+
+    message.style.display = "block";
+
+    message.textContent = text;
+
+
+    if (success) {
+
+        message.style.color = "#15803d";
+
+        message.style.background = "#dcfce7";
+
+        message.style.border =
+            "1px solid #86efac";
+
+    } else {
+
+        message.style.color = "#b91c1c";
+
+        message.style.background = "#fee2e2";
+
+        message.style.border =
+            "1px solid #fecaca";
+
+    }
+
+}
+
 </script>
-```
+
 
 </body>
 
