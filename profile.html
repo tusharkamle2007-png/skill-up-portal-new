@@ -2099,37 +2099,17 @@ function getJSON(key, fallback){
    CENTRAL PROFILE
 ===================================================== */
 
-function getCentralProfile() {
+function getCentralProfile(){
 
-    const profile =
-        getJSON("skillUpProfile", null);
+    return getJSON(
+        "skillUpProfile",
+        {}
+    ) || {};
 
-    const assessment =
-        getJSON("assessmentResult", null);
-
-    // Assessment ka latest data available hai
-    // to profile ke andar merge karo
-    if (assessment) {
-
-        const merged = {
-            ...(profile || {}),
-            ...assessment,
-            assessment: assessment
-        };
-
-        localStorage.setItem(
-            "skillUpProfile",
-            JSON.stringify(merged)
-        );
-
-        return merged;
-    }
-
-    return profile || {};
 }
 
 
-function saveCentralProfile(data) {
+function saveCentralProfile(data){
 
     const oldProfile =
         getCentralProfile();
@@ -2143,9 +2123,8 @@ function saveCentralProfile(data) {
         "skillUpProfile",
         JSON.stringify(newProfile)
     );
+
 }
-
-
 /* =====================================================
    USER
 ===================================================== */
