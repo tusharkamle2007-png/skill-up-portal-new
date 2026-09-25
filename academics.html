@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SkillUp | Academics</title>
+<script src="api.js"></script>
+<script src="protect.js"></script>
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ACADEMICS CSS -->
+    <link rel="stylesheet" href="academics.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <div class="logo">
+                Skill<span>Up</span>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="career.html">
+                    Career
+                </a>
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+                <a href="assessment.html">
+                    Assessment
+                </a>
+
+                <a href="academics.html"
+                   class="active">
+                    Academics
+                </a>
+
+                <a href="about.html">
+                    About Us
+                </a>
+
+                <a href="profile.html">
+                    Profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="academic-hero">
+
+        <div class="hero-content">
+
+            <span class="hero-tag">
+                STUDENT ACADEMIC HUB
+            </span>
+
+            <h1>
+                Learn Better.
+                <span>Build Better.</span>
+            </h1>
+
+            <p>
+                Track your college subjects, unit progress,
+                academic performance and connect your
+                academics with industry skills.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="academic-container">
+
+
+
+        <!-- =================================================
+             STUDENT ACADEMIC OVERVIEW
+        ================================================== -->
+
+        <section class="academic-overview">
+
+            <!-- STUDENT INFORMATION -->
+
+            <div class="student-card">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            STUDENT PROFILE
+                        </span>
+
+                        <h2>
+                            Academic Overview
+                        </h2>
+
+                    </div>
+
+                    <div class="academic-icon">
+                        🎓
+                    </div>
+
+                </div>
+
+
+                <div class="student-details">
+
+
+                    <!-- NAME -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            Student Name
+                        </span>
+
+                        <strong id="studentName">
+                            Student
+                        </strong>
+
+                    </div>
+
+
+                    <!-- COLLEGE -->
+
+                    <div class="detail-item college-detail">
+
+                        <span>
+                            College
+                        </span>
+
+                        <strong id="studentCollege">
+                            Your College
+                        </strong>
+
+                    </div>
+
+
+                    <!-- BRANCH -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            Branch
+                        </span>
+
+                        <strong id="studentBranch">
+                            IT
+                        </strong>
+
+                    </div>
+
+
+                    <!-- YEAR -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            Year
+                        </span>
+
+                        <strong id="studentYear">
+                            2nd Year
+                        </strong>
+
+                    </div>
+
+
+                    <!-- SEMESTER -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            Semester
+                        </span>
+
+                        <strong id="studentSemester">
+                            4th Semester
+                        </strong>
+
+                    </div>
+
+
+                    <!-- CGPA -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            CGPA / Percentage
+                        </span>
+
+                        <strong id="studentCGPA">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 OVERALL PROGRESS
+            ============================================== -->
+
+            <div class="progress-card">
+
+                <span class="section-label">
+                    ACADEMIC PROGRESS
+                </span>
+
+                <h2>
+                    Overall Progress
+                </h2>
+
+
+                <div class="progress-circle">
+
+                    <div class="progress-circle-inner">
+
+                        <strong id="overallProgress">
+                            0%
+                        </strong>
+
+                        <span>
+                            Completed
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-bar-container">
+
+                    <div class="progress-bar">
+
+                        <div
+                            id="progressFill"
+                            class="progress-fill"
+                            style="width:0%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-stats">
+
+                    <div>
+
+                        <strong id="completedSubjects">
+                            0
+                        </strong>
+
+                        <span>
+                            Completed
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong id="totalSubjects">
+                            0
+                        </strong>
+
+                        <span>
+                            Total Subjects
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SEMESTER SELECTOR
+        ================================================== -->
+
+        <section class="semester-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        ACADEMIC JOURNEY
+                    </span>
+
+                    <h2>
+                        My Subjects & Unit Progress
+                    </h2>
+
+                    <p>
+                        Select your semester and track
+                        each subject unit-by-unit.
+                    </p>
+
+                </div>
+
+
+                <div class="semester-selector">
+
+                    <label for="semesterSelect">
+                        Semester
+                    </label>
+
+                    <select id="semesterSelect">
+
+                        <option value="1">
+                            Semester 1
+                        </option>
+
+                        <option value="2"
+                                selected>
+                            Semester 2
+                        </option>
+
+                        <option value="3">
+                            Semester 3
+                        </option>
+
+                        <option value="4">
+                            Semester 4
+                        </option>
+
+                        <option value="5">
+                            Semester 5
+                        </option>
+
+                        <option value="6">
+                            Semester 6
+                        </option>
+
+                        <option value="7">
+                            Semester 7
+                        </option>
+
+                        <option value="8">
+                            Semester 8
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- JS LOADS SUBJECTS HERE -->
+
+            <div id="subjectsContainer"
+                 class="subjects-container">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             EXAM PREPARATION
+        ================================================== -->
+
+        <section class="exam-preparation">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        EXAM READY
+                    </span>
+
+                    <h2>
+                        Exam Preparation
+                    </h2>
+
+                    <p>
+                        Organize your preparation and
+                        stay consistent with your studies.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="exam-grid">
+
+
+                <div class="exam-card">
+
+                    <div class="exam-card-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        Unit Revision
+                    </h3>
+
+                    <p>
+                        Revise completed and pending
+                        units before your examinations.
+                    </p>
+
+                    <a href="#academic-resources">
+                        View Resources →
+                    </a>
+
+                </div>
+
+
+
+                <div class="exam-card">
+
+                    <div class="exam-card-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        Previous Papers
+                    </h3>
+
+                    <p>
+                        Practice previous year questions
+                        to understand exam patterns.
+                    </p>
+
+                    <a href="#academic-resources">
+                        Practice →
+                    </a>
+
+                </div>
+
+
+
+                <div class="exam-card">
+
+                    <div class="exam-card-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Important Topics
+                    </h3>
+
+                    <p>
+                        Focus your preparation on important
+                        concepts and frequently asked topics.
+                    </p>
+
+                    <a href="#academic-resources">
+                        Explore →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACADEMIC PERFORMANCE
+        ================================================== -->
+
+        <section class="performance-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        PERFORMANCE
+                    </span>
+
+                    <h2>
+                        Academic Performance
+                    </h2>
+
+                    <p>
+                        Identify subjects where you are
+                        performing well and areas that need
+                        more attention.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="performance-grid">
+
+
+                <!-- STRONG SUBJECTS -->
+
+                <div class="performance-card strong-card">
+
+                    <div class="performance-card-header">
+
+                        <div class="performance-icon">
+                            💪
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Strong Subjects
+                            </h3>
+
+                            <p>
+                                Subjects with strong progress
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="strongSubjects"
+                         class="performance-list">
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- IMPROVEMENT -->
+
+                <div class="performance-card improvement-card">
+
+                    <div class="performance-card-header">
+
+                        <div class="performance-icon">
+                            📈
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Areas to Improve
+                            </h3>
+
+                            <p>
+                                Subjects requiring more focus
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="improvementSubjects"
+                         class="performance-list">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACADEMIA → INDUSTRY MAPPING
+        ================================================== -->
+
+        <section class="industry-mapping-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        ACADEMIA → INDUSTRY
+                    </span>
+
+                    <h2>
+                        Academic to Industry Skill Mapping
+                    </h2>
+
+                    <p>
+                        Understand how your college subjects
+                        connect with industry skills and career roles.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="mappingContainer"
+                 class="mapping-container">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECOMMENDED SKILLS
+        ================================================== -->
+
+        <section class="recommended-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        PERSONALIZED LEARNING
+                    </span>
+
+                    <h2>
+                        Recommended Skills
+                    </h2>
+
+                    <p>
+                        Skills recommended according to your
+                        academics and skill-gap analysis.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="recommendedSkills"
+                 class="recommended-container">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACADEMIC RESOURCES
+        ================================================== -->
+
+        <section id="academic-resources"
+                 class="resources-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        STUDY MATERIAL
+                    </span>
+
+                    <h2>
+                        Academic Resources
+                    </h2>
+
+                    <p>
+                        Useful resources to support your
+                        college preparation.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="resources-grid">
+
+
+                <!-- SYLLABUS -->
+
+                <div class="resource-card">
+
+                    <div class="resource-icon">
+                        📖
+                    </div>
+
+                    <h3>
+                        Syllabus
+                    </h3>
+
+                    <p>
+                        Access your semester syllabus
+                        and subject units.
+                    </p>
+
+                    <a href="#">
+                        View Syllabus →
+                    </a>
+
+                </div>
+
+
+
+                <!-- NOTES -->
+
+                <div class="resource-card">
+
+                    <div class="resource-icon">
+                        📒
+                    </div>
+
+                    <h3>
+                        Notes
+                    </h3>
+
+                    <p>
+                        Keep your subject notes
+                        organized for revision.
+                    </p>
+
+                    <a href="#">
+                        View Notes →
+                    </a>
+
+                </div>
+
+
+
+                <!-- PYQ -->
+
+                <div class="resource-card">
+
+                    <div class="resource-icon">
+                        📄
+                    </div>
+
+                    <h3>
+                        Previous Year Papers
+                    </h3>
+
+                    <p>
+                        Practice previous examination
+                        papers.
+                    </p>
+
+                    <a href="#">
+                        View Papers →
+                    </a>
+
+                </div>
+
+
+
+                <!-- IMPORTANT QUESTIONS -->
+
+                <div class="resource-card">
+
+                    <div class="resource-icon">
+                        ❓
+                    </div>
+
+                    <h3>
+                        Important Questions
+                    </h3>
+
+                    <p>
+                        Prepare important questions
+                        before examinations.
+                    </p>
+
+                    <a href="#">
+                        Practice →
+                    </a>
+
+                </div>
+
+
+
+                <!-- LAB -->
+
+                <div class="resource-card">
+
+                    <div class="resource-icon">
+                        💻
+                    </div>
+
+                    <h3>
+                        Lab & Practical
+                    </h3>
+
+                    <p>
+                        Track practical work and
+                        laboratory preparation.
+                    </p>
+
+                    <a href="#">
+                        Explore →
+                    </a>
+
+                </div>
+
+
+
+                <!-- IMPORTANT TOPICS -->
+
+                <div class="resource-card">
+
+                    <div class="resource-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Important Topics
+                    </h3>
+
+                    <p>
+                        Quickly identify important
+                        topics for revision.
+                    </p>
+
+                    <a href="#">
+                        Explore →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACADEMIA INDUSTRY CONNECTION
+        ================================================== -->
+
+        <section class="industry-banner">
+
+            <div class="industry-banner-content">
+
+                <span class="section-label">
+                    FROM CLASSROOM TO CAREER
+                </span>
+
+                <h2>
+                    Your Academic Journey
+                    <span>Builds Your Career.</span>
+                </h2>
+
+                <p>
+                    Skill Up connects your college subjects,
+                    academic progress and industry requirements
+                    so you can understand what to learn next.
+                </p>
+
+                <div class="banner-points">
+
+                    <span>
+                        ✓ Track Academic Progress
+                    </span>
+
+                    <span>
+                        ✓ Identify Industry Skills
+                    </span>
+
+                    <span>
+                        ✓ Discover Career Roles
+                    </span>
+
+                    <span>
+                        ✓ Build Job-Ready Skills
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <h2>
+                    Skill<span>Up</span>
+                </h2>
+
+                <p>
+                    Bridging the gap between
+                    academia and industry.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="career.html">
+                    Career
+                </a>
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+                <a href="assessment.html">
+                    Assessment
+                </a>
+
+                <a href="academics.html">
+                    Academics
+                </a>
+
+                <a href="about.html">
+                    About Us
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Skill Up. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         ACADEMICS JS
+    ====================================================== -->
+
+    <script src="academics.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Company Matching | Skill Up</title>
+<script src="api.js"></script>
+<script src="protect.js"></script>
+    <link rel="stylesheet"
+        href="company.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        SKILL<span>UP</span>
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="assessment.html">
+            Assessment
+        </a>
+
+        <a href="courses.html">
+            Courses
+        </a>
+
+        <a href="projects.html">
+            Projects
+        </a>
+
+        <a href="company.html"
+           class="active">
+            Companies
+        </a>
+
+        <a href="profile.html">
+            Profile
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span>
+            CAREER MATCHING
+        </span>
+
+        <h1>
+            Find Your Company Match
+        </h1>
+
+        <p>
+            Compare your current skills with
+            the skills required for different
+            company roles.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+    <!-- ================= TARGET ================= -->
+
+    <section class="target-card">
+
+        <div>
+
+            <span class="small-label">
+                YOUR TARGET
+            </span>
+
+            <h2 id="targetRole">
+                Loading...
+            </h2>
+
+            <p id="targetDomain">
+                Loading your career assessment...
+            </p>
+
+        </div>
+
+
+        <div class="target-match">
+
+            <span>
+                Current Match
+            </span>
+
+            <strong id="assessmentMatch">
+                --
+            </strong>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= FILTER ================= -->
+
+    <div class="section-heading">
+
+        <div>
+
+            <h2>
+                Matching Companies
+            </h2>
+
+            <p>
+                See how your current skills compare
+                with different company roles.
+            </p>
+
+        </div>
+
+
+        <select id="companyFilter">
+
+            <option value="all">
+                All Companies
+            </option>
+
+        </select>
+
+    </div>
+
+
+
+    <!-- ================= COMPANIES ================= -->
+
+    <section
+        id="companyContainer"
+        class="company-grid">
+
+        <div class="loading">
+            Analysing your company matches...
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= SKILL GAP ================= -->
+
+    <section class="gap-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Skills You Should Improve
+                </h2>
+
+                <p>
+                    Improve these skills to increase
+                    your company match.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="gapContainer"
+            class="gap-grid">
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= NEXT STEP ================= -->
+
+    <section class="next-step">
+
+        <div>
+
+            <span>
+                NEXT STEP
+            </span>
+
+            <h2>
+                Build proof for your skills 🚀
+            </h2>
+
+            <p>
+                Complete practical projects and
+                submit your GitHub or live project
+                links to strengthen your profile.
+            </p>
+
+        </div>
+
+
+        <a href="projects.html">
+            Build Projects →
+        </a>
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+
+const API =
+    "http://localhost:5000";
+
+
+const token =
+    localStorage.getItem("token");
+
+
+
+/* ==================================================
+   COMPANY DATA
+   These are sample portal requirements.
+================================================== */
+
+
+const companyData = [
+
+    {
+        company: "TCS",
+        domain: "Web Development",
+
+        roles: {
+
+            "Frontend Developer": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "React",
+                "Git"
+            ],
+
+            "Full Stack Developer": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "React",
+                "Node.js",
+                "Express.js",
+                "MongoDB",
+                "Git"
+            ],
+
+            "Web Developer": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "Git"
+            ]
+
+        }
+
+    },
+
+
+    {
+        company: "Infosys",
+        domain: "Web Development",
+
+        roles: {
+
+            "Frontend Developer": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "React",
+                "Git"
+            ],
+
+            "Full Stack Developer": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "React",
+                "Node.js",
+                "MongoDB",
+                "Git"
+            ],
+
+            "Web Developer": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "Git"
+            ]
+
+        }
+
+    },
+
+
+    {
+        company: "Accenture",
+        domain: "Web Development",
+
+        roles: {
+
+            "Frontend Developer": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "React"
+            ],
+
+            "Full Stack Developer": [
+                "JavaScript",
+                "React",
+                "Node.js",
+                "Express.js",
+                "MongoDB",
+                "Git"
+            ],
+
+            "Web Developer": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "Git"
+            ]
+
+        }
+
+    },
+
+
+    {
+        company: "Google",
+        domain: "AI / Machine Learning",
+
+        roles: {
+
+            "ML Engineer": [
+                "Python",
+                "Machine Learning",
+                "Data Analysis",
+                "SQL",
+                "Git"
+            ],
+
+            "AI Engineer": [
+                "Python",
+                "Machine Learning",
+                "Deep Learning",
+                "Data Analysis",
+                "Git"
+            ]
+
+        }
+
+    },
+
+
+    {
+        company: "Microsoft",
+        domain: "AI / Machine Learning",
+
+        roles: {
+
+            "AI Engineer": [
+                "Python",
+                "Machine Learning",
+                "Deep Learning",
+                "SQL",
+                "Git"
+            ],
+
+            "ML Engineer": [
+                "Python",
+                "Machine Learning",
+                "Data Analysis",
+                "Git"
+            ]
+
+        }
+
+    },
+
+
+    {
+        company: "Amazon",
+        domain: "AI / Machine Learning",
+
+        roles: {
+
+            "ML Engineer": [
+                "Python",
+                "Machine Learning",
+                "SQL",
+                "Data Analysis",
+                "Git"
+            ],
+
+            "AI Developer": [
+                "Python",
+                "Machine Learning",
+                "Deep Learning",
+                "APIs",
+                "Git"
+            ]
+
+        }
+
+    },
+
+
+    {
+        company: "IBM",
+        domain: "Data Science",
+
+        roles: {
+
+            "Data Scientist": [
+                "Python",
+                "Data Analysis",
+                "Machine Learning",
+                "SQL",
+                "Statistics"
+            ],
+
+            "Data Analyst": [
+                "Python",
+                "SQL",
+                "Data Analysis",
+                "Power BI"
+            ]
+
+        }
+
+    },
+
+
+    {
+        company: "Deloitte",
+        domain: "Data Science",
+
+        roles: {
+
+            "Data Analyst": [
+                "SQL",
+                "Data Analysis",
+                "Power BI",
+                "Python"
+            ],
+
+            "Data Scientist": [
+                "Python",
+                "Machine Learning",
+                "SQL",
+                "Statistics",
+                "Data Analysis"
+            ]
+
+        }
+
+    },
+
+
+    {
+        company: "AWS",
+        domain: "Cloud Computing",
+
+        roles: {
+
+            "Cloud Engineer": [
+                "Cloud Computing",
+                "AWS",
+                "Networking",
+                "Linux",
+                "Git"
+            ],
+
+            "Cloud Developer": [
+                "Cloud Computing",
+                "AWS",
+                "Node.js",
+                "Git"
+            ]
+
+        }
+
+    }
+
+];
+
+
+
+/* ==================================================
+   GLOBAL
+================================================== */
+
+
+let assessment = null;
+
+let allMatches = [];
+
+
+
+/* ==================================================
+   NORMALIZE SKILL
+================================================== */
+
+
+function normalizeSkill(skill) {
+
+    return skill
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
+
+}
+
+
+
+/* ==================================================
+   CHECK STUDENT SKILL
+================================================== */
+
+
+function studentHasSkill(
+    studentSkills,
+    requiredSkill
+) {
+
+    const required =
+        normalizeSkill(
+            requiredSkill
+        );
+
+
+    const entries =
+        Object.entries(
+            studentSkills || {}
+        );
+
+
+    for (
+        const [skill, level]
+        of entries
+    ) {
+
+        const current =
+            normalizeSkill(skill);
+
+
+        if (
+            current === required ||
+            current.includes(required) ||
+            required.includes(current)
+        ) {
+
+            return Number(level) >= 2;
+
+        }
+
+    }
+
+
+    return false;
+
+}
+
+
+
+/* ==================================================
+   CALCULATE COMPANY MATCH
+================================================== */
+
+
+function calculateMatch(
+    studentSkills,
+    requiredSkills
+) {
+
+    if (
+        !requiredSkills.length
+    ) {
+
+        return {
+            percentage: 0,
+            matched: [],
+            missing: []
+        };
+
+    }
+
+
+    const matched = [];
+
+    const missing = [];
+
+
+    requiredSkills.forEach(
+        skill => {
+
+            if (
+                studentHasSkill(
+                    studentSkills,
+                    skill
+                )
+            ) {
+
+                matched.push(skill);
+
+            }
+            else {
+
+                missing.push(skill);
+
+            }
+
+        }
+    );
+
+
+    const percentage =
+        Math.round(
+            (
+                matched.length /
+                requiredSkills.length
+            ) * 100
+        );
+
+
+    return {
+
+        percentage,
+
+        matched,
+
+        missing
+
+    };
+
+}
+
+
+
+/* ==================================================
+   LOAD ASSESSMENT
+================================================== */
+
+
+async function loadAssessment() {
+
+    if (!token) {
+
+        showLoginMessage();
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/assessment",
+                {
+
+                    headers: {
+
+                        "Authorization":
+                            "Bearer " + token
+
+                    }
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Assessment not found"
+            );
+
+        }
+
+
+        assessment =
+            await response.json();
+
+
+        document.getElementById(
+            "targetRole"
+        ).textContent =
+            assessment.role ||
+            "Career Goal Not Selected";
+
+
+        document.getElementById(
+            "targetDomain"
+        ).textContent =
+            assessment.domain ||
+            "Domain Not Selected";
+
+
+        document.getElementById(
+            "assessmentMatch"
+        ).textContent =
+            (
+                assessment.matchPercentage ||
+                0
+            ) + "%";
+
+
+        renderFilter();
+
+
+        calculateAllMatches();
+
+
+        renderCompanies();
+
+
+        renderSkillGaps();
+
+    }
+    catch(error) {
+
+        console.error(error);
+
+        showNoAssessment();
+
+    }
+
+}
+
+
+
+/* ==================================================
+   CREATE FILTER
+================================================== */
+
+
+function renderFilter() {
+
+    const filter =
+        document.getElementById(
+            "companyFilter"
+        );
+
+
+    const domains =
+        [
+            ...new Set(
+                companyData.map(
+                    item => item.domain
+                )
+            )
+        ];
+
+
+    domains.forEach(
+        domain => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                domain;
+
+
+            option.textContent =
+                domain;
+
+
+            filter.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    filter.addEventListener(
+        "change",
+        renderCompanies
+    );
+
+}
+
+
+
+/* ==================================================
+   CALCULATE ALL
+================================================== */
+
+
+function calculateAllMatches() {
+
+    allMatches = [];
+
+
+    const studentSkills =
+        assessment.skills || {};
+
+
+    companyData.forEach(
+        company => {
+
+            Object.entries(
+                company.roles
+            ).forEach(
+                ([role, skills]) => {
+
+                    const result =
+                        calculateMatch(
+                            studentSkills,
+                            skills
+                        );
+
+
+                    allMatches.push({
+
+                        company:
+                            company.company,
+
+                        domain:
+                            company.domain,
+
+                        role,
+
+                        requiredSkills:
+                            skills,
+
+                        percentage:
+                            result.percentage,
+
+                        matched:
+                            result.matched,
+
+                        missing:
+                            result.missing
+
+                    });
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* ==================================================
+   RENDER COMPANIES
+================================================== */
+
+
+function renderCompanies() {
+
+    const container =
+        document.getElementById(
+            "companyContainer"
+        );
+
+
+    const selected =
+        document.getElementById(
+            "companyFilter"
+        ).value;
+
+
+    let matches =
+        allMatches;
+
+
+    if (
+        selected !== "all"
+    ) {
+
+        matches =
+            matches.filter(
+                item =>
+                    item.domain === selected
+            );
+
+    }
+
+
+    /* Target role first */
+
+    const targetRole =
+        assessment?.role;
+
+
+    matches.sort(
+        (a, b) => {
+
+            const aTarget =
+                a.role === targetRole
+                    ? 1
+                    : 0;
+
+
+            const bTarget =
+                b.role === targetRole
+                    ? 1
+                    : 0;
+
+
+            if (
+                aTarget !== bTarget
+            ) {
+
+                return bTarget -
+                    aTarget;
+
+            }
+
+
+            return b.percentage -
+                a.percentage;
+
+        }
+    );
+
+
+    if (
+        matches.length === 0
+    ) {
+
+        container.innerHTML = `
+            
+            <div class="empty">
+                No matching companies found.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        matches.map(
+            match => {
+
+
+                let matchClass =
+                    "low";
+
+
+                if (
+                    match.percentage >= 75
+                ) {
+
+                    matchClass =
+                        "high";
+
+                }
+                else if (
+                    match.percentage >= 50
+                ) {
+
+                    matchClass =
+                        "medium";
+
+                }
+
+
+                return `
+
+                    <div class="company-card">
+
+
+                        <div class="company-header">
+
+                            <div class="company-logo">
+                                ${match.company.charAt(0)}
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    ${match.company}
+                                </h3>
+
+                                <span>
+                                    ${match.domain}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="role">
+
+                            <span>
+                                Target Role
+                            </span>
+
+                            <strong>
+                                ${match.role}
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="match-row">
+
+                            <div>
+
+                                <span>
+                                    Skill Match
+                                </span>
+
+                                <strong class="${matchClass}">
+                                    ${match.percentage}%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="mini-progress">
+
+                                <div
+                                    style="width:${match.percentage}%">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="skill-summary">
+
+                            <div>
+
+                                <span class="check">
+                                    ✓
+                                </span>
+
+                                ${match.matched.length}
+                                skills matched
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="cross">
+                                    !
+                                </span>
+
+                                ${match.missing.length}
+                                skills missing
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="required">
+
+                            <h4>
+                                Required Skills
+                            </h4>
+
+
+                            <div class="skill-tags">
+
+                                ${match.requiredSkills.map(
+                                    skill => `
+
+                                        <span class="${
+                                            match.matched
+                                                .includes(skill)
+                                                ? "matched"
+                                                : "missing"
+                                        }">
+
+                                            ${
+                                                match.matched
+                                                    .includes(skill)
+                                                    ? "✓"
+                                                    : "!"
+                                            }
+
+                                            ${skill}
+
+                                        </span>
+
+                                    `
+                                ).join("")}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <button
+                            class="details-btn"
+                            onclick="showCompanyDetails('${match.company}', '${match.role}')">
+
+                            View Details
+
+                        </button>
+
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+
+/* ==================================================
+   SKILL GAPS
+================================================== */
+
+
+function renderSkillGaps() {
+
+    const container =
+        document.getElementById(
+            "gapContainer"
+        );
+
+
+    const gaps =
+        assessment.skillGap || [];
+
+
+    if (
+        gaps.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="gap-card complete">
+
+                <div class="gap-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <h3>
+                        No Major Skill Gaps
+                    </h3>
+
+                    <p>
+                        Your assessment shows strong
+                        progress. Focus on projects
+                        and real-world experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        gaps.map(
+            item => {
+
+                const skill =
+                    typeof item === "string"
+                        ? item
+                        : item.skill;
+
+
+                return `
+
+                    <div class="gap-card">
+
+                        <div class="gap-icon">
+                            !
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                ${skill}
+                            </h3>
+
+                            <p>
+                                Improve this skill to
+                                increase your company match.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+
+/* ==================================================
+   COMPANY DETAILS
+================================================== */
+
+
+function showCompanyDetails(
+    company,
+    role
+) {
+
+    const match =
+        allMatches.find(
+            item =>
+                item.company === company &&
+                item.role === role
+        );
+
+
+    if (!match) {
+
+        return;
+
+    }
+
+
+    alert(
+
+        company +
+        "\n\nRole: " +
+        role +
+        "\n\nSkill Match: " +
+        match.percentage +
+        "%\n\nMatched Skills: " +
+        (
+            match.matched.length
+                ? match.matched.join(", ")
+                : "None"
+        ) +
+        "\n\nSkills to Improve: " +
+        (
+            match.missing.length
+                ? match.missing.join(", ")
+                : "None"
+        )
+
+    );
+
+}
+
+
+
+/* ==================================================
+   LOGIN MESSAGE
+================================================== */
+
+
+function showLoginMessage() {
+
+    document.getElementById(
+        "targetRole"
+    ).textContent =
+        "Login Required";
+
+
+    document.getElementById(
+        "targetDomain"
+    ).textContent =
+        "Login and complete your assessment.";
+
+
+    document.getElementById(
+        "companyContainer"
+    ).innerHTML = `
+
+        <div class="empty">
+
+            <h3>
+                Complete Your Profile
+            </h3>
+
+            <p>
+                Login and complete your assessment
+                to see company matches.
+            </p>
+
+            <a href="login.html">
+                Login →
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* ==================================================
+   NO ASSESSMENT
+================================================== */
+
+
+function showNoAssessment() {
+
+    document.getElementById(
+        "targetRole"
+    ).textContent =
+        "Assessment Required";
+
+
+    document.getElementById(
+        "targetDomain"
+    ).textContent =
+        "Complete your assessment first.";
+
+
+    document.getElementById(
+        "assessmentMatch"
+    ).textContent =
+        "0%";
+
+
+    document.getElementById(
+        "companyContainer"
+    ).innerHTML = `
+
+        <div class="empty">
+
+            <h3>
+                No Assessment Found
+            </h3>
+
+            <p>
+                Complete your skill assessment
+                before checking company matches.
+            </p>
+
+            <a href="assessment.html">
+                Take Assessment →
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* ==================================================
+   START
+================================================== */
+
+
+loadAssessment();
+
+
+</script>
+
+
+<script src="protect.js"></script>
+
+</body>
+
+</html>

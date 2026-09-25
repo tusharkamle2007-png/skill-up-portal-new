@@ -1,0 +1,955 @@
+/* =========================================================
+   SKILL UP — COURSES PAGE
+   COMPLETE FIXED + RESPONSIVE CSS
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6f8fc;
+    color: #14213d;
+}
+
+button,
+a {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.courses-page {
+    min-height: 100vh;
+    background: #f6f8fc;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    width: 100%;
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 45px;
+
+    background: #14213d;
+    color: #ffffff;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #ffffff;
+
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #fca311;
+}
+
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 6px;
+}
+
+.nav-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none !important;
+
+    color: rgba(255, 255, 255, 0.88) !important;
+
+    padding: 10px 13px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #ffffff !important;
+
+    background: rgba(255, 255, 255, 0.10);
+
+    transform: translateY(-1px);
+}
+
+.nav-links a.active {
+    color: #14213d !important;
+
+    background: #fca311;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.courses-hero {
+    position: relative;
+
+    background: #14213d;
+
+    color: #ffffff;
+
+    text-align: center;
+
+    padding: 72px 20px 78px;
+
+    overflow: hidden;
+}
+
+
+/* LEFT ORANGE GLOW */
+
+.courses-hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 320px;
+    height: 320px;
+
+    left: -130px;
+    top: -160px;
+
+    border-radius: 50%;
+
+    background: rgba(252, 163, 17, 0.13);
+
+    filter: blur(5px);
+
+    pointer-events: none;
+}
+
+
+/* RIGHT ORANGE GLOW */
+
+.courses-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    right: -130px;
+    bottom: -180px;
+
+    border-radius: 50%;
+
+    background: rgba(252, 163, 17, 0.09);
+
+    filter: blur(5px);
+
+    pointer-events: none;
+}
+
+
+/* HERO TITLE */
+
+.courses-hero h1 {
+    position: relative;
+
+    z-index: 2;
+
+    margin-bottom: 12px;
+
+    font-size: 42px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+}
+
+
+/* HERO TEXT */
+
+.courses-hero p {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 650px;
+
+    margin: auto;
+
+    font-size: 17px;
+
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.85);
+}
+
+
+/* =========================================================
+   AI RECOMMENDATION SECTION
+========================================================= */
+
+.recommend-section {
+    max-width: 1200px;
+
+    margin: 45px auto 20px;
+
+    padding: 0 20px;
+}
+
+.recommend-title {
+    margin-bottom: 10px;
+}
+
+.recommend-title h2 {
+    margin-bottom: 7px;
+
+    color: #14213d;
+
+    font-size: 28px;
+
+    line-height: 1.3;
+}
+
+.recommend-title p {
+    color: #666666;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   GRIDS
+========================================================= */
+
+.recommended-grid,
+.courses-grid {
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 20px;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 24px;
+
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   COURSE CARD
+========================================================= */
+
+.course-card {
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #e7ebf2;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(20, 33, 61, 0.07);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+/* =========================================================
+   ORANGE TOP LINE
+========================================================= */
+
+.course-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 0;
+    height: 4px;
+
+    background: #fca311;
+
+    transition: width 0.3s ease;
+}
+
+.course-card:hover::before {
+    width: 100%;
+}
+
+
+/* =========================================================
+   CARD HOVER
+========================================================= */
+
+.course-card:hover {
+    transform: translateY(-7px);
+
+    border-color: #dce2ec;
+
+    box-shadow:
+        0 16px 35px rgba(20, 33, 61, 0.12);
+}
+
+
+/* =========================================================
+   COURSE ICON
+========================================================= */
+
+.course-icon {
+    width: 55px;
+    height: 55px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 18px;
+
+    border-radius: 14px;
+
+    background: #eef3ff;
+
+    font-size: 25px;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.course-card:hover .course-icon {
+    transform: scale(1.08);
+
+    background: #fff3df;
+}
+
+
+/* =========================================================
+   COURSE TITLE
+========================================================= */
+
+.course-card h3 {
+    margin-bottom: 10px;
+
+    color: #14213d;
+
+    font-size: 20px;
+
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   COURSE DESCRIPTION
+========================================================= */
+
+.course-card p {
+    margin-bottom: 0;
+
+    color: #666666;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    min-height: 50px;
+}
+
+
+/* =========================================================
+   COURSE BUTTON
+========================================================= */
+
+.course-btn {
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 12px 14px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #14213d;
+
+    color: #ffffff !important;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    text-align: center;
+
+    text-decoration: none !important;
+
+    display: block;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.course-btn:hover {
+    background: #1f3563;
+
+    color: #ffffff !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 14px rgba(20, 33, 61, 0.18);
+}
+
+.course-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   RECOMMEND BADGE
+========================================================= */
+
+.recommend-badge {
+    display: inline-block;
+
+    width: fit-content;
+
+    margin-bottom: 12px;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    background: #e7f8ef;
+
+    color: #16794c;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   RECOMMENDED CARDS
+========================================================= */
+
+.recommended-grid .course-card {
+    border-top: 3px solid #fca311;
+}
+
+
+/* =========================================================
+   ALL COURSES TITLE
+========================================================= */
+
+.all-title {
+    max-width: 1200px;
+
+    margin: 40px auto 0;
+
+    padding: 0 20px;
+}
+
+.all-title h2 {
+    color: #14213d;
+
+    font-size: 28px;
+
+    line-height: 1.3;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading {
+    grid-column: 1 / -1;
+
+    padding: 30px;
+
+    text-align: center;
+
+    color: #777777;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f6f8fc;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #14213d;
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fca311;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .navbar {
+        padding: 0 25px;
+    }
+
+    .nav-links {
+        gap: 3px;
+    }
+
+    .nav-links a {
+        padding: 9px 9px;
+
+        font-size: 13px;
+    }
+
+    .recommended-grid,
+    .courses-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 20px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        min-height: auto;
+
+        padding: 15px 18px;
+
+        flex-direction: column;
+
+        gap: 14px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .nav-links {
+        width: 100%;
+
+        display: flex;
+
+        justify-content: flex-start;
+
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+
+        gap: 7px;
+
+        padding: 3px 2px 8px;
+
+        scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links a {
+        flex-shrink: 0;
+
+        padding: 8px 10px;
+
+        font-size: 12px;
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .courses-hero {
+        padding: 55px 18px 60px;
+
+        min-height: 280px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        align-items: center;
+    }
+
+    .courses-hero h1 {
+        font-size: 32px;
+
+        line-height: 1.15;
+    }
+
+    .courses-hero p {
+        font-size: 15px;
+
+        line-height: 1.65;
+
+        max-width: 500px;
+    }
+
+
+    /* =====================================================
+       RECOMMENDATION
+    ===================================================== */
+
+    .recommend-section {
+        margin-top: 35px;
+
+        padding: 0 15px;
+    }
+
+    .recommend-title {
+        text-align: center;
+
+        margin-bottom: 15px;
+    }
+
+    .recommend-title h2 {
+        font-size: 24px;
+
+        line-height: 1.3;
+    }
+
+    .recommend-title p {
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       GRID
+    ===================================================== */
+
+    .recommended-grid,
+    .courses-grid {
+        grid-template-columns: 1fr;
+
+        width: 100%;
+
+        padding: 15px 0;
+
+        gap: 18px;
+    }
+
+
+    /* =====================================================
+       CARD
+    ===================================================== */
+
+    .course-card {
+        width: 100%;
+
+        padding: 22px;
+
+        border-radius: 16px;
+    }
+
+    .course-card h3 {
+        font-size: 19px;
+
+        line-height: 1.3;
+    }
+
+    .course-card p {
+        font-size: 13px;
+
+        line-height: 1.65;
+
+        min-height: auto;
+    }
+
+    .course-icon {
+        width: 50px;
+        height: 50px;
+
+        font-size: 22px;
+    }
+
+    .course-btn {
+        padding: 11px 15px;
+
+        font-size: 13px;
+    }
+
+    .recommend-badge {
+        font-size: 10px;
+
+        padding: 5px 9px;
+    }
+
+
+    /* =====================================================
+       ALL COURSES
+    ===================================================== */
+
+    .all-title {
+        margin-top: 30px;
+
+        padding: 0 15px;
+
+        text-align: center;
+    }
+
+    .all-title h2 {
+        font-size: 24px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .navbar {
+        padding: 12px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .nav-links {
+        gap: 6px;
+    }
+
+    .nav-links a {
+        padding: 7px 9px;
+
+        font-size: 11px;
+    }
+
+
+    /* HERO */
+
+    .courses-hero {
+        padding: 50px 16px 55px;
+
+        min-height: 260px;
+    }
+
+    .courses-hero h1 {
+        font-size: 28px;
+    }
+
+    .courses-hero p {
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+
+    /* RECOMMENDATION */
+
+    .recommend-section {
+        padding: 0 14px;
+    }
+
+    .recommend-title h2 {
+        font-size: 23px;
+    }
+
+    .recommend-title p {
+        font-size: 13px;
+    }
+
+
+    /* GRID */
+
+    .recommended-grid,
+    .courses-grid {
+        padding: 12px 0;
+
+        gap: 15px;
+    }
+
+
+    /* CARD */
+
+    .course-card {
+        padding: 19px;
+
+        border-radius: 15px;
+    }
+
+    .course-card h3 {
+        font-size: 18px;
+    }
+
+    .course-card p {
+        font-size: 12px;
+
+        line-height: 1.6;
+    }
+
+    .course-icon {
+        width: 48px;
+        height: 48px;
+
+        font-size: 21px;
+    }
+
+    .course-btn {
+        padding: 10px 12px;
+
+        font-size: 12px;
+    }
+
+
+    /* ALL COURSES */
+
+    .all-title {
+        padding: 0 14px;
+    }
+
+    .all-title h2 {
+        font-size: 23px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 320px) {
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .nav-links a {
+        padding: 6px 8px;
+
+        font-size: 10px;
+    }
+
+    .courses-hero h1 {
+        font-size: 25px;
+    }
+
+    .courses-hero p {
+        font-size: 13px;
+    }
+
+    .course-card {
+        padding: 16px;
+    }
+
+    .course-card h3 {
+        font-size: 17px;
+    }
+
+    .course-btn {
+        font-size: 11px;
+    }
+}

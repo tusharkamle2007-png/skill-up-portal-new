@@ -1,0 +1,3020 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Career Paths | SkillUp</title>
+<script src="api.js"></script>
+<script src="protect.js"></script>
+    <link rel="stylesheet" href="career.css">
+
+    <style>
+
+        /* ================= CAREER MATCH ================= */
+
+        .career-match-box {
+            margin-top: 18px;
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e8ebf2;
+        }
+
+        .career-match-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .career-match-head span:first-child {
+            font-size: 13px;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .career-match-percent {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ff7a00;
+        }
+
+        .career-match-bar {
+            width: 100%;
+            height: 8px;
+            background: #e8ebf2;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .career-match-fill {
+            height: 100%;
+            background: #ff7a00;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        .career-match-status {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .missing-skills {
+            margin-top: 10px;
+        }
+
+        .missing-skills strong {
+            display: block;
+            font-size: 12px;
+            color: #14213d;
+            margin-bottom: 6px;
+        }
+
+        .missing-skill-tag {
+            display: inline-block;
+            padding: 5px 9px;
+            margin: 3px;
+            background: #fff1e6;
+            color: #d85d00;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .recommended-career {
+            border: 2px solid #ff7a00 !important;
+            box-shadow: 0 12px 30px rgba(255, 122, 0, 0.12);
+        }
+
+        .top-match-badge {
+            display: inline-block;
+            background: #ff7a00;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+
+        /* ================= COMPANY SECTION ================= */
+
+        .company-section {
+            padding: 80px 7%;
+            background: #f7f8fb;
+        }
+
+        .company-heading {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 35px;
+        }
+
+        .company-heading .section-tag {
+            display: inline-block;
+            color: #ff7a00;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .company-heading h2 {
+            color: #14213d;
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .company-heading p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .company-note {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            padding: 16px 20px;
+            background: #fff8f0;
+            border-left: 4px solid #ff7a00;
+            border-radius: 10px;
+            color: #555;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .company-grid {
+            max-width: 1150px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .company-card {
+            background: #ffffff;
+            border: 1px solid #e8ebf2;
+            border-radius: 18px;
+            padding: 25px;
+            transition: 0.3s ease;
+        }
+
+        .company-card:hover {
+            transform: translateY(-7px);
+            border-color: #ff7a00;
+            box-shadow: 0 15px 35px rgba(20, 33, 61, 0.09);
+        }
+
+        .company-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .company-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #14213d;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .company-name {
+            color: #14213d;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .company-career {
+            color: #777;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* ================= NEW COMPANY INFO ================= */
+
+        .company-role-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .company-info-box {
+            background: #f7f8fb;
+            border-radius: 10px;
+            padding: 11px;
+        }
+
+        .company-info-label {
+            display: block;
+            color: #888;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .company-info-value {
+            color: #14213d;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .company-about {
+            color: #666;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .company-skill-label {
+            color: #14213d;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .company-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .company-skill-tag {
+            background: #f1f3f7;
+            color: #444;
+            padding: 6px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .company-match {
+            margin-top: 10px;
+        }
+
+        .company-match-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .company-match-head span:first-child {
+            font-size: 12px;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .company-match-percent {
+            color: #ff7a00;
+            font-weight: 800;
+            font-size: 17px;
+        }
+
+        .company-match-bar {
+            height: 8px;
+            background: #e8ebf2;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .company-match-fill {
+            height: 100%;
+            background: #ff7a00;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        .company-missing {
+            margin-top: 14px;
+        }
+
+        .company-missing strong {
+            display: block;
+            color: #14213d;
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .company-gap-tag {
+            display: inline-block;
+            background: #fff1e6;
+            color: #d85d00;
+            padding: 5px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            margin: 2px;
+        }
+
+        .company-course-btn {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 10px 15px;
+            background: #14213d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .company-course-btn:hover {
+            background: #ff7a00;
+        }
+
+        .company-empty {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            text-align: center;
+            color: #666;
+            box-shadow: 0 10px 25px rgba(20, 33, 61, 0.06);
+        }
+
+        .company-empty h3 {
+            color: #14213d;
+            margin-bottom: 10px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .company-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .company-section {
+                padding: 60px 20px;
+            }
+
+            .company-heading h2 {
+                font-size: 27px;
+            }
+
+            .company-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .company-role-box {
+                grid-template-columns: 1fr;
+            }
+
+        }
+        /* =========================================================
+   SKILL UP CAREER PAGE — MOBILE RESPONSIVE FIX
+   Desktop design remains unchanged
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+        padding: 14px 18px !important;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .navbar .logo {
+        font-size: 24px;
+    }
+
+    .navbar nav {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 4px 2px 8px;
+        scrollbar-width: none;
+    }
+
+    .navbar nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .navbar nav a {
+        flex-shrink: 0;
+        font-size: 12px !important;
+        padding: 8px 11px !important;
+    }
+
+
+    /* ================= HERO ================= */
+
+    .career-hero {
+        min-height: 360px !important;
+        padding: 70px 20px 55px !important;
+    }
+
+    .hero-content {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-tag {
+        font-size: 11px !important;
+        letter-spacing: 1.2px;
+    }
+
+    .hero-content h1 {
+        font-size: 38px !important;
+        line-height: 1.15;
+    }
+
+    .hero-content p {
+        font-size: 14px !important;
+        line-height: 1.7;
+    }
+
+
+    /* ================= CAREER SECTION ================= */
+
+    .career-section {
+        padding: 55px 18px !important;
+    }
+
+    .career-heading {
+        width: 100%;
+        text-align: center;
+    }
+
+    .career-heading h2 {
+        font-size: 27px !important;
+        line-height: 1.25;
+    }
+
+    .career-heading p {
+        font-size: 13px !important;
+        line-height: 1.7;
+    }
+
+    .career-note {
+        font-size: 13px !important;
+        line-height: 1.6;
+        padding: 13px 15px !important;
+    }
+
+    .career-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    .career-card {
+        width: 100%;
+        padding: 20px !important;
+    }
+
+    .career-card h3 {
+        font-size: 21px !important;
+    }
+
+    .career-card p {
+        font-size: 13px !important;
+        line-height: 1.65;
+    }
+
+    .career-skills {
+        gap: 6px !important;
+    }
+
+    .career-skills span {
+        font-size: 10px !important;
+        padding: 5px 8px !important;
+    }
+
+    .career-match-box {
+        padding: 13px !important;
+    }
+
+    .career-match-percent {
+        font-size: 16px !important;
+    }
+
+    .career-link {
+        display: inline-block;
+        margin-top: 15px;
+    }
+
+
+    /* ================= COMPANY SECTION ================= */
+
+    .company-section {
+        padding: 55px 18px !important;
+    }
+
+    .company-heading h2 {
+        font-size: 27px !important;
+        line-height: 1.25;
+    }
+
+    .company-heading p {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .company-note {
+        font-size: 12px !important;
+        padding: 14px 15px !important;
+    }
+
+    .company-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    .company-card {
+        padding: 20px !important;
+        border-radius: 15px;
+    }
+
+    .company-name {
+        font-size: 19px !important;
+    }
+
+    .company-role-box {
+        grid-template-columns: 1fr !important;
+        gap: 8px;
+    }
+
+    .company-info-box {
+        padding: 10px !important;
+    }
+
+    .company-about {
+        font-size: 12px !important;
+    }
+
+    .company-skills {
+        gap: 5px !important;
+    }
+
+    .company-skill-tag {
+        font-size: 10px !important;
+        padding: 5px 8px !important;
+    }
+
+    .company-course-btn {
+        width: 100%;
+        text-align: center;
+        padding: 11px !important;
+    }
+
+
+    /* ================= COURSE SECTION ================= */
+
+    .course-section {
+        padding: 55px 18px !important;
+    }
+
+    .course-heading {
+        text-align: center;
+    }
+
+    .course-heading h2 {
+        font-size: 27px !important;
+        line-height: 1.25;
+    }
+
+    .course-heading p {
+        font-size: 13px !important;
+        line-height: 1.7;
+    }
+
+    .course-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    .course-card {
+        width: 100%;
+        padding: 20px !important;
+    }
+
+    .course-card h3 {
+        font-size: 19px !important;
+    }
+
+    .course-card p {
+        font-size: 13px !important;
+        line-height: 1.6;
+    }
+
+
+    /* ================= FOOTER ================= */
+
+    footer {
+        padding: 40px 20px !important;
+        text-align: center;
+    }
+
+    footer p {
+        font-size: 12px !important;
+        line-height: 1.6;
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 12px 12px !important;
+    }
+
+    .navbar .logo {
+        font-size: 22px;
+    }
+
+    .navbar nav a {
+        font-size: 11px !important;
+        padding: 7px 9px !important;
+    }
+
+    .career-hero {
+        min-height: 320px !important;
+        padding: 55px 16px 45px !important;
+    }
+
+    .hero-content h1 {
+        font-size: 31px !important;
+    }
+
+    .hero-content p {
+        font-size: 13px !important;
+    }
+
+    .career-section,
+    .company-section,
+    .course-section {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    .career-card,
+    .company-card,
+    .course-card {
+        padding: 17px !important;
+    }
+
+    .career-card h3,
+    .company-name,
+    .course-card h3 {
+        font-size: 18px !important;
+    }
+
+    .career-match-box {
+        padding: 11px !important;
+    }
+
+    .company-role-box {
+        grid-template-columns: 1fr !important;
+    }
+
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        SKILL<span>UP</span>
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="career.html" class="active">
+            Career
+        </a>
+
+        <a href="courses.html">
+            Courses
+        </a>
+
+        <a href="assessment.html">
+            Assessment
+        </a>
+
+        <a href="academics.html">
+            Academics
+        </a>
+
+        <a href="about.html">
+            About Us
+        </a>
+
+        <a href="profile.html">
+            Profile
+        </a>
+
+        <a href="#" onclick="logout()">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="career-hero">
+
+        <div class="hero-content">
+
+            <p class="hero-tag">
+                CAREER DISCOVERY
+            </p>
+
+            <h1>
+                Find Your <span>Career Path</span>
+            </h1>
+
+            <p>
+                Discover careers that match your skills,
+                identify your skill gaps and build your path
+                towards industry-ready opportunities.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CAREER MATCHING ================= -->
+
+    <section class="career-section">
+
+        <div class="career-heading">
+
+            <p class="section-tag">
+                PERSONALIZED CAREER MATCHING
+            </p>
+
+            <h2>
+                Careers Based On Your Skills
+            </h2>
+
+            <p>
+                SkillUp analyzes your assessment results
+                and compares your current skills with
+                different career requirements.
+            </p>
+
+        </div>
+
+
+        <div id="careerNote" class="career-note"></div>
+
+
+        <div class="career-grid">
+
+
+            <!-- WEB -->
+
+            <div class="career-card"
+                data-career="Web Developer">
+
+                <div class="career-number">
+                    01
+                </div>
+
+                <h3>
+                    Web Developer
+                </h3>
+
+                <p>
+                    Build modern websites and web
+                    applications using frontend
+                    and backend technologies.
+                </p>
+
+                <div class="career-skills">
+
+                    <strong>
+                        Key Skills
+                    </strong>
+
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>React</span>
+                    <span>Node.js</span>
+
+                </div>
+
+                <div class="career-match-box">
+
+                    <div class="career-match-head">
+
+                        <span>
+                            Your Match
+                        </span>
+
+                        <span class="career-match-percent">
+                            --%
+                        </span>
+
+                    </div>
+
+                    <div class="career-match-bar">
+
+                        <div
+                            class="career-match-fill"
+                            style="width:0%">
+                        </div>
+
+                    </div>
+
+                    <div class="career-match-status">
+                        Complete your assessment
+                    </div>
+
+                    <div class="missing-skills"></div>
+
+                </div>
+
+                <a href="courses.html"
+                    class="career-link">
+                    View Courses →
+                </a>
+
+            </div>
+
+
+            <!-- AI -->
+
+            <div class="career-card"
+                data-career="AI / ML Engineer">
+
+                <div class="career-number">
+                    02
+                </div>
+
+                <h3>
+                    AI / ML Engineer
+                </h3>
+
+                <p>
+                    Develop intelligent systems using
+                    artificial intelligence, machine
+                    learning and data.
+                </p>
+
+                <div class="career-skills">
+
+                    <strong>
+                        Key Skills
+                    </strong>
+
+                    <span>Python</span>
+                    <span>Mathematics</span>
+                    <span>Machine Learning</span>
+                    <span>Data</span>
+                    <span>AI</span>
+
+                </div>
+
+                <div class="career-match-box">
+
+                    <div class="career-match-head">
+
+                        <span>
+                            Your Match
+                        </span>
+
+                        <span class="career-match-percent">
+                            --%
+                        </span>
+
+                    </div>
+
+                    <div class="career-match-bar">
+
+                        <div
+                            class="career-match-fill"
+                            style="width:0%">
+                        </div>
+
+                    </div>
+
+                    <div class="career-match-status">
+                        Complete your assessment
+                    </div>
+
+                    <div class="missing-skills"></div>
+
+                </div>
+
+                <a href="courses.html"
+                    class="career-link">
+                    View Courses →
+                </a>
+
+            </div>
+
+
+            <!-- DATA -->
+
+            <div class="career-card"
+                data-career="Data Scientist">
+
+                <div class="career-number">
+                    03
+                </div>
+
+                <h3>
+                    Data Scientist
+                </h3>
+
+                <p>
+                    Analyze data and build predictive
+                    models to solve real-world
+                    business problems.
+                </p>
+
+                <div class="career-skills">
+
+                    <strong>
+                        Key Skills
+                    </strong>
+
+                    <span>Python</span>
+                    <span>SQL</span>
+                    <span>Statistics</span>
+                    <span>Machine Learning</span>
+                    <span>Data Analysis</span>
+
+                </div>
+
+                <div class="career-match-box">
+
+                    <div class="career-match-head">
+
+                        <span>
+                            Your Match
+                        </span>
+
+                        <span class="career-match-percent">
+                            --%
+                        </span>
+
+                    </div>
+
+                    <div class="career-match-bar">
+
+                        <div
+                            class="career-match-fill"
+                            style="width:0%">
+                        </div>
+
+                    </div>
+
+                    <div class="career-match-status">
+                        Complete your assessment
+                    </div>
+
+                    <div class="missing-skills"></div>
+
+                </div>
+
+                <a href="courses.html"
+                    class="career-link">
+                    View Courses →
+                </a>
+
+            </div>
+
+
+            <!-- CLOUD -->
+
+            <div class="career-card"
+                data-career="Cloud Engineer">
+
+                <div class="career-number">
+                    04
+                </div>
+
+                <h3>
+                    Cloud Engineer
+                </h3>
+
+                <p>
+                    Design and manage scalable cloud
+                    infrastructure and services.
+                </p>
+
+                <div class="career-skills">
+
+                    <strong>
+                        Key Skills
+                    </strong>
+
+                    <span>AWS</span>
+                    <span>Azure</span>
+                    <span>Linux</span>
+                    <span>Networking</span>
+                    <span>Cloud</span>
+
+                </div>
+
+                <div class="career-match-box">
+
+                    <div class="career-match-head">
+
+                        <span>
+                            Your Match
+                        </span>
+
+                        <span class="career-match-percent">
+                            --%
+                        </span>
+
+                    </div>
+
+                    <div class="career-match-bar">
+
+                        <div
+                            class="career-match-fill"
+                            style="width:0%">
+                        </div>
+
+                    </div>
+
+                    <div class="career-match-status">
+                        Complete your assessment
+                    </div>
+
+                    <div class="missing-skills"></div>
+
+                </div>
+
+                <a href="courses.html"
+                    class="career-link">
+                    View Courses →
+                </a>
+
+            </div>
+
+
+            <!-- CYBER -->
+
+            <div class="career-card"
+                data-career="Cyber Security Analyst">
+
+                <div class="career-number">
+                    05
+                </div>
+
+                <h3>
+                    Cyber Security Analyst
+                </h3>
+
+                <p>
+                    Protect systems, networks and
+                    applications from cyber
+                    security threats.
+                </p>
+
+                <div class="career-skills">
+
+                    <strong>
+                        Key Skills
+                    </strong>
+
+                    <span>Networking</span>
+                    <span>Linux</span>
+                    <span>Security</span>
+                    <span>Cryptography</span>
+
+                </div>
+
+                <div class="career-match-box">
+
+                    <div class="career-match-head">
+
+                        <span>
+                            Your Match
+                        </span>
+
+                        <span class="career-match-percent">
+                            --%
+                        </span>
+
+                    </div>
+
+                    <div class="career-match-bar">
+
+                        <div
+                            class="career-match-fill"
+                            style="width:0%">
+                        </div>
+
+                    </div>
+
+                    <div class="career-match-status">
+                        Complete your assessment
+                    </div>
+
+                    <div class="missing-skills"></div>
+
+                </div>
+
+                <a href="courses.html"
+                    class="career-link">
+                    View Courses →
+                </a>
+
+            </div>
+
+
+            <!-- UI UX -->
+
+            <div class="career-card"
+                data-career="UI / UX Designer">
+
+                <div class="career-number">
+                    06
+                </div>
+
+                <h3>
+                    UI / UX Designer
+                </h3>
+
+                <p>
+                    Design intuitive digital experiences,
+                    interfaces and user journeys.
+                </p>
+
+                <div class="career-skills">
+
+                    <strong>
+                        Key Skills
+                    </strong>
+
+                    <span>Figma</span>
+                    <span>UI Design</span>
+                    <span>UX Research</span>
+                    <span>Prototyping</span>
+
+                </div>
+
+                <div class="career-match-box">
+
+                    <div class="career-match-head">
+
+                        <span>
+                            Your Match
+                        </span>
+
+                        <span class="career-match-percent">
+                            --%
+                        </span>
+
+                    </div>
+
+                    <div class="career-match-bar">
+
+                        <div
+                            class="career-match-fill"
+                            style="width:0%">
+                        </div>
+
+                    </div>
+
+                    <div class="career-match-status">
+                        Complete your assessment
+                    </div>
+
+                    <div class="missing-skills"></div>
+
+                </div>
+
+                <a href="courses.html"
+                    class="career-link">
+                    View Courses →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= COMPANY MATCHING ================= -->
+
+    <section class="company-section">
+
+        <div class="company-heading">
+
+            <p class="section-tag">
+                COMPANY MATCHING
+            </p>
+
+            <h2>
+                Companies That Match Your Career
+            </h2>
+
+            <p>
+                See example company requirements,
+                suitable roles and the skills you
+                may need to develop.
+            </p>
+
+        </div>
+
+
+        <div id="companyNote"
+            class="company-note">
+
+            Complete your skill assessment
+            to see company matching.
+
+        </div>
+
+
+        <div id="companyGrid"
+            class="company-grid">
+        </div>
+
+    </section>
+
+
+    <!-- ================= COURSES ================= -->
+
+    <section class="course-section">
+
+        <div class="course-heading">
+
+            <p class="section-tag">
+                RECOMMENDED LEARNING
+            </p>
+
+            <h2>
+                Build Your Skills
+            </h2>
+
+            <p>
+                Explore courses to improve your skills
+                and close your career skill gaps.
+            </p>
+
+        </div>
+
+
+        <div class="course-grid">
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    🌐
+                </div>
+
+                <h3>
+                    HTML & CSS
+                </h3>
+
+                <p>
+                    Learn the fundamentals of web
+                    structure and styling.
+                </p>
+
+                <a href="course.html?course=HTML%20%26%20CSS">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    JS
+                </div>
+
+                <h3>
+                    JavaScript
+                </h3>
+
+                <p>
+                    Learn programming and interactive
+                    web development.
+                </p>
+
+                <a href="course.html?course=JavaScript">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    ⚛️
+                </div>
+
+                <h3>
+                    React.js
+                </h3>
+
+                <p>
+                    Build modern component-based
+                    web applications.
+                </p>
+
+                <a href="course.html?course=React.js">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    💻
+                </div>
+
+                <h3>
+                    Full Stack Web Development
+                </h3>
+
+                <p>
+                    Learn frontend, backend,
+                    databases and APIs.
+                </p>
+
+                <a href="course.html?course=Full%20Stack%20Web%20Development">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    🐍
+                </div>
+
+                <h3>
+                    Python Programming
+                </h3>
+
+                <p>
+                    Learn Python fundamentals
+                    and programming concepts.
+                </p>
+
+                <a href="course.html?course=Python%20Programming">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    🤖
+                </div>
+
+                <h3>
+                    Artificial Intelligence
+                </h3>
+
+                <p>
+                    Understand AI concepts and
+                    intelligent systems.
+                </p>
+
+                <a href="course.html?course=Artificial%20Intelligence">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    Machine Learning
+                </h3>
+
+                <p>
+                    Learn machine learning algorithms
+                    and model building.
+                </p>
+
+                <a href="course.html?course=Machine%20Learning">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Data Science
+                </h3>
+
+                <p>
+                    Learn data analysis, statistics
+                    and machine learning.
+                </p>
+
+                <a href="course.html?course=Data%20Science">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Data Analytics
+                </h3>
+
+                <p>
+                    Learn how to analyze data
+                    and generate insights.
+                </p>
+
+                <a href="course.html?course=Data%20Analytics">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    ✨
+                </div>
+
+                <h3>
+                    Generative AI
+                </h3>
+
+                <p>
+                    Explore modern generative AI
+                    technologies and applications.
+                </p>
+
+                <a href="course.html?course=Generative%20AI">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    ☁️
+                </div>
+
+                <h3>
+                    Cloud Computing
+                </h3>
+
+                <p>
+                    Learn cloud concepts,
+                    architecture and services.
+                </p>
+
+                <a href="course.html?course=Cloud%20Computing">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    AWS
+                </div>
+
+                <h3>
+                    AWS
+                </h3>
+
+                <p>
+                    Learn Amazon Web Services
+                    and cloud infrastructure.
+                </p>
+
+                <a href="course.html?course=AWS">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    ⚙️
+                </div>
+
+                <h3>
+                    DevOps
+                </h3>
+
+                <p>
+                    Learn CI/CD, automation
+                    and deployment practices.
+                </p>
+
+                <a href="course.html?course=DevOps">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    Cyber Security
+                </h3>
+
+                <p>
+                    Learn security fundamentals
+                    and threat protection.
+                </p>
+
+                <a href="course.html?course=Cyber%20Security">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Network Security
+                </h3>
+
+                <p>
+                    Learn network protection
+                    and security concepts.
+                </p>
+
+                <a href="course.html?course=Network%20Security">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    📱
+                </div>
+
+                <h3>
+                    Android Development
+                </h3>
+
+                <p>
+                    Learn how to build Android
+                    mobile applications.
+                </p>
+
+                <a href="course.html?course=Android%20Development">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    🎨
+                </div>
+
+                <h3>
+                    UI/UX Design
+                </h3>
+
+                <p>
+                    Learn interface design,
+                    research and prototyping.
+                </p>
+
+                <a href="course.html?course=UI%2FUX%20Design">
+                    Start Learning →
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    🌐
+                </div>
+
+                <h3>
+                    Internet of Things (IoT)
+                </h3>
+
+                <p>
+                    Learn connected devices,
+                    sensors and IoT systems.
+                </p>
+
+                <a href="course.html?course=Internet%20of%20Things%20%28IoT%29">
+                    Start Learning →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-logo">
+            SKILL<span>UP</span>
+        </div>
+
+        <p>
+            Bridging the gap between student skills
+            and industry requirements.
+        </p>
+
+        <p>
+            © 2026 SkillUp | Campus to Career
+        </p>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+
+        /* ================= CAREER DATA ================= */
+
+        const careerData = {
+
+            "Web Developer": {
+
+                skills: [
+                    "HTML",
+                    "CSS",
+                    "JavaScript",
+                    "React",
+                    "Node.js"
+                ]
+
+            },
+
+            "AI / ML Engineer": {
+
+                skills: [
+                    "Python",
+                    "Mathematics",
+                    "Machine Learning",
+                    "Data",
+                    "AI"
+                ]
+
+            },
+
+            "Data Scientist": {
+
+                skills: [
+                    "Python",
+                    "SQL",
+                    "Statistics",
+                    "Machine Learning",
+                    "Data Analysis"
+                ]
+
+            },
+
+            "Cloud Engineer": {
+
+                skills: [
+                    "AWS",
+                    "Azure",
+                    "Linux",
+                    "Networking",
+                    "Cloud"
+                ]
+
+            },
+
+            "Cyber Security Analyst": {
+
+                skills: [
+                    "Networking",
+                    "Linux",
+                    "Security",
+                    "Cryptography"
+                ]
+
+            },
+
+            "UI / UX Designer": {
+
+                skills: [
+                    "Figma",
+                    "UI Design",
+                    "UX Research",
+                    "Prototyping"
+                ]
+
+            }
+
+        };
+
+
+        /* ================= COMPANY DATA ================= */
+
+        const companyData = {
+
+
+            "Web Developer": [
+
+                {
+                    name: "TCS",
+                    role: "Software / Web Developer",
+                    salary: "Demo range: ₹4–8 LPA",
+                    about: "Example role focused on web technologies and application development.",
+                    skills: [
+                        "HTML",
+                        "CSS",
+                        "JavaScript",
+                        "React",
+                        "Node.js"
+                    ]
+                },
+
+
+                {
+                    name: "Infosys",
+                    role: "Web Developer",
+                    salary: "Demo range: ₹4–8 LPA",
+                    about: "Example role focused on frontend development and modern web applications.",
+                    skills: [
+                        "HTML",
+                        "CSS",
+                        "JavaScript",
+                        "React"
+                    ]
+                },
+
+
+                {
+                    name: "Accenture",
+                    role: "Application Developer",
+                    salary: "Demo range: ₹5–10 LPA",
+                    about: "Example role involving application development, APIs and web technologies.",
+                    skills: [
+                        "JavaScript",
+                        "React",
+                        "Node.js",
+                        "SQL"
+                    ]
+                }
+
+            ],
+
+
+            "AI / ML Engineer": [
+
+                {
+                    name: "Microsoft",
+                    role: "AI / ML Engineer",
+                    salary: "Demo range: ₹8–18 LPA",
+                    about: "Example AI-focused role involving machine learning and data-driven systems.",
+                    skills: [
+                        "Python",
+                        "Machine Learning",
+                        "AI",
+                        "Data"
+                    ]
+                },
+
+
+                {
+                    name: "Google",
+                    role: "Machine Learning Engineer",
+                    salary: "Demo range: ₹10–20 LPA",
+                    about: "Example role involving machine learning, data and intelligent systems.",
+                    skills: [
+                        "Python",
+                        "Machine Learning",
+                        "AI",
+                        "Data"
+                    ]
+                },
+
+
+                {
+                    name: "IBM",
+                    role: "AI Engineer",
+                    salary: "Demo range: ₹7–15 LPA",
+                    about: "Example role involving AI solutions and machine learning technologies.",
+                    skills: [
+                        "Python",
+                        "AI",
+                        "Machine Learning",
+                        "Data"
+                    ]
+                }
+
+            ],
+
+
+            "Data Scientist": [
+
+                {
+                    name: "Deloitte",
+                    role: "Data Scientist",
+                    salary: "Demo range: ₹6–14 LPA",
+                    about: "Example data-focused role involving analytics, statistics and machine learning.",
+                    skills: [
+                        "Python",
+                        "SQL",
+                        "Statistics",
+                        "Machine Learning",
+                        "Data Analysis"
+                    ]
+                },
+
+
+                {
+                    name: "TCS",
+                    role: "Data Analyst / Scientist",
+                    salary: "Demo range: ₹5–10 LPA",
+                    about: "Example data role involving analysis, SQL and machine learning.",
+                    skills: [
+                        "Python",
+                        "SQL",
+                        "Data Analysis",
+                        "Machine Learning"
+                    ]
+                },
+
+
+                {
+                    name: "Accenture",
+                    role: "Data Analyst",
+                    salary: "Demo range: ₹5–11 LPA",
+                    about: "Example analytics role involving data processing and business insights.",
+                    skills: [
+                        "Python",
+                        "SQL",
+                        "Data Analysis",
+                        "Machine Learning"
+                    ]
+                }
+
+            ],
+
+
+            "Cloud Engineer": [
+
+                {
+                    name: "AWS",
+                    role: "Cloud Engineer",
+                    salary: "Demo range: ₹7–15 LPA",
+                    about: "Example cloud role focused on infrastructure, cloud services and networking.",
+                    skills: [
+                        "AWS",
+                        "Linux",
+                        "Networking",
+                        "Cloud"
+                    ]
+                },
+
+
+                {
+                    name: "Microsoft",
+                    role: "Cloud Engineer",
+                    salary: "Demo range: ₹8–16 LPA",
+                    about: "Example cloud role involving Azure, networking and infrastructure.",
+                    skills: [
+                        "Azure",
+                        "Linux",
+                        "Networking",
+                        "Cloud"
+                    ]
+                },
+
+
+                {
+                    name: "Infosys",
+                    role: "Cloud Engineer",
+                    salary: "Demo range: ₹5–11 LPA",
+                    about: "Example cloud infrastructure and deployment role.",
+                    skills: [
+                        "AWS",
+                        "Azure",
+                        "Networking",
+                        "Cloud"
+                    ]
+                }
+
+            ],
+
+
+            "Cyber Security Analyst": [
+
+                {
+                    name: "IBM",
+                    role: "Cyber Security Analyst",
+                    salary: "Demo range: ₹6–14 LPA",
+                    about: "Example security role involving networks, Linux and security concepts.",
+                    skills: [
+                        "Networking",
+                        "Linux",
+                        "Security",
+                        "Cryptography"
+                    ]
+                },
+
+
+                {
+                    name: "Deloitte",
+                    role: "Cyber Security Analyst",
+                    salary: "Demo range: ₹6–13 LPA",
+                    about: "Example security role involving network and system protection.",
+                    skills: [
+                        "Networking",
+                        "Security",
+                        "Linux"
+                    ]
+                },
+
+
+                {
+                    name: "Accenture",
+                    role: "Security Analyst",
+                    salary: "Demo range: ₹5–12 LPA",
+                    about: "Example role involving security analysis and network protection.",
+                    skills: [
+                        "Networking",
+                        "Security",
+                        "Cryptography"
+                    ]
+                }
+
+            ],
+
+
+            "UI / UX Designer": [
+
+                {
+                    name: "Adobe",
+                    role: "UI / UX Designer",
+                    salary: "Demo range: ₹6–14 LPA",
+                    about: "Example design role focused on interfaces, research and prototypes.",
+                    skills: [
+                        "Figma",
+                        "UI Design",
+                        "UX Research",
+                        "Prototyping"
+                    ]
+                },
+
+
+                {
+                    name: "Microsoft",
+                    role: "UX Designer",
+                    salary: "Demo range: ₹8–16 LPA",
+                    about: "Example design role involving user research and digital experiences.",
+                    skills: [
+                        "UI Design",
+                        "UX Research",
+                        "Prototyping"
+                    ]
+                },
+
+
+                {
+                    name: "Accenture",
+                    role: "UI / UX Designer",
+                    salary: "Demo range: ₹5–12 LPA",
+                    about: "Example design role involving interface design and user experience.",
+                    skills: [
+                        "Figma",
+                        "UI Design",
+                        "UX Research"
+                    ]
+                }
+
+            ]
+
+        };
+
+
+        /* ================= GET PROFILE ================= */
+
+        function getAssessment() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem("skillUpProfile")
+                );
+
+            } catch (error) {
+
+                return null;
+
+            }
+
+        }
+
+
+        /* ================= STUDENT SKILLS ================= */
+
+        function getStudentSkills() {
+
+            const profile =
+                getAssessment();
+
+            if (!profile) {
+                return [];
+            }
+
+            let skills = [];
+
+            if (Array.isArray(profile.strongSkills)) {
+
+                skills.push(
+                    ...profile.strongSkills
+                );
+
+            }
+
+            if (Array.isArray(profile.existingSkills)) {
+
+                skills.push(
+                    ...profile.existingSkills
+                );
+
+            }
+
+            return [
+                ...new Set(
+                    skills
+                        .filter(Boolean)
+                        .map(normalizeSkill)
+                )
+            ];
+
+        }
+
+
+        /* ================= NORMALIZE ================= */
+
+        function normalizeSkill(skill) {
+
+            return skill
+                .toLowerCase()
+                .replace(/[.\-_\/]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+
+        }
+
+
+        /* ================= ALIASES ================= */
+
+        const skillAliases = {
+
+            "html": [
+                "html",
+                "html5"
+            ],
+
+            "css": [
+                "css",
+                "css3"
+            ],
+
+            "javascript": [
+                "javascript",
+                "js",
+                "java script"
+            ],
+
+            "react": [
+                "react",
+                "reactjs",
+                "react js"
+            ],
+
+            "node js": [
+                "node js",
+                "nodejs",
+                "node"
+            ],
+
+            "python": [
+                "python"
+            ],
+
+            "machine learning": [
+                "machine learning",
+                "ml"
+            ],
+
+            "ai": [
+                "ai",
+                "artificial intelligence"
+            ],
+
+            "data": [
+                "data",
+                "data handling"
+            ],
+
+            "sql": [
+                "sql",
+                "mysql"
+            ],
+
+            "statistics": [
+                "statistics",
+                "statistical analysis"
+            ],
+
+            "data analysis": [
+                "data analysis",
+                "data analytics",
+                "analytics"
+            ],
+
+            "aws": [
+                "aws",
+                "amazon web services"
+            ],
+
+            "azure": [
+                "azure",
+                "microsoft azure"
+            ],
+
+            "linux": [
+                "linux"
+            ],
+
+            "networking": [
+                "networking",
+                "computer networking",
+                "networks"
+            ],
+
+            "cloud": [
+                "cloud",
+                "cloud computing"
+            ],
+
+            "security": [
+                "security",
+                "cyber security",
+                "cybersecurity"
+            ],
+
+            "cryptography": [
+                "cryptography",
+                "cryptography basics"
+            ],
+
+            "figma": [
+                "figma"
+            ],
+
+            "ui design": [
+                "ui design",
+                "ui"
+            ],
+
+            "ux research": [
+                "ux research",
+                "user research",
+                "ux"
+            ],
+
+            "prototyping": [
+                "prototyping",
+                "prototype"
+            ],
+
+            "mathematics": [
+                "mathematics",
+                "math",
+                "maths"
+            ]
+
+        };
+
+
+        /* ================= MATCH ================= */
+
+        function skillMatches(
+            requiredSkill,
+            studentSkills
+        ) {
+
+            const required =
+                normalizeSkill(requiredSkill);
+
+            const aliases =
+                skillAliases[required]
+                || [required];
+
+            return studentSkills.some(
+                studentSkill => {
+
+                    const student =
+                        normalizeSkill(
+                            studentSkill
+                        );
+
+                    return (
+                        aliases.includes(student)
+                        ||
+                        student.includes(required)
+                        ||
+                        required.includes(student)
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ================= CALCULATE ================= */
+
+        function calculateMatch(
+            requiredSkills,
+            studentSkills
+        ) {
+
+            const missing =
+                requiredSkills.filter(
+                    skill =>
+                        !skillMatches(
+                            skill,
+                            studentSkills
+                        )
+                );
+
+            const matched =
+                requiredSkills.length
+                - missing.length;
+
+            const percent =
+                requiredSkills.length
+                    ? Math.round(
+                        (
+                            matched /
+                            requiredSkills.length
+                        ) * 100
+                    )
+                    : 0;
+
+            return {
+                percent,
+                missing
+            };
+
+        }
+
+
+        /* ================= CAREER LOAD ================= */
+
+        function loadCareerMatches() {
+
+            const profile =
+                getAssessment();
+
+            const cards =
+                document.querySelectorAll(
+                    ".career-card"
+                );
+
+            const careerNote =
+                document.getElementById(
+                    "careerNote"
+                );
+
+
+            if (!profile) {
+
+                careerNote.innerHTML = `
+                    <strong>
+                        💡 Start with your Skill Assessment
+                    </strong>
+                    <br>
+                    Complete your assessment to calculate
+                    personalized career and company matches.
+                `;
+
+                loadCompanyMatches();
+
+                return;
+
+            }
+
+
+            const studentSkills =
+                getStudentSkills();
+
+            let highestCareer = null;
+
+            let highestPercent = -1;
+
+
+            cards.forEach(card => {
+
+                const careerName =
+                    card.dataset.career;
+
+                const result =
+                    calculateMatch(
+                        careerData[careerName].skills,
+                        studentSkills
+                    );
+
+
+                card.querySelector(
+                    ".career-match-percent"
+                ).textContent =
+                    result.percent + "%";
+
+
+                card.querySelector(
+                    ".career-match-fill"
+                ).style.width =
+                    result.percent + "%";
+
+
+                let status =
+                    "Keep building your skills";
+
+
+                if (result.percent >= 80) {
+
+                    status =
+                        "Strong career match";
+
+                }
+                else if (result.percent >= 50) {
+
+                    status =
+                        "Good potential";
+
+                }
+                else if (result.percent >= 30) {
+
+                    status =
+                        "Skills need improvement";
+
+                }
+                else {
+
+                    status =
+                        "Start building these skills";
+
+                }
+
+
+                card.querySelector(
+                    ".career-match-status"
+                ).textContent =
+                    status;
+
+
+                const missing =
+                    card.querySelector(
+                        ".missing-skills"
+                    );
+
+
+                if (result.missing.length) {
+
+                    missing.innerHTML = `
+                        <strong>
+                            Skills To Improve
+                        </strong>
+
+                        ${result.missing.map(skill => `
+                            <span class="missing-skill-tag">
+                                ${escapeHTML(skill)}
+                            </span>
+                        `).join("")}
+                    `;
+
+                }
+                else {
+
+                    missing.innerHTML = `
+                        <strong>
+                            ✓ All key skills matched
+                        </strong>
+                    `;
+
+                }
+
+
+                if (
+                    result.percent >
+                    highestPercent
+                ) {
+
+                    highestPercent =
+                        result.percent;
+
+                    highestCareer =
+                        careerName;
+
+                }
+
+            });
+
+
+            cards.forEach(card => {
+
+                card.classList.remove(
+                    "recommended-career"
+                );
+
+                const oldBadge =
+                    card.querySelector(
+                        ".top-match-badge"
+                    );
+
+                if (oldBadge) {
+                    oldBadge.remove();
+                }
+
+            });
+
+
+            if (highestCareer) {
+
+                const topCard =
+                    document.querySelector(
+                        `[data-career="${highestCareer}"]`
+                    );
+
+
+                if (topCard) {
+
+                    topCard.classList.add(
+                        "recommended-career"
+                    );
+
+
+                    const badge =
+                        document.createElement(
+                            "div"
+                        );
+
+                    badge.className =
+                        "top-match-badge";
+
+                    badge.textContent =
+                        "YOUR TOP MATCH";
+
+
+                    topCard.insertBefore(
+                        badge,
+                        topCard.firstChild
+                    );
+
+                }
+
+
+                careerNote.innerHTML = `
+                    <strong>
+                        🎯 Your current top career:
+                    </strong>
+
+                    ${escapeHTML(highestCareer)}
+
+                    with a
+
+                    ${highestPercent}%
+
+                    skill match.
+                `;
+
+            }
+
+
+            loadCompanyMatches();
+
+        }
+
+
+        /* ================= COMPANY LOAD ================= */
+
+        function loadCompanyMatches() {
+
+            const grid =
+                document.getElementById(
+                    "companyGrid"
+                );
+
+            const note =
+                document.getElementById(
+                    "companyNote"
+                );
+
+
+            const profile =
+                getAssessment();
+
+
+            if (!profile) {
+
+                note.innerHTML = `
+                    <strong>
+                        🔒 Company matching is waiting
+                        for your assessment.
+                    </strong>
+
+                    Complete the Skill Assessment
+                    to see personalized company matches.
+                `;
+
+
+                grid.innerHTML = `
+
+                    <div class="company-empty">
+
+                        <h3>
+                            Complete Skill Assessment
+                        </h3>
+
+                        <p>
+                            Your career and company
+                            matching will appear here.
+                        </p>
+
+                        <a
+                            href="assessment.html"
+                            class="company-course-btn"
+                        >
+                            Take Assessment →
+                        </a>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            const studentSkills =
+                getStudentSkills();
+
+
+            let bestCareer = null;
+
+            let bestCareerMatch = -1;
+
+
+            Object.keys(careerData)
+                .forEach(careerName => {
+
+                    const result =
+                        calculateMatch(
+                            careerData[
+                                careerName
+                            ].skills,
+                            studentSkills
+                        );
+
+
+                    if (
+                        result.percent >
+                        bestCareerMatch
+                    ) {
+
+                        bestCareerMatch =
+                            result.percent;
+
+                        bestCareer =
+                            careerName;
+
+                    }
+
+                });
+
+
+            const companies =
+                companyData[
+                    bestCareer
+                ] || [];
+
+
+            note.innerHTML = `
+                <strong>
+                    🎯 Recommended Career:
+                </strong>
+
+                ${escapeHTML(bestCareer)}
+
+                &nbsp;•&nbsp;
+
+                Career Match:
+                ${bestCareerMatch}%
+
+                <br>
+
+                Company information and salary
+                ranges shown here are example/demo
+                data for the SkillUp prototype.
+            `;
+
+
+            grid.innerHTML =
+                companies.map(company => {
+
+
+                    const result =
+                        calculateMatch(
+                            company.skills,
+                            studentSkills
+                        );
+
+
+                    const initials =
+                        company.name
+                            .split(" ")
+                            .map(word =>
+                                word[0]
+                            )
+                            .join("")
+                            .substring(0, 2)
+                            .toUpperCase();
+
+
+                    return `
+
+                        <div class="company-card">
+
+
+                            <div class="company-top">
+
+                                <div class="company-icon">
+
+                                    ${escapeHTML(
+                                        initials
+                                    )}
+
+                                </div>
+
+
+                                <div>
+
+                                    <div class="company-name">
+
+                                        ${escapeHTML(
+                                            company.name
+                                        )}
+
+                                    </div>
+
+
+                                    <div class="company-career">
+
+                                        ${escapeHTML(
+                                            bestCareer
+                                        )}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="company-role-box">
+
+
+                                <div class="company-info-box">
+
+                                    <span
+                                        class="company-info-label"
+                                    >
+                                        Example Role
+                                    </span>
+
+                                    <span
+                                        class="company-info-value"
+                                    >
+                                        ${escapeHTML(
+                                            company.role
+                                        )}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="company-info-box">
+
+                                    <span
+                                        class="company-info-label"
+                                    >
+                                        Salary
+                                    </span>
+
+                                    <span
+                                        class="company-info-value"
+                                    >
+                                        ${escapeHTML(
+                                            company.salary
+                                        )}
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <p class="company-about">
+
+                                ${escapeHTML(
+                                    company.about
+                                )}
+
+                            </p>
+
+
+                            <div class="company-skill-label">
+
+                                Example Required Skills
+
+                            </div>
+
+
+                            <div class="company-skills">
+
+                                ${company.skills.map(
+                                    skill => `
+
+                                    <span
+                                        class="company-skill-tag"
+                                    >
+                                        ${escapeHTML(
+                                            skill
+                                        )}
+                                    </span>
+
+                                `).join("")}
+
+                            </div>
+
+
+                            <div class="company-match">
+
+
+                                <div class="company-match-head">
+
+                                    <span>
+                                        Your Skill Match
+                                    </span>
+
+                                    <span
+                                        class="company-match-percent"
+                                    >
+                                        ${result.percent}%
+                                    </span>
+
+                                </div>
+
+
+                                <div class="company-match-bar">
+
+                                    <div
+                                        class="company-match-fill"
+                                        style="
+                                            width:
+                                            ${result.percent}%
+                                        "
+                                    ></div>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="company-missing">
+
+
+                                ${
+                                    result.missing.length
+
+                                    ?
+
+                                    `
+
+                                    <strong>
+                                        Skills To Improve
+                                    </strong>
+
+                                    ${result.missing.map(
+                                        skill => `
+
+                                        <span
+                                            class="company-gap-tag"
+                                        >
+                                            ${escapeHTML(
+                                                skill
+                                            )}
+                                        </span>
+
+                                    `
+                                    ).join("")}
+
+                                    `
+
+                                    :
+
+                                    `
+
+                                    <strong>
+                                        ✓ All example skills matched
+                                    </strong>
+
+                                    `
+                                }
+
+
+                            </div>
+
+
+                            <a
+                                href="courses.html"
+                                class="company-course-btn"
+                            >
+                                Close Skill Gap →
+                            </a>
+
+
+                        </div>
+
+                    `;
+
+                }).join("");
+
+        }
+
+
+        /* ================= ESCAPE ================= */
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        /* ================= LOGOUT ================= */
+
+        function logout() {
+
+            localStorage.removeItem(
+                "skillUpProfile"
+            );
+
+            localStorage.removeItem(
+                "skillUpCourseProgress"
+            );
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        /* ================= START ================= */
+
+        loadCareerMatches();
+
+    </script>
+
+
+    <script src="protect.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Skill Up</title>
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #14213d;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+            width: 100%;
+            height: 70px;
+            background: #14213d;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            color: white;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #f97316;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .nav-right span {
+            color: #dbe4f0;
+        }
+
+        .login-link {
+            text-decoration: none;
+            color: #f97316;
+            font-weight: 700;
+            padding: 10px 18px;
+            border: 1px solid #f97316;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .login-link:hover {
+            background: #f97316;
+            color: white;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 45px 20px;
+        }
+
+
+        /* =====================================================
+           REGISTER CARD
+        ===================================================== */
+
+        .register-card {
+            width: 100%;
+            max-width: 560px;
+            background: white;
+            border-radius: 18px;
+            padding: 38px;
+            box-shadow: 0 15px 45px rgba(20, 33, 61, 0.10);
+            border: 1px solid #e6eaf0;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .heading h1 {
+            font-size: 32px;
+            color: #14213d;
+            margin-bottom: 8px;
+        }
+
+        .heading h1 span {
+            color: #f97316;
+        }
+
+        .heading p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #14213d;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #d7dde7;
+            border-radius: 9px;
+            padding: 0 14px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+            color: #14213d;
+            transition: 0.25s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.10);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        #registerMessage {
+            display: none;
+            margin-bottom: 18px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           BUTTON
+        ===================================================== */
+
+        .register-button {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 9px;
+            background: #f97316;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 5px;
+        }
+
+        .register-button:hover {
+            background: #ea580c;
+            transform: translateY(-1px);
+        }
+
+        .register-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+
+        /* =====================================================
+           BOTTOM TEXT
+        ===================================================== */
+
+        .bottom-text {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .bottom-text a {
+            color: #f97316;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .bottom-text a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            background: #14213d;
+            color: #cbd5e1;
+            text-align: center;
+            padding: 18px;
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                height: auto;
+                min-height: 65px;
+                padding: 14px 5%;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .nav-right span {
+                display: none;
+            }
+
+            .login-link {
+                padding: 8px 13px;
+                font-size: 13px;
+            }
+
+            .main {
+                padding: 25px 15px;
+                align-items: flex-start;
+            }
+
+            .register-card {
+                padding: 25px 20px;
+                border-radius: 14px;
+            }
+
+            .heading h1 {
+                font-size: 27px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+        }
+
+
+        @media (max-width: 400px) {
+
+            .register-card {
+                padding: 22px 16px;
+            }
+
+            .heading h1 {
+                font-size: 24px;
+            }
+
+            input,
+            select {
+                height: 46px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <a href="./index.html" class="logo">
+            Skill<span>Up</span>
+        </a>
+
+        <div class="nav-right">
+
+            <span>Already have an account?</span>
+
+            <a href="./login.html" class="login-link">
+                Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+        <div class="register-card">
+
+
+            <!-- HEADING -->
+
+            <div class="heading">
+
+                <h1>
+                    Create <span>Account</span>
+                </h1>
+
+                <p>
+                    Start your journey with Skill Up
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 REGISTER FORM
+            ================================================== -->
+
+            <form
+                id="registerForm"
+                onsubmit="registerUser(event)"
+            >
+
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label for="registerName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registerName"
+                        name="name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="registerEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="registerPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        name="password"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- COLLEGE -->
+
+                <div class="form-group">
+
+                    <label for="registerCollege">
+                        College
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registerCollege"
+                        name="college"
+                        placeholder="Enter your college name"
+                    >
+
+                </div>
+
+
+
+                <!-- BRANCH + YEAR -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="registerBranch">
+                            Branch
+                        </label>
+
+                        <select
+                            id="registerBranch"
+                            name="branch"
+                        >
+
+                            <option value="">
+                                Select Branch
+                            </option>
+
+                            <option value="IT">
+                                Information Technology
+                            </option>
+
+                            <option value="CSE">
+                                Computer Science
+                            </option>
+
+                            <option value="ECE">
+                                Electronics & Communication
+                            </option>
+
+                            <option value="ME">
+                                Mechanical Engineering
+                            </option>
+
+                            <option value="CE">
+                                Civil Engineering
+                            </option>
+
+                            <option value="EE">
+                                Electrical Engineering
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="registerYear">
+                            Year
+                        </label>
+
+                        <select
+                            id="registerYear"
+                            name="year"
+                        >
+
+                            <option value="">
+                                Select Year
+                            </option>
+
+                            <option value="1st Year">
+                                1st Year
+                            </option>
+
+                            <option value="2nd Year">
+                                2nd Year
+                            </option>
+
+                            <option value="3rd Year">
+                                3rd Year
+                            </option>
+
+                            <option value="4th Year">
+                                4th Year
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MESSAGE -->
+
+                <div id="registerMessage"></div>
+
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    id="registerButton"
+                    class="register-button"
+                >
+                    Create Account
+                </button>
+
+
+            </form>
+
+
+
+            <!-- LOGIN -->
+
+            <div class="bottom-text">
+
+                Already have an account?
+
+                <a href="./login.html">
+                    Login here
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        © 2026 Skill Up. All rights reserved.
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         REGISTER JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        async function registerUser(event) {
+
+            /* STOP NORMAL FORM REFRESH */
+
+            event.preventDefault();
+            event.stopPropagation();
+
+
+            console.log("REGISTER FUNCTION STARTED");
+
+
+            /* GET FORM ELEMENTS */
+
+            const nameElement =
+                document.getElementById("registerName");
+
+            const emailElement =
+                document.getElementById("registerEmail");
+
+            const passwordElement =
+                document.getElementById("registerPassword");
+
+            const collegeElement =
+                document.getElementById("registerCollege");
+
+            const branchElement =
+                document.getElementById("registerBranch");
+
+            const yearElement =
+                document.getElementById("registerYear");
+
+            const message =
+                document.getElementById("registerMessage");
+
+            const button =
+                document.getElementById("registerButton");
+
+
+            /* GET VALUES */
+
+            const name =
+                nameElement.value.trim();
+
+            const email =
+                emailElement.value.trim();
+
+            const password =
+                passwordElement.value;
+
+            const college =
+                collegeElement.value.trim();
+
+            const branch =
+                branchElement.value;
+
+            const year =
+                yearElement.value;
+
+
+            /* =================================================
+               VALIDATION
+            ================================================= */
+
+            if (!name) {
+
+                showRegisterMessage(
+                    "Please enter your full name.",
+                    false
+                );
+
+                nameElement.focus();
+
+                return;
+            }
+
+
+            if (!email) {
+
+                showRegisterMessage(
+                    "Please enter your email.",
+                    false
+                );
+
+                emailElement.focus();
+
+                return;
+            }
+
+
+            if (!password) {
+
+                showRegisterMessage(
+                    "Please enter a password.",
+                    false
+                );
+
+                passwordElement.focus();
+
+                return;
+            }
+
+
+            if (password.length < 6) {
+
+                showRegisterMessage(
+                    "Password must be at least 6 characters.",
+                    false
+                );
+
+                passwordElement.focus();
+
+                return;
+            }
+
+
+            /* =================================================
+               BUTTON LOADING
+            ================================================= */
+
+            button.disabled = true;
+
+            button.textContent =
+                "Creating Account...";
+
+
+            try {
+
+                console.log(
+                    "Sending request to:",
+                    window.location.origin + "/api/register"
+                );
+
+
+                /* =================================================
+                   API REQUEST
+                ================================================= */
+
+                const response = await fetch(
+                    window.location.origin + "/api/register",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body: JSON.stringify({
+
+                            name: name,
+
+                            email: email,
+
+                            password: password,
+
+                            college: college,
+
+                            branch: branch,
+
+                            year: year
+
+                        })
+
+                    }
+                );
+
+
+                console.log(
+                    "Server status:",
+                    response.status
+                );
+
+
+                /* =================================================
+                   READ RESPONSE
+                ================================================= */
+
+                let data = null;
+
+                try {
+
+                    data =
+                        await response.json();
+
+                } catch (jsonError) {
+
+                    console.error(
+                        "JSON ERROR:",
+                        jsonError
+                    );
+
+                }
+
+
+                console.log(
+                    "Server response:",
+                    data
+                );
+
+
+                /* =================================================
+                   ERROR RESPONSE
+                ================================================= */
+
+                if (
+                    !response.ok ||
+                    !data ||
+                    !data.success
+                ) {
+
+                    showRegisterMessage(
+
+                        data?.message ||
+                        "Registration failed. Please try again.",
+
+                        false
+
+                    );
+
+
+                    button.disabled = false;
+
+                    button.textContent =
+                        "Create Account";
+
+                    return;
+                }
+
+
+                /* =================================================
+                   SAVE TOKEN
+                ================================================= */
+
+                if (data.token) {
+
+                    localStorage.setItem(
+                        "token",
+                        data.token
+                    );
+
+                }
+
+
+                /* =================================================
+                   SAVE USER
+                ================================================= */
+
+                if (data.user) {
+
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(data.user)
+                    );
+
+                }
+
+
+                /* =================================================
+                   LOGIN STATE
+                ================================================= */
+
+                localStorage.setItem(
+                    "loggedIn",
+                    "true"
+                );
+
+
+                /* =================================================
+                   SUCCESS
+                ================================================= */
+
+                showRegisterMessage(
+                    "Account created successfully! Redirecting to login...",
+                    true
+                );
+
+
+                button.textContent =
+                    "Account Created ✓";
+
+
+                /* =================================================
+                   REDIRECT
+                ================================================= */
+
+                setTimeout(function () {
+
+                    window.location.href =
+                        "./login.html";
+
+                }, 1000);
+
+
+            } catch (error) {
+
+                console.error(
+                    "REGISTER ERROR:",
+                    error
+                );
+
+
+                showRegisterMessage(
+
+                    "Cannot connect to server. Please make sure the backend is running.",
+
+                    false
+
+                );
+
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Create Account";
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           MESSAGE FUNCTION
+        ===================================================== */
+
+        function showRegisterMessage(
+            text,
+            success
+        ) {
+
+            const message =
+                document.getElementById(
+                    "registerMessage"
+                );
+
+
+            message.style.display =
+                "block";
+
+
+            message.textContent =
+                text;
+
+
+            if (success) {
+
+                message.style.color =
+                    "#15803d";
+
+                message.style.background =
+                    "#dcfce7";
+
+                message.style.border =
+                    "1px solid #86efac";
+
+            } else {
+
+                message.style.color =
+                    "#b91c1c";
+
+                message.style.background =
+                    "#fee2e2";
+
+                message.style.border =
+                    "1px solid #fecaca";
+
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

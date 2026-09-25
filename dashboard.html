@@ -1,0 +1,3564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Skill Up | Dashboard</title>
+<script src="api.js"></script>
+<script src="protect.js"></script>
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #14213d;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        nav {
+            width: 100%;
+            height: 72px;
+            background: #14213d;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 18px rgba(20, 33, 61, 0.12);
+        }
+
+        .logo {
+            color: white;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #f97316;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #dfe5ef;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #f97316;
+        }
+
+        .profile-btn {
+            background: #f97316;
+            color: white !important;
+            padding: 10px 17px;
+            border-radius: 9px;
+        }
+
+        .profile-btn:hover {
+            background: #ea580c;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .dashboard-hero {
+            background: linear-gradient(
+                135deg,
+                #14213d 0%,
+                #1c3156 65%,
+                #243d66 100%
+            );
+
+            padding: 55px 7% 60px;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 1250px;
+            margin: auto;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            color: #f97316;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        .dashboard-hero h1 {
+            font-size: clamp(30px, 5vw, 50px);
+            line-height: 1.1;
+            margin-bottom: 14px;
+        }
+
+        .dashboard-hero h1 span {
+            color: #f97316;
+        }
+
+        .dashboard-hero p {
+            color: #dce4f1;
+            max-width: 650px;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .dashboard-container {
+            width: 90%;
+            max-width: 1250px;
+            margin: -30px auto 60px;
+            position: relative;
+            z-index: 5;
+        }
+
+
+        /* =====================================================
+           STUDENT CARD
+        ===================================================== */
+
+        .student-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            box-shadow: 0 10px 35px rgba(20, 33, 61, 0.10);
+            margin-bottom: 28px;
+        }
+
+        .student-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .student-avatar {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: #f97316;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: 800;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .student-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .student-info h2 {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .student-info p {
+            color: #64748b;
+            font-size: 14px;
+            margin: 3px 0;
+        }
+
+        .student-info strong {
+            color: #14213d;
+        }
+
+        .profile-link {
+            background: #14213d;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .profile-link:hover {
+            background: #f97316;
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+        ===================================================== */
+
+        .section-title {
+            margin: 34px 0 17px;
+        }
+
+        .section-title h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .section-title p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           STATS
+        ===================================================== */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 7px 25px rgba(20, 33, 61, 0.07);
+            border: 1px solid #edf0f5;
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #fff1e8;
+            color: #f97316;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-card small {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .stat-card h3 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           MAIN GRID
+        ===================================================== */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 22px;
+            margin-top: 25px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 7px 25px rgba(20, 33, 61, 0.07);
+            border: 1px solid #edf0f5;
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-heading h3 {
+            font-size: 19px;
+        }
+
+        .card-heading a {
+            color: #f97316;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .progress-item {
+            margin-bottom: 22px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .progress-info span:first-child {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .progress-info span:last-child {
+            color: #f97316;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 9px;
+            background: #e8edf4;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #f97316;
+            border-radius: 20px;
+            transition: width 0.6s ease;
+        }
+
+        .progress-subtext {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 7px;
+        }
+
+
+        /* =====================================================
+           ASSESSMENT
+        ===================================================== */
+
+        .assessment-box {
+            border: 1px solid #e9edf3;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .assessment-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 13px;
+        }
+
+        .assessment-top h4 {
+            font-size: 16px;
+        }
+
+        .match-badge {
+            background: #fff1e8;
+            color: #ea580c;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .assessment-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .assessment-detail {
+            background: #f8fafc;
+            padding: 11px;
+            border-radius: 9px;
+        }
+
+        .assessment-detail span {
+            display: block;
+            color: #64748b;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .assessment-detail strong {
+            font-size: 13px;
+        }
+
+        .assessment-empty {
+            text-align: center;
+            padding: 25px 10px;
+            color: #64748b;
+        }
+
+        .assessment-empty a {
+            display: inline-block;
+            margin-top: 12px;
+            background: #f97316;
+            color: white;
+            padding: 10px 17px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           SKILL GAP
+        ===================================================== */
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .skill-tag {
+            background: #fff4ed;
+            color: #c2410c;
+            border: 1px solid #fed7aa;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .skill-tag.green {
+            background: #ecfdf5;
+            color: #047857;
+            border-color: #a7f3d0;
+        }
+
+        .empty-text {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           CAREER CARD
+        ===================================================== */
+
+        .career-box {
+            background: #14213d;
+            color: white;
+            border-radius: 16px;
+            padding: 23px;
+            margin-top: 20px;
+        }
+
+        .career-box .career-label {
+            color: #f97316;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .career-box h3 {
+            font-size: 21px;
+            margin-bottom: 14px;
+        }
+
+        .career-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .career-info div {
+            background: rgba(255,255,255,0.08);
+            padding: 12px;
+            border-radius: 9px;
+        }
+
+        .career-info span {
+            display: block;
+            color: #b9c5d7;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .career-info strong {
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           QUICK ACTIONS
+        ===================================================== */
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+        }
+
+        .action-btn {
+            border: 1px solid #e5eaf1;
+            border-radius: 12px;
+            padding: 17px;
+            background: white;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            border-color: #f97316;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(249,115,22,0.12);
+        }
+
+        .action-icon {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .action-btn h4 {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .action-btn p {
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+
+        /* =====================================================
+           RECOMMENDATIONS
+        ===================================================== */
+
+        .recommendation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .recommendation-item {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px;
+            background: #f8fafc;
+            border-radius: 11px;
+        }
+
+        .recommendation-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: #fff1e8;
+            color: #f97316;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .recommendation-item h4 {
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+
+        .recommendation-item p {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+
+        /* =====================================================
+           READINESS
+        ===================================================== */
+
+        .readiness-box {
+            text-align: center;
+            padding: 15px 0 8px;
+        }
+
+        .readiness-circle {
+            width: 145px;
+            height: 145px;
+            border-radius: 50%;
+            margin: 5px auto 18px;
+            background: conic-gradient(
+                #f97316 0deg,
+                #f97316 0deg,
+                #e8edf4 0deg
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .readiness-circle::before {
+            content: "";
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+        }
+
+        .readiness-value {
+            position: relative;
+            z-index: 2;
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+        .readiness-box h4 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .readiness-box p {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           BOTTOM CTA
+        ===================================================== */
+
+        .bottom-cta {
+            margin-top: 25px;
+            background: #fff;
+            border-radius: 18px;
+            padding: 30px;
+            border: 1px solid #edf0f5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .bottom-cta h2 {
+            font-size: 22px;
+            margin-bottom: 7px;
+        }
+
+        .bottom-cta p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .cta-btn {
+            background: #f97316;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 9px;
+            font-weight: 700;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: #ea580c;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            background: #14213d;
+            color: #cbd5e1;
+            padding: 25px 7%;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        footer span {
+            color: #f97316;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 750px) {
+
+            nav {
+                height: auto;
+                min-height: 68px;
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .dashboard-hero {
+                padding: 40px 6% 55px;
+            }
+
+            .dashboard-container {
+                width: 92%;
+            }
+
+            .student-card {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .profile-link {
+                width: 100%;
+                text-align: center;
+            }
+
+            .assessment-details {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-cta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cta-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .student-left {
+                align-items: flex-start;
+            }
+
+            .student-avatar {
+                width: 55px;
+                height: 55px;
+            }
+
+            .student-info h2 {
+                font-size: 18px;
+            }
+
+            .dashboard-card {
+                padding: 18px;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .career-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =========================================================
+   DASHBOARD — MOBILE RESPONSIVE FINAL PATCH
+   ========================================================= */
+
+@media (max-width: 750px) {
+
+    /* ================= NAVBAR ================= */
+
+    nav {
+        height: auto;
+        min-height: 68px;
+        padding: 14px 16px;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .nav-links {
+        display: flex;
+        width: 100%;
+        gap: 8px 14px;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 3px;
+        scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .profile-btn {
+        padding: 8px 13px;
+    }
+
+
+    /* ================= HERO ================= */
+
+    .dashboard-hero {
+        padding: 42px 20px 50px;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero-tag {
+        font-size: 11px;
+        margin-bottom: 12px;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 34px;
+        line-height: 1.12;
+        margin-bottom: 16px;
+    }
+
+    .dashboard-hero p {
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+
+    /* ================= MAIN ================= */
+
+    .dashboard-container {
+        width: calc(100% - 28px);
+        margin: -22px auto 40px;
+    }
+
+
+    /* ================= STUDENT CARD ================= */
+
+    .student-card {
+        padding: 20px;
+        gap: 18px;
+        border-radius: 16px;
+    }
+
+    .student-left {
+        width: 100%;
+        gap: 13px;
+    }
+
+    .student-avatar {
+        width: 52px;
+        height: 52px;
+        font-size: 20px;
+    }
+
+    .student-info {
+        min-width: 0;
+    }
+
+    .student-info h2 {
+        font-size: 18px;
+        word-break: break-word;
+    }
+
+    .student-info p {
+        font-size: 12px;
+        line-height: 1.6;
+        word-break: break-word;
+    }
+
+    .profile-link {
+        width: 100%;
+        padding: 11px 15px;
+    }
+
+
+    /* ================= SECTION TITLE ================= */
+
+    .section-title {
+        margin: 28px 0 15px;
+    }
+
+    .section-title h2 {
+        font-size: 21px;
+    }
+
+    .section-title p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+
+    /* ================= STATS ================= */
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 17px;
+        border-radius: 14px;
+    }
+
+    .stat-top {
+        margin-bottom: 12px;
+    }
+
+    .stat-icon {
+        width: 37px;
+        height: 37px;
+        font-size: 17px;
+    }
+
+    .stat-card small {
+        font-size: 10px;
+    }
+
+    .stat-card h3 {
+        font-size: 23px;
+    }
+
+    .stat-card p {
+        font-size: 11px;
+    }
+
+
+    /* ================= DASHBOARD CARDS ================= */
+
+    .dashboard-card {
+        padding: 19px;
+        border-radius: 16px;
+    }
+
+    .card-heading {
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .card-heading h3 {
+        font-size: 17px;
+    }
+
+    .card-heading a {
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+
+    /* ================= PROGRESS ================= */
+
+    .progress-item {
+        margin-bottom: 20px;
+    }
+
+    .progress-info span:first-child {
+        font-size: 12px;
+    }
+
+    .progress-info span:last-child {
+        font-size: 12px;
+    }
+
+    .progress-subtext {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+
+    /* ================= ASSESSMENT ================= */
+
+    .assessment-box {
+        padding: 15px;
+    }
+
+    .assessment-top {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .assessment-top h4 {
+        font-size: 14px;
+    }
+
+    .match-badge {
+        font-size: 10px;
+        padding: 5px 8px;
+        white-space: nowrap;
+    }
+
+
+    /* ================= SKILL TAGS ================= */
+
+    .skills-list {
+        gap: 7px;
+    }
+
+    .skill-tag {
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+
+
+    /* ================= CAREER ================= */
+
+    .career-box {
+        padding: 19px;
+        border-radius: 14px;
+    }
+
+    .career-box h3 {
+        font-size: 19px;
+        line-height: 1.3;
+    }
+
+    .career-info {
+        gap: 9px;
+    }
+
+    .career-info div {
+        padding: 10px;
+    }
+
+    .career-info strong {
+        font-size: 12px;
+        word-break: break-word;
+    }
+
+
+    /* ================= READINESS ================= */
+
+    .readiness-circle {
+        width: 125px;
+        height: 125px;
+    }
+
+    .readiness-circle::before {
+        width: 96px;
+        height: 96px;
+    }
+
+    .readiness-value {
+        font-size: 24px;
+    }
+
+    .readiness-box h4 {
+        font-size: 15px;
+    }
+
+    .readiness-box p {
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+
+    /* ================= RECOMMENDATIONS ================= */
+
+    .recommendation-item {
+        gap: 10px;
+        padding: 11px;
+    }
+
+    .recommendation-number {
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+    }
+
+    .recommendation-item h4 {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .recommendation-item p {
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+
+    /* ================= QUICK ACTIONS ================= */
+
+    .actions-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .action-btn {
+        padding: 15px;
+    }
+
+    .action-icon {
+        font-size: 20px;
+    }
+
+
+    /* ================= BOTTOM CTA ================= */
+
+    .bottom-cta {
+        padding: 22px 19px;
+        border-radius: 16px;
+        gap: 18px;
+    }
+
+    .bottom-cta h2 {
+        font-size: 19px;
+        line-height: 1.3;
+    }
+
+    .bottom-cta p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .cta-btn {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 13px;
+        text-align: center;
+    }
+
+
+    /* ================= FOOTER ================= */
+
+    footer {
+        padding: 22px 16px;
+        font-size: 11px;
+        line-height: 1.6;
+    }
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .dashboard-container {
+        width: calc(100% - 22px);
+    }
+
+    .dashboard-hero {
+        padding: 38px 16px 45px;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 30px;
+    }
+
+    .dashboard-hero p {
+        font-size: 13px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-card {
+        padding: 17px;
+    }
+
+    .student-info h2 {
+        font-size: 17px;
+    }
+
+    .dashboard-card {
+        padding: 16px;
+    }
+
+    .card-heading h3 {
+        font-size: 16px;
+    }
+
+    .career-box {
+        padding: 16px;
+    }
+
+    .bottom-cta {
+        padding: 19px 16px;
+    }
+}
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav>
+
+        <a href="index.html" class="logo">
+            Skill<span>Up</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="dashboard.html" class="active">
+                Dashboard
+            </a>
+
+            <a href="career.html">
+                Career
+            </a>
+
+            <a href="courses.html">
+                Courses
+            </a>
+
+            <a href="assessment.html">
+                Assessment
+            </a>
+
+            <a href="academics.html">
+                Academics
+            </a>
+
+            <a href="about.html">
+                About Us
+            </a>
+
+            <a href="profile.html" class="profile-btn">
+                Profile
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="dashboard-hero">
+
+        <div class="hero-content">
+
+            <div class="hero-tag">
+                Student Dashboard
+            </div>
+
+            <h1>
+                Welcome back,
+                <span id="heroName">Student</span> 👋
+            </h1>
+
+            <p>
+                Track your academic progress, assess your skills,
+                discover career opportunities and prepare yourself
+                for industry requirements — all in one place.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MAIN DASHBOARD
+    ====================================================== -->
+
+    <main class="dashboard-container">
+
+
+        <!-- STUDENT CARD -->
+
+        <div class="student-card">
+
+            <div class="student-left">
+
+                <div class="student-avatar" id="studentAvatar">
+                    S
+                </div>
+
+                <div class="student-info">
+
+                    <h2 id="studentName">
+                        Student
+                    </h2>
+
+                    <p>
+                        <strong>College:</strong>
+                        <span id="studentCollege">
+                            Not available
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Branch:</strong>
+                        <span id="studentBranch">
+                            IT
+                        </span>
+
+                        &nbsp; | &nbsp;
+
+                        <strong>Year:</strong>
+                        <span id="studentYear">
+                            -
+                        </span>
+                    </p>
+
+                </div>
+
+            </div>
+
+            <a href="profile.html" class="profile-link">
+                View Profile →
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             QUICK STATS
+        ================================================== -->
+
+        <div class="section-title">
+
+            <h2>
+                Your Progress
+            </h2>
+
+            <p>
+                A quick overview of your Skill Up journey.
+            </p>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+
+            <!-- SKILL MATCH -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        🎯
+                    </div>
+
+                    <small>
+                        Assessment
+                    </small>
+
+                </div>
+
+                <h3 id="skillMatch">
+                    0%
+                </h3>
+
+                <p>
+                    Skill Match
+                </p>
+
+            </div>
+
+
+
+            <!-- ACADEMIC -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        🎓
+                    </div>
+
+                    <small>
+                        Academics
+                    </small>
+
+                </div>
+
+                <h3 id="academicProgress">
+                    0%
+                </h3>
+
+                <p>
+                    Academic Progress
+                </p>
+
+            </div>
+
+
+
+            <!-- COURSES -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        💻
+                    </div>
+
+                    <small>
+                        Courses
+                    </small>
+
+                </div>
+
+                <h3 id="courseProgress">
+                    0%
+                </h3>
+
+                <p>
+                    Learning Progress
+                </p>
+
+            </div>
+
+
+
+            <!-- READINESS -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        🚀
+                    </div>
+
+                    <small>
+                        Career
+                    </small>
+
+                </div>
+
+                <h3 id="careerReadinessStat">
+                    0%
+                </h3>
+
+                <p>
+                    Career Readiness
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MAIN GRID
+        ================================================== -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- LEFT COLUMN -->
+
+            <div>
+
+
+                <!-- PROGRESS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-heading">
+
+                        <h3>
+                            Learning Progress
+                        </h3>
+
+                        <a href="courses.html">
+                            View Courses
+                        </a>
+
+                    </div>
+
+
+                    <div class="progress-item">
+
+                        <div class="progress-info">
+
+                            <span>
+                                Academic Progress
+                            </span>
+
+                            <span id="academicProgressText">
+                                0%
+                            </span>
+
+                        </div>
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                id="academicProgressBar">
+                            </div>
+
+                        </div>
+
+                        <div class="progress-subtext">
+                            College subjects and unit completion
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="progress-item">
+
+                        <div class="progress-info">
+
+                            <span>
+                                Course Progress
+                            </span>
+
+                            <span id="courseProgressText">
+                                0%
+                            </span>
+
+                        </div>
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                id="courseProgressBar">
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="progress-subtext"
+                            id="courseProgressSubtext">
+                            0 of 18 courses completed
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="progress-item">
+
+                        <div class="progress-info">
+
+                            <span>
+                                Overall Skill Progress
+                            </span>
+
+                            <span id="overallProgressText">
+                                0%
+                            </span>
+
+                        </div>
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                id="overallProgressBar">
+                            </div>
+
+                        </div>
+
+                        <div class="progress-subtext">
+                            Your combined learning journey
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ASSESSMENT -->
+
+                <div class="dashboard-card" style="margin-top:22px;">
+
+                    <div class="card-heading">
+
+                        <h3>
+                            Skill Assessment
+                        </h3>
+
+                        <a href="assessment.html">
+                            Take Assessment
+                        </a>
+
+                    </div>
+
+
+                    <div id="assessmentContent">
+
+                        <div class="assessment-empty">
+
+                            <div style="font-size:32px; margin-bottom:8px;">
+                                🎯
+                            </div>
+
+                            <p>
+                                Complete your skill assessment
+                                to see your career match.
+                            </p>
+
+                            <a href="assessment.html">
+                                Start Assessment
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SKILLS -->
+
+                <div class="dashboard-card" style="margin-top:22px;">
+
+                    <div class="card-heading">
+
+                        <h3>
+                            Skills To Improve
+                        </h3>
+
+                        <a href="courses.html">
+                            Learn Skills
+                        </a>
+
+                    </div>
+
+
+                    <div
+                        class="skills-list"
+                        id="skillGapList">
+
+                        <span class="empty-text">
+                            Complete the assessment to identify
+                            your skill gaps.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- RIGHT COLUMN -->
+
+            <div>
+
+
+                <!-- CAREER -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-heading">
+
+                        <h3>
+                            Career Target
+                        </h3>
+
+                        <a href="career.html">
+                            Explore
+                        </a>
+
+                    </div>
+
+
+                    <div class="career-box">
+
+                        <div class="career-label">
+                            Your Target
+                        </div>
+
+                        <h3 id="careerTitle">
+                            Complete Assessment
+                        </h3>
+
+
+                        <div class="career-info">
+
+                            <div>
+
+                                <span>
+                                    Company
+                                </span>
+
+                                <strong id="careerCompany">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Role
+                                </span>
+
+                                <strong id="careerRole">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Domain
+                                </span>
+
+                                <strong id="careerDomain">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Level
+                                </span>
+
+                                <strong id="careerLevel">
+                                    -
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- READINESS -->
+
+                <div class="dashboard-card" style="margin-top:22px;">
+
+                    <div class="card-heading">
+
+                        <h3>
+                            Career Readiness
+                        </h3>
+
+                    </div>
+
+
+                    <div class="readiness-box">
+
+                        <div
+                            class="readiness-circle"
+                            id="readinessCircle">
+
+                            <span
+                                class="readiness-value"
+                                id="readinessValue">
+                                0%
+                            </span>
+
+                        </div>
+
+                        <h4>
+                            Keep Building Your Skills
+                        </h4>
+
+                        <p id="readinessText">
+                            Complete your assessment and
+                            learning activities to improve
+                            your readiness.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RECOMMENDATIONS -->
+
+                <div class="dashboard-card" style="margin-top:22px;">
+
+                    <div class="card-heading">
+
+                        <h3>
+                            Recommended Skills
+                        </h3>
+
+                    </div>
+
+
+                    <div
+                        class="recommendation-list"
+                        id="recommendationList">
+
+                        <div class="recommendation-item">
+
+                            <div class="recommendation-number">
+                                1
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Take Skill Assessment
+                                </h4>
+
+                                <p>
+                                    Identify the skills required
+                                    for your target career.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================== -->
+
+        <div class="section-title">
+
+            <h2>
+                Quick Actions
+            </h2>
+
+            <p>
+                Continue your journey from where you left off.
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="actions-grid">
+
+
+                <a
+                    href="assessment.html"
+                    class="action-btn">
+
+                    <div class="action-icon">
+                        🎯
+                    </div>
+
+                    <h4>
+                        Skill Assessment
+                    </h4>
+
+                    <p>
+                        Check your current skills and
+                        discover your skill gap.
+                    </p>
+
+                </a>
+
+
+
+                <a
+                    href="courses.html"
+                    class="action-btn">
+
+                    <div class="action-icon">
+                        📚
+                    </div>
+
+                    <h4>
+                        Continue Learning
+                    </h4>
+
+                    <p>
+                        Explore courses and improve your
+                        technical skills.
+                    </p>
+
+                </a>
+
+
+
+                <a
+                    href="academics.html"
+                    class="action-btn">
+
+                    <div class="action-icon">
+                        🎓
+                    </div>
+
+                    <h4>
+                        Academic Progress
+                    </h4>
+
+                    <p>
+                        Track subjects, units and exam
+                        preparation.
+                    </p>
+
+                </a>
+
+
+
+                <a
+                    href="profile.html"
+                    class="action-btn">
+
+                    <div class="action-icon">
+                        👤
+                    </div>
+
+                    <h4>
+                        My Profile
+                    </h4>
+
+                    <p>
+                        View your complete Skill Up
+                        student profile.
+                    </p>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BOTTOM CTA
+        ================================================== -->
+
+        <div class="bottom-cta">
+
+            <div>
+
+                <h2>
+                    Build Skills. Get Industry Ready.
+                </h2>
+
+                <p>
+                    Keep learning, track your progress and
+                    move closer to your career goal.
+                </p>
+
+            </div>
+
+            <a
+                href="assessment.html"
+                class="cta-btn">
+
+                Continue Your Journey →
+
+            </a>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        © 2026
+        <span>Skill Up</span>
+        — Bridging Academia & Industry
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         DASHBOARD JAVASCRIPT
+    ====================================================== -->
+
+   
+<script>
+
+/* =====================================================
+   SKILL UP — DASHBOARD MASTER SYNC
+   Backend + LocalStorage
+===================================================== */
+
+(function () {
+
+    "use strict";
+
+
+    /* =====================================================
+       HELPERS
+    ===================================================== */
+
+    function getJSON(key, fallback = {}) {
+
+        try {
+
+            const value =
+                localStorage.getItem(key);
+
+            return value
+                ? JSON.parse(value)
+                : fallback;
+
+        } catch (error) {
+
+            console.error(
+                "Storage error:",
+                key,
+                error
+            );
+
+            return fallback;
+        }
+    }
+
+
+    function safeNumber(value) {
+
+        const number = Number(value);
+
+        return Number.isFinite(number)
+            ? number
+            : 0;
+    }
+
+
+    function clamp(
+        value,
+        min = 0,
+        max = 100
+    ) {
+
+        return Math.min(
+            max,
+            Math.max(
+                min,
+                safeNumber(value)
+            )
+        );
+    }
+
+
+    function escapeHTML(value) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+
+            return "";
+
+        }
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    /* =====================================================
+       LOCAL DATA
+    ===================================================== */
+
+    let user =
+        getJSON("user", {});
+
+    let profile =
+        getJSON(
+            "skillUpProfile",
+            {}
+        );
+
+    const academics =
+        getJSON(
+            "skillUpAcademics",
+            {}
+        );
+
+    const courseStorage =
+        getJSON(
+            "skillUpCourseProgress",
+            {}
+        );
+
+    const profilePhoto =
+        localStorage.getItem(
+            "skillUpProfilePhoto"
+        );
+
+
+    /* =====================================================
+       UPDATE USER INFORMATION
+    ===================================================== */
+
+    function updateUserUI() {
+
+        const studentName =
+            user.name ||
+            profile.name ||
+            profile.studentName ||
+            "Student";
+
+
+        const college =
+            user.college ||
+            profile.college ||
+            "College not added";
+
+
+        const branch =
+            user.branch ||
+            profile.branch ||
+            "IT";
+
+
+        const year =
+            user.year ||
+            profile.year ||
+            "-";
+
+
+        const heroName =
+            document.getElementById(
+                "heroName"
+            );
+
+        const studentNameElement =
+            document.getElementById(
+                "studentName"
+            );
+
+        const studentCollege =
+            document.getElementById(
+                "studentCollege"
+            );
+
+        const studentBranch =
+            document.getElementById(
+                "studentBranch"
+            );
+
+        const studentYear =
+            document.getElementById(
+                "studentYear"
+            );
+
+
+        if (heroName) {
+
+            heroName.textContent =
+                studentName
+                    .trim()
+                    .split(" ")[0] ||
+                "Student";
+
+        }
+
+
+        if (studentNameElement) {
+
+            studentNameElement.textContent =
+                studentName;
+
+        }
+
+
+        if (studentCollege) {
+
+            studentCollege.textContent =
+                college;
+
+        }
+
+
+        if (studentBranch) {
+
+            studentBranch.textContent =
+                branch;
+
+        }
+
+
+        if (studentYear) {
+
+            studentYear.textContent =
+                year;
+
+        }
+
+
+        /* =================================================
+           AVATAR
+        ================================================= */
+
+        const avatar =
+            document.getElementById(
+                "studentAvatar"
+            );
+
+
+        if (!avatar) {
+            return;
+        }
+
+
+        if (profilePhoto) {
+
+            avatar.innerHTML = `
+                <img
+                    src="${profilePhoto}"
+                    alt="Profile Photo"
+                >
+            `;
+
+        } else {
+
+            const firstLetter =
+                studentName
+                    .trim()
+                    .charAt(0)
+                    .toUpperCase() ||
+                "S";
+
+
+            avatar.textContent =
+                firstLetter;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       BACKEND SYNC
+    ===================================================== */
+
+    async function syncBackendData() {
+
+        if (
+            !window.SkillUpAPI
+        ) {
+
+            console.warn(
+                "SkillUpAPI not loaded."
+            );
+
+            return;
+
+        }
+
+
+        try {
+
+            /* =============================================
+               GET USER
+            ============================================= */
+
+            const userResult =
+                await SkillUpAPI.get(
+                    "/user"
+                );
+
+
+            if (
+                userResult &&
+                userResult.ok &&
+                userResult.data &&
+                userResult.data.user
+            ) {
+
+                const backendUser =
+                    userResult.data.user;
+
+
+                user = {
+
+                    ...user,
+
+                    id:
+                        backendUser._id ||
+                        backendUser.id ||
+                        user.id,
+
+                    name:
+                        backendUser.name ||
+                        user.name,
+
+                    email:
+                        backendUser.email ||
+                        user.email,
+
+                    college:
+                        backendUser.college ||
+                        user.college,
+
+                    branch:
+                        backendUser.branch ||
+                        user.branch,
+
+                    year:
+                        backendUser.year ||
+                        user.year,
+
+                    careerGoal:
+                        backendUser.careerGoal ||
+                        user.careerGoal
+
+                };
+
+
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(user)
+                );
+
+            }
+
+
+            /* =============================================
+               GET LATEST ASSESSMENT
+            ============================================= */
+
+            const assessmentResult =
+                await SkillUpAPI.get(
+                    "/assessment"
+                );
+
+
+            if (
+                assessmentResult &&
+                assessmentResult.ok &&
+                assessmentResult.data &&
+                assessmentResult.data.assessment
+            ) {
+
+                const assessment =
+                    assessmentResult.data.assessment;
+
+
+                profile = {
+
+                    ...profile,
+
+                    studentName:
+                        assessment.studentName ||
+                        profile.studentName ||
+                        user.name ||
+                        "",
+
+                    domain:
+                        assessment.domain ||
+                        profile.domain ||
+                        "",
+
+                    company:
+                        assessment.company ||
+                        profile.company ||
+                        "",
+
+                    role:
+                        assessment.role ||
+                        profile.role ||
+                        "",
+
+                    matchPercentage:
+                        safeNumber(
+                            assessment.matchPercentage
+                        ),
+
+                    overallLevel:
+                        assessment.overallLevel ||
+                        profile.overallLevel ||
+                        "",
+
+                    strongSkills:
+                        Array.isArray(
+                            assessment.strongSkills
+                        )
+                            ? assessment.strongSkills
+                            : profile.strongSkills || [],
+
+                    skillGap:
+                        Array.isArray(
+                            assessment.skillGap
+                        )
+                            ? assessment.skillGap.map(
+                                item =>
+                                    typeof item === "string"
+                                        ? item
+                                        : item.skill
+                            ).filter(Boolean)
+                            : profile.skillGap || [],
+
+                    recommendedSkills:
+                        Array.isArray(
+                            assessment.recommendedSkills
+                        )
+                            ? assessment.recommendedSkills
+                            : profile.recommendedSkills || [],
+
+                    careerPath:
+                        assessment.careerPath ||
+                        profile.careerPath ||
+                        "",
+
+                    assessmentDate:
+                        assessment.completedAt ||
+                        profile.assessmentDate ||
+                        ""
+
+                };
+
+
+                localStorage.setItem(
+                    "skillUpProfile",
+                    JSON.stringify(profile)
+                );
+
+            }
+
+
+        } catch (error) {
+
+            console.warn(
+                "Backend sync unavailable. Using local data.",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ACADEMIC PROGRESS
+    ===================================================== */
+
+    function getAcademicProgress() {
+
+        let progress =
+            safeNumber(
+                academics.progress ??
+                academics.academicProgress ??
+                profile.academicProgress ??
+                0
+            );
+
+
+        if (
+            progress === 0 &&
+            academics.completedUnits !== undefined &&
+            academics.totalUnits
+        ) {
+
+            progress =
+                Math.round(
+                    (
+                        safeNumber(
+                            academics.completedUnits
+                        ) /
+                        safeNumber(
+                            academics.totalUnits
+                        )
+                    ) * 100
+                );
+
+        }
+
+
+        if (
+            progress === 0 &&
+            profile.academicCompletedUnits !== undefined &&
+            profile.academicTotalUnits
+        ) {
+
+            progress =
+                Math.round(
+                    (
+                        safeNumber(
+                            profile.academicCompletedUnits
+                        ) /
+                        safeNumber(
+                            profile.academicTotalUnits
+                        )
+                    ) * 100
+                );
+
+        }
+
+
+        return clamp(progress);
+
+    }
+
+
+    /* =====================================================
+       COURSE PROGRESS
+    ===================================================== */
+
+    const TOTAL_COURSES = 18;
+
+
+    function getCourseProgress(value) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+
+            return 0;
+
+        }
+
+
+        if (value === true) {
+            return 100;
+        }
+
+
+        if (value === false) {
+            return 0;
+        }
+
+
+        if (
+            typeof value === "number"
+        ) {
+
+            return clamp(value);
+
+        }
+
+
+        if (
+            typeof value === "string"
+        ) {
+
+            return clamp(
+                Number(value)
+            );
+
+        }
+
+
+        if (
+            typeof value === "object"
+        ) {
+
+            if (
+                value.completed === true ||
+                value.status === "completed"
+            ) {
+
+                return 100;
+
+            }
+
+
+            return clamp(
+                value.progress ??
+                value.percentage ??
+                value.percent ??
+                0
+            );
+
+        }
+
+
+        return 0;
+
+    }
+
+
+    function calculateCourseProgress() {
+
+        let totalProgress = 0;
+
+        let completed = 0;
+
+
+        if (
+            Array.isArray(
+                courseStorage
+            )
+        ) {
+
+            courseStorage.forEach(
+                course => {
+
+                    const progress =
+                        getCourseProgress(
+                            course
+                        );
+
+
+                    totalProgress +=
+                        progress;
+
+
+                    if (
+                        progress >= 100
+                    ) {
+
+                        completed++;
+
+                    }
+
+                }
+            );
+
+        } else {
+
+            Object.values(
+                courseStorage
+            ).forEach(
+                course => {
+
+                    const progress =
+                        getCourseProgress(
+                            course
+                        );
+
+
+                    totalProgress +=
+                        progress;
+
+
+                    if (
+                        progress >= 100
+                    ) {
+
+                        completed++;
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /*
+           Profile fallback
+        */
+
+        if (
+            totalProgress === 0 &&
+            safeNumber(
+                profile.courseProgress
+            ) > 0
+        ) {
+
+            return {
+
+                progress:
+                    clamp(
+                        profile.courseProgress
+                    ),
+
+                completed:
+                    safeNumber(
+                        profile.completedCourses
+                    )
+
+            };
+
+        }
+
+
+        return {
+
+            progress:
+                clamp(
+                    Math.round(
+                        totalProgress /
+                        TOTAL_COURSES
+                    )
+                ),
+
+            completed:
+                Math.min(
+                    completed,
+                    TOTAL_COURSES
+                )
+
+        };
+
+    }
+
+
+    /* =====================================================
+       UPDATE DASHBOARD
+    ===================================================== */
+
+    function updateDashboard() {
+
+        /*
+           Refresh latest local data
+        */
+
+        profile =
+            getJSON(
+                "skillUpProfile",
+                profile
+            );
+
+
+        user =
+            getJSON(
+                "user",
+                user
+            );
+
+
+        /* ================================================
+           USER
+        ================================================ */
+
+        updateUserUI();
+
+
+        /* ================================================
+           ASSESSMENT
+        ================================================ */
+
+        const matchPercentage =
+            clamp(
+                profile.matchPercentage
+            );
+
+
+        const assessmentCompleted =
+            matchPercentage > 0 ||
+            !!profile.domain ||
+            !!profile.company ||
+            !!profile.role;
+
+
+        const skillMatch =
+            document.getElementById(
+                "skillMatch"
+            );
+
+
+        if (skillMatch) {
+
+            skillMatch.textContent =
+                `${matchPercentage}%`;
+
+        }
+
+
+        /* ================================================
+           ACADEMICS
+        ================================================ */
+
+        const academicProgress =
+            getAcademicProgress();
+
+
+        /* ================================================
+           COURSES
+        ================================================ */
+
+        const courseData =
+            calculateCourseProgress();
+
+
+        const courseProgress =
+            courseData.progress;
+
+
+        const completedCourses =
+            courseData.completed;
+
+
+        /* ================================================
+           OVERALL
+        ================================================ */
+
+        const overallProgress =
+            Math.round(
+                (
+                    academicProgress +
+                    courseProgress +
+                    matchPercentage
+                ) / 3
+            );
+
+
+        /* ================================================
+           CAREER READINESS
+        ================================================ */
+
+        let careerReadiness =
+            safeNumber(
+                profile.careerReadiness
+            );
+
+
+        if (
+            careerReadiness <= 0
+        ) {
+
+            careerReadiness =
+                Math.round(
+                    (
+                        matchPercentage * 0.5 +
+                        courseProgress * 0.3 +
+                        academicProgress * 0.2
+                    )
+                );
+
+        }
+
+
+        careerReadiness =
+            clamp(
+                careerReadiness
+            );
+
+
+        /* ================================================
+           STAT CARDS
+        ================================================ */
+
+        const academicStat =
+            document.getElementById(
+                "academicProgress"
+            );
+
+        const courseStat =
+            document.getElementById(
+                "courseProgress"
+            );
+
+        const readinessStat =
+            document.getElementById(
+                "careerReadinessStat"
+            );
+
+
+        if (academicStat) {
+
+            academicStat.textContent =
+                `${academicProgress}%`;
+
+        }
+
+
+        if (courseStat) {
+
+            courseStat.textContent =
+                `${courseProgress}%`;
+
+        }
+
+
+        if (readinessStat) {
+
+            readinessStat.textContent =
+                `${careerReadiness}%`;
+
+        }
+
+
+        /* ================================================
+           PROGRESS BARS
+        ================================================ */
+
+        const academicText =
+            document.getElementById(
+                "academicProgressText"
+            );
+
+        const academicBar =
+            document.getElementById(
+                "academicProgressBar"
+            );
+
+
+        if (academicText) {
+
+            academicText.textContent =
+                `${academicProgress}%`;
+
+        }
+
+
+        if (academicBar) {
+
+            academicBar.style.width =
+                `${academicProgress}%`;
+
+        }
+
+
+        const courseText =
+            document.getElementById(
+                "courseProgressText"
+            );
+
+        const courseBar =
+            document.getElementById(
+                "courseProgressBar"
+            );
+
+        const courseSubtext =
+            document.getElementById(
+                "courseProgressSubtext"
+            );
+
+
+        if (courseText) {
+
+            courseText.textContent =
+                `${courseProgress}%`;
+
+        }
+
+
+        if (courseBar) {
+
+            courseBar.style.width =
+                `${courseProgress}%`;
+
+        }
+
+
+        if (courseSubtext) {
+
+            courseSubtext.textContent =
+                `${completedCourses} of ${TOTAL_COURSES} courses completed`;
+
+        }
+
+
+        const overallText =
+            document.getElementById(
+                "overallProgressText"
+            );
+
+        const overallBar =
+            document.getElementById(
+                "overallProgressBar"
+            );
+
+
+        if (overallText) {
+
+            overallText.textContent =
+                `${overallProgress}%`;
+
+        }
+
+
+        if (overallBar) {
+
+            overallBar.style.width =
+                `${overallProgress}%`;
+
+        }
+
+
+        /* ================================================
+           ASSESSMENT CARD
+        ================================================ */
+
+        const assessmentContent =
+            document.getElementById(
+                "assessmentContent"
+            );
+
+
+        if (
+            assessmentContent &&
+            assessmentCompleted
+        ) {
+
+            assessmentContent.innerHTML = `
+
+                <div class="assessment-box">
+
+                    <div class="assessment-top">
+
+                        <h4>
+                            Assessment Completed
+                        </h4>
+
+                        <span class="match-badge">
+                            ${matchPercentage}% Match
+                        </span>
+
+                    </div>
+
+                    <div class="assessment-details">
+
+                        <div class="assessment-detail">
+
+                            <span>
+                                Domain
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    profile.domain || "-"
+                                )}
+                            </strong>
+
+                        </div>
+
+                        <div class="assessment-detail">
+
+                            <span>
+                                Company
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    profile.company || "-"
+                                )}
+                            </strong>
+
+                        </div>
+
+                        <div class="assessment-detail">
+
+                            <span>
+                                Role
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    profile.role || "-"
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* ================================================
+           CAREER TARGET
+        ================================================ */
+
+        const careerTitle =
+            document.getElementById(
+                "careerTitle"
+            );
+
+        const careerCompany =
+            document.getElementById(
+                "careerCompany"
+            );
+
+        const careerRole =
+            document.getElementById(
+                "careerRole"
+            );
+
+        const careerDomain =
+            document.getElementById(
+                "careerDomain"
+            );
+
+        const careerLevel =
+            document.getElementById(
+                "careerLevel"
+            );
+
+
+        if (careerTitle) {
+
+            careerTitle.textContent =
+                profile.role ||
+                profile.careerPath ||
+                "Complete Assessment";
+
+        }
+
+
+        if (careerCompany) {
+
+            careerCompany.textContent =
+                profile.company ||
+                "-";
+
+        }
+
+
+        if (careerRole) {
+
+            careerRole.textContent =
+                profile.role ||
+                "-";
+
+        }
+
+
+        if (careerDomain) {
+
+            careerDomain.textContent =
+                profile.domain ||
+                "-";
+
+        }
+
+
+        if (careerLevel) {
+
+            careerLevel.textContent =
+                profile.overallLevel ||
+                "-";
+
+        }
+
+
+        /* ================================================
+           READINESS
+        ================================================ */
+
+        const readinessCircle =
+            document.getElementById(
+                "readinessCircle"
+            );
+
+        const readinessValue =
+            document.getElementById(
+                "readinessValue"
+            );
+
+        const readinessText =
+            document.getElementById(
+                "readinessText"
+            );
+
+
+        if (readinessValue) {
+
+            readinessValue.textContent =
+                `${careerReadiness}%`;
+
+        }
+
+
+        if (readinessCircle) {
+
+            const degree =
+                careerReadiness * 3.6;
+
+
+            readinessCircle.style.background =
+                `conic-gradient(
+                    #f97316 ${degree}deg,
+                    #e8edf4 ${degree}deg
+                )`;
+
+        }
+
+
+        if (readinessText) {
+
+            if (
+                careerReadiness >= 80
+            ) {
+
+                readinessText.textContent =
+                    "You have built a strong foundation. Keep improving your industry skills.";
+
+            } else if (
+                careerReadiness >= 50
+            ) {
+
+                readinessText.textContent =
+                    "You are making good progress. Focus on your skill gaps and courses.";
+
+            } else if (
+                assessmentCompleted
+            ) {
+
+                readinessText.textContent =
+                    "Your assessment is complete. Continue learning the recommended skills.";
+
+            } else {
+
+                readinessText.textContent =
+                    "Complete your assessment and learning activities to improve your readiness.";
+
+            }
+
+        }
+
+
+        /* ================================================
+           SKILL GAP
+        ================================================ */
+
+        const skillGapList =
+            document.getElementById(
+                "skillGapList"
+            );
+
+
+        const skillGap =
+            Array.isArray(
+                profile.skillGap
+            )
+                ? profile.skillGap
+                : [];
+
+
+        if (skillGapList) {
+
+            if (
+                skillGap.length > 0
+            ) {
+
+                skillGapList.innerHTML =
+                    skillGap
+                        .slice(0, 12)
+                        .map(
+                            skill => `
+
+                                <span class="skill-tag">
+                                    ${escapeHTML(
+                                        skill
+                                    )}
+                                </span>
+
+                            `
+                        )
+                        .join("");
+
+            } else {
+
+                skillGapList.innerHTML = `
+
+                    <span class="empty-text">
+                        Complete the assessment to identify
+                        your skill gaps.
+                    </span>
+
+                `;
+
+            }
+
+        }
+
+
+        /* ================================================
+           RECOMMENDATIONS
+        ================================================ */
+
+        const recommendationList =
+            document.getElementById(
+                "recommendationList"
+            );
+
+
+        let recommendations =
+            Array.isArray(
+                profile.recommendedSkills
+            )
+                ? profile.recommendedSkills
+                : [];
+
+
+        if (
+            recommendations.length === 0
+        ) {
+
+            recommendations =
+                skillGap.slice(0, 4);
+
+        }
+
+
+        if (
+            recommendations.length === 0
+        ) {
+
+            recommendations = [
+
+                "Complete Skill Assessment",
+
+                "Track Academic Progress",
+
+                "Start Technical Courses",
+
+                "Build Industry Skills"
+
+            ];
+
+        }
+
+
+        if (recommendationList) {
+
+            recommendationList.innerHTML =
+                recommendations
+                    .slice(0, 5)
+                    .map(
+                        (
+                            item,
+                            index
+                        ) => `
+
+                            <div class="recommendation-item">
+
+                                <div class="recommendation-number">
+                                    ${index + 1}
+                                </div>
+
+                                <div>
+
+                                    <h4>
+                                        ${escapeHTML(
+                                            item
+                                        )}
+                                    </h4>
+
+                                    <p>
+                                        Recommended for your
+                                        career development.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        `
+                    )
+                    .join("");
+
+        }
+
+
+        /* ================================================
+           SAVE DASHBOARD SUMMARY
+        ================================================ */
+
+        const dashboardSummary = {
+
+            academicProgress,
+
+            courseProgress,
+
+            completedCourses,
+
+            totalCourses:
+                TOTAL_COURSES,
+
+            skillMatch:
+                matchPercentage,
+
+            careerReadiness,
+
+            overallProgress,
+
+            updatedAt:
+                new Date().toISOString()
+
+        };
+
+
+        localStorage.setItem(
+            "skillUpDashboard",
+            JSON.stringify(
+                dashboardSummary
+            )
+        );
+
+
+        /* ================================================
+           DEBUG
+        ================================================ */
+
+        console.log(
+            "Skill Up Dashboard Updated:",
+            dashboardSummary
+        );
+
+    }
+
+
+    /* =====================================================
+       INITIAL LOAD
+    ===================================================== */
+
+    updateUserUI();
+
+    updateDashboard();
+
+
+    /* =====================================================
+       BACKEND FIRST, THEN REFRESH UI
+    ===================================================== */
+
+    syncBackendData()
+        .then(() => {
+
+            updateDashboard();
+
+        });
+
+
+    /* =====================================================
+       UPDATE WHEN USER RETURNS TO TAB
+    ===================================================== */
+
+    window.addEventListener(
+        "focus",
+        () => {
+
+            updateDashboard();
+
+        }
+    );
+
+
+    /* =====================================================
+       UPDATE WHEN STORAGE CHANGES
+    ===================================================== */
+
+    window.addEventListener(
+        "storage",
+        () => {
+
+            updateDashboard();
+
+        }
+    );
+
+
+})();
+
+</script>
+
+
+</body>
+
+</html>

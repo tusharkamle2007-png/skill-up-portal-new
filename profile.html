@@ -1,0 +1,4978 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Profile | Skill Up</title>
+
+<script src="api.js"></script>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#14213d;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar{
+    background:#14213d;
+    color:white;
+    min-height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 6%;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 15px rgba(0,0,0,.12);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    color:#ff7a00;
+}
+
+.logo span{
+    color:white;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+    color:#ff7a00;
+}
+
+.logout-btn{
+    border:1px solid #ff7a00;
+    background:transparent;
+    color:white;
+    padding:9px 16px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.logout-btn:hover{
+    background:#ff7a00;
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container{
+    width:92%;
+    max-width:1200px;
+    margin:35px auto 60px;
+}
+
+
+/* =====================================================
+   PROFILE HEADER
+===================================================== */
+
+.profile-header{
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    display:flex;
+    align-items:center;
+    gap:28px;
+    box-shadow:0 8px 30px rgba(20,33,61,.08);
+    border:1px solid #e7ebf2;
+}
+
+.profile-photo-box{
+    position:relative;
+    width:125px;
+    height:125px;
+    flex-shrink:0;
+}
+
+.profile-photo{
+    width:125px;
+    height:125px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #ff7a00;
+    background:#eef1f6;
+}
+
+.photo-upload{
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#ff7a00;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    border:3px solid white;
+}
+
+.photo-upload input{
+    display:none;
+}
+
+.profile-main{
+    flex:1;
+}
+
+.profile-main h1{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.profile-email{
+    color:#687386;
+    margin-bottom:16px;
+}
+
+.profile-info{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.info-chip{
+    background:#f1f4f9;
+    border-radius:8px;
+    padding:8px 12px;
+    font-size:13px;
+}
+
+.profile-actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.btn{
+    border:none;
+    background:#ff7a00;
+    color:white;
+    padding:10px 17px;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+    opacity:.92;
+}
+
+.btn-dark{
+    background:#14213d;
+}
+
+.btn-danger{
+    background:#dc3545;
+}
+
+.btn-light{
+    background:#eef1f6;
+    color:#14213d;
+}
+
+
+/* =====================================================
+   EDIT PROFILE
+===================================================== */
+
+.edit-section{
+    display:none;
+    background:white;
+    margin-top:22px;
+    padding:25px;
+    border-radius:16px;
+    border:1px solid #e3e7ee;
+}
+
+.edit-section h2{
+    margin-bottom:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group label{
+    font-size:13px;
+    font-weight:700;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    padding:11px 13px;
+    border:1px solid #d7dce5;
+    border-radius:8px;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:#ff7a00;
+}
+
+.form-actions{
+    margin-top:18px;
+    display:flex;
+    gap:10px;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section{
+    background:white;
+    margin-top:24px;
+    padding:26px;
+    border-radius:16px;
+    box-shadow:0 5px 22px rgba(20,33,61,.06);
+    border:1px solid #e7ebf2;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.section-title h2{
+    font-size:21px;
+}
+
+.section-title p{
+    color:#718096;
+    font-size:13px;
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.progress-card{
+    background:#f7f9fc;
+    border:1px solid #e3e8f0;
+    padding:20px;
+    border-radius:14px;
+}
+
+.progress-card h3{
+    font-size:15px;
+    margin-bottom:12px;
+}
+
+.progress-value{
+    font-size:28px;
+    font-weight:800;
+    color:#ff7a00;
+    margin-bottom:12px;
+}
+
+.progress-bar{
+    width:100%;
+    height:9px;
+    background:#e5e9f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:#ff7a00;
+    border-radius:20px;
+    transition:.4s;
+}
+
+.progress-card small{
+    display:block;
+    margin-top:9px;
+    color:#687386;
+}
+
+
+/* =====================================================
+   OVERALL
+===================================================== */
+
+.overall-progress{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.progress-circle{
+    width:125px;
+    height:125px;
+    border-radius:50%;
+    background:conic-gradient(
+        #ff7a00 0deg,
+        #ff7a00 0deg,
+        #e6eaf0 0deg
+    );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.progress-circle-inner{
+    width:98px;
+    height:98px;
+    border-radius:50%;
+    background:white;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.progress-circle-inner strong{
+    font-size:25px;
+}
+
+.progress-circle-inner span{
+    color:#718096;
+    font-size:12px;
+}
+
+
+/* =====================================================
+   ASSESSMENT
+===================================================== */
+
+.assessment-empty{
+    background:#f7f9fc;
+    padding:25px;
+    text-align:center;
+    border-radius:12px;
+    border:1px dashed #ccd3df;
+}
+
+.assessment-data{
+    display:none;
+}
+
+.assessment-meta{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:22px;
+}
+
+.meta-card{
+    background:#f7f9fc;
+    padding:17px;
+    border-radius:12px;
+}
+
+.meta-card span{
+    display:block;
+    font-size:12px;
+    color:#718096;
+    margin-bottom:6px;
+}
+
+.meta-card strong{
+    font-size:17px;
+}
+
+.match-score{
+    color:#ff7a00;
+}
+
+.analysis-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.analysis-box{
+    border:1px solid #e4e8ef;
+    border-radius:12px;
+    padding:18px;
+}
+
+.analysis-box h3{
+    margin-bottom:13px;
+    font-size:16px;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.tag{
+    background:#eaf7ee;
+    color:#16733a;
+    padding:7px 11px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.gap-tag{
+    background:#fff0f0;
+    color:#c73535;
+}
+
+.course-tag{
+    background:#eef3ff;
+    color:#3454a4;
+}
+
+.readiness-box{
+    margin-top:18px;
+    padding:18px;
+    background:#fff8ef;
+    border-left:4px solid #ff7a00;
+    border-radius:8px;
+}
+
+.learning-path{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.learning-step{
+    display:flex;
+    gap:13px;
+    align-items:flex-start;
+    background:#f7f9fc;
+    border-radius:10px;
+    padding:13px;
+}
+
+.step-number{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:#ff7a00;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-weight:700;
+}
+
+.learning-step strong{
+    display:block;
+    margin-bottom:4px;
+}
+
+.learning-step span{
+    color:#718096;
+    font-size:13px;
+}
+
+
+/* =====================================================
+   VERIFIED PROFILE
+===================================================== */
+
+.verified-box{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:20px;
+    background:#f7f9fc;
+    border-radius:12px;
+}
+
+.verified-content h3{
+    margin-bottom:6px;
+}
+
+.verified-content p{
+    color:#718096;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.switch{
+    position:relative;
+    width:54px;
+    height:30px;
+    flex-shrink:0;
+}
+
+.switch input{
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#ccd2dc;
+    border-radius:30px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:22px;
+    height:22px;
+    left:4px;
+    top:4px;
+    background:white;
+    border-radius:50%;
+    transition:.3s;
+}
+
+.switch input:checked + .slider{
+    background:#ff7a00;
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(24px);
+}
+
+
+/* =====================================================
+   ASSETS
+===================================================== */
+
+.asset-tabs{
+    display:flex;
+    gap:8px;
+    border-bottom:1px solid #e2e6ed;
+    margin-bottom:20px;
+    overflow-x:auto;
+}
+
+.asset-tab{
+    border:none;
+    background:transparent;
+    padding:11px 15px;
+    font-weight:600;
+    color:#718096;
+    border-bottom:3px solid transparent;
+    white-space:nowrap;
+}
+
+.asset-tab.active{
+    color:#ff7a00;
+    border-bottom-color:#ff7a00;
+}
+
+.asset-panel{
+    display:none;
+}
+
+.asset-panel.active{
+    display:block;
+}
+
+.asset-form{
+    background:#f7f9fc;
+    padding:18px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.asset-card{
+    border:1px solid #e2e7ef;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:14px;
+}
+
+.asset-card h3{
+    margin-bottom:8px;
+}
+
+.asset-card p{
+    color:#687386;
+    line-height:1.5;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.asset-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:10px 0;
+}
+
+.asset-meta span{
+    background:#eef1f6;
+    padding:6px 9px;
+    border-radius:6px;
+    font-size:12px;
+}
+
+.asset-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:13px;
+}
+
+.empty-assets{
+    padding:25px;
+    text-align:center;
+    color:#718096;
+    background:#f7f9fc;
+    border-radius:12px;
+}
+
+.verification-info{
+    margin-top:10px;
+    padding:10px;
+    background:#fff8ef;
+    border-radius:7px;
+    font-size:12px;
+    color:#79531e;
+}
+
+.certificate-status{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.status-verified{
+    background:#e9f8ef;
+    color:#188044;
+}
+
+.status-unverified{
+    background:#fff0f0;
+    color:#c03939;
+}
+
+.status-pending{
+    background:#fff5df;
+    color:#956515;
+}
+
+.btn-verify{
+    background:#3454a4;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+    background:#14213d;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:50px;
+}
+
+.footer span{
+    color:#ff7a00;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:900px){
+
+    .nav-links{
+        gap:12px;
+    }
+
+    .profile-header{
+        flex-wrap:wrap;
+    }
+
+    .profile-actions{
+        flex-direction:row;
+        width:100%;
+    }
+
+    .assessment-meta{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .progress-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .navbar{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .nav-links{
+        width:100%;
+        overflow-x:auto;
+        flex-wrap:nowrap;
+        padding-bottom:4px;
+    }
+
+    .container{
+        width:94%;
+        margin-top:20px;
+    }
+
+    .profile-header{
+        padding:20px;
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .profile-info{
+        justify-content:center;
+    }
+
+    .profile-actions{
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .assessment-meta{
+        grid-template-columns:1fr;
+    }
+
+    .analysis-grid{
+        grid-template-columns:1fr;
+    }
+
+    .overall-progress{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .section{
+        padding:18px;
+    }
+
+    .section-title{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Skill<span>Up</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="index.html">Home</a>
+
+        <a href="dashboard.html">Dashboard</a>
+
+        <a href="career.html">Career</a>
+
+        <a href="courses.html">Courses</a>
+
+        <a href="assessment.html">Assessment</a>
+
+        <a href="academics.html">Academics</a>
+
+        <a href="about.html">About Us</a>
+
+        <a href="profile.html" class="active">Profile</a>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+<!-- =====================================================
+     PROFILE HEADER
+===================================================== -->
+
+<section class="profile-header">
+
+    <div class="profile-photo-box">
+
+        <img
+            id="profilePhoto"
+            class="profile-photo"
+            src=""
+            alt="Profile Photo"
+        >
+
+        <label class="photo-upload">
+
+            📷
+
+            <input
+                type="file"
+                id="photoInput"
+                accept="image/*"
+            >
+
+        </label>
+
+    </div>
+
+
+    <div class="profile-main">
+
+        <h1 id="profileName">
+            Student
+        </h1>
+
+        <div
+            class="profile-email"
+            id="profileEmail">
+            -
+        </div>
+
+        <div class="profile-info">
+
+            <div class="info-chip">
+                🎓
+                <span id="profileCollege">
+                    College
+                </span>
+            </div>
+
+            <div class="info-chip">
+                💻
+                <span id="profileBranch">
+                    Branch
+                </span>
+            </div>
+
+            <div class="info-chip">
+                📚
+                Year
+                <span id="profileYear">
+                    -
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-actions">
+
+        <button
+            class="btn"
+            onclick="editProfile()">
+            Edit Profile
+        </button>
+
+        <button
+            class="btn btn-dark"
+            onclick="openResume()">
+            Resume
+        </button>
+
+        <button
+            class="btn btn-light"
+            onclick="openPortfolio()">
+            Portfolio
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EDIT PROFILE
+===================================================== -->
+
+<section
+    class="edit-section"
+    id="editSection">
+
+    <h2>
+        Edit Profile
+    </h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="editName"
+                placeholder="Enter name"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="editEmail"
+                placeholder="Enter email"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                College
+            </label>
+
+            <input
+                type="text"
+                id="editCollege"
+                placeholder="Enter college"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Branch
+            </label>
+
+            <input
+                type="text"
+                id="editBranch"
+                placeholder="Enter branch"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Year
+            </label>
+
+            <input
+                type="text"
+                id="editYear"
+                placeholder="Enter year"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+        <button
+            class="btn"
+            onclick="saveProfile()">
+            Save Changes
+        </button>
+
+        <button
+            class="btn btn-light"
+            onclick="closeEditProfile()">
+            Cancel
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     OVERALL PROGRESS
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                Overall Progress
+            </h2>
+
+            <p>
+                Your complete Skill Up journey
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="overall-progress">
+
+        <div
+            class="progress-circle"
+            id="overallProgressCircle">
+
+            <div class="progress-circle-inner">
+
+                <strong id="overallProgress">
+                    0%
+                </strong>
+
+                <span>
+                    Overall
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div style="flex:1">
+
+            <h3 id="progressText">
+                Keep learning and improving!
+            </h3>
+
+            <br>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="overallProgressBar">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROGRESS CARDS
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                Learning Progress
+            </h2>
+
+            <p>
+                Track your assessment, academics and courses
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="progress-grid">
+
+
+        <!-- ASSESSMENT -->
+
+        <div class="progress-card">
+
+            <h3>
+                🧠 Skill Assessment
+            </h3>
+
+            <div
+                class="progress-value"
+                id="assessmentProgress">
+                0%
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="assessmentProgressBar">
+                </div>
+
+            </div>
+
+            <small>
+                Assessment completion
+            </small>
+
+        </div>
+
+
+        <!-- ACADEMIC -->
+
+        <div class="progress-card">
+
+            <h3>
+                🎓 Academic Progress
+            </h3>
+
+            <div
+                class="progress-value"
+                id="academicProgress">
+                0%
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="academicProgressBar">
+                </div>
+
+            </div>
+
+            <small>
+                Academic units completed
+            </small>
+
+        </div>
+
+
+        <!-- COURSES -->
+
+        <div class="progress-card">
+
+            <h3>
+                📚 Course Progress
+            </h3>
+
+            <div
+                class="progress-value"
+                id="courseProgress">
+                0%
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="courseProgressBar">
+                </div>
+
+            </div>
+
+            <small id="completedCourses">
+                0 courses completed
+            </small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AI SKILL ANALYSIS
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                🤖 AI Skill Analysis
+            </h2>
+
+            <p>
+                Your assessment-based career analysis
+            </p>
+
+        </div>
+
+        <button
+            class="btn"
+            onclick="goToAssessment()">
+            Take Assessment
+        </button>
+
+    </div>
+
+
+    <div
+        id="noAssessment"
+        class="assessment-empty">
+
+        <h3>
+            Complete your Skill Assessment
+        </h3>
+
+        <br>
+
+        <p>
+            Take the assessment to see your skill match,
+            strengths, skill gaps and recommended career path.
+        </p>
+
+        <br>
+
+        <button
+            class="btn"
+            onclick="goToAssessment()">
+            Start Assessment
+        </button>
+
+    </div>
+
+
+    <div
+        id="assessmentData"
+        class="assessment-data">
+
+
+        <div class="assessment-meta">
+
+
+            <div class="meta-card">
+
+                <span>
+                    Match Score
+                </span>
+
+                <strong
+                    class="match-score"
+                    id="matchScore">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div class="meta-card">
+
+                <span>
+                    Readiness
+                </span>
+
+                <strong id="readinessLevel">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="meta-card">
+
+                <span>
+                    Domain
+                </span>
+
+                <strong id="analysisDomain">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="meta-card">
+
+                <span>
+                    Company / Role
+                </span>
+
+                <strong>
+
+                    <span id="analysisCompany">
+                        -
+                    </span>
+
+                    /
+
+                    <span id="analysisRole">
+                        -
+                    </span>
+
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="analysis-grid">
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    💪 Strong Skills
+                </h3>
+
+                <div
+                    class="tags"
+                    id="strongSkills">
+                </div>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    📌 Skills to Improve
+                </h3>
+
+                <div
+                    class="tags"
+                    id="skillGaps">
+                </div>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    🚀 Recommended Skills
+                </h3>
+
+                <div
+                    class="tags"
+                    id="recommendedSkills">
+                </div>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    📚 Recommended Courses
+                </h3>
+
+                <div
+                    class="tags"
+                    id="recommendedCourses">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="readiness-box">
+
+            <strong>
+                Career Readiness
+            </strong>
+
+            <p
+                id="readinessText"
+                style="margin-top:8px;line-height:1.6;">
+                -
+            </p>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="analysis-box">
+
+            <h3>
+                🛣️ Personalized Learning Path
+            </h3>
+
+            <div
+                class="learning-path"
+                id="learningPath">
+            </div>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="analysis-box">
+
+            <h3>
+                🎯 Career Path
+            </h3>
+
+            <p
+                id="careerPath"
+                style="color:#687386;line-height:1.6;">
+                -
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     VERIFIED PROFILE
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                ✓ Verified Profile
+            </h2>
+
+            <p>
+                Control whether companies can view your profile
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="verified-box">
+
+        <div class="verified-content">
+
+            <h3>
+                Company Profile Sharing
+            </h3>
+
+            <p>
+                Allow companies to view your skills,
+                projects, achievements and career information.
+            </p>
+
+        </div>
+
+
+        <label class="switch">
+
+            <input
+                type="checkbox"
+                id="sharingToggle">
+
+            <span class="slider"></span>
+
+        </label>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ACADEMIC SUMMARY
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                🎓 Academic Progress
+            </h2>
+
+            <p>
+                Your college academic progress
+            </p>
+
+        </div>
+
+        <button
+            class="btn"
+            onclick="goAcademics()">
+            Open Academics
+        </button>
+
+    </div>
+
+
+    <div class="progress-grid">
+
+        <div class="progress-card">
+
+            <h3>
+                Completed Units
+            </h3>
+
+            <div
+                class="progress-value"
+                id="academicCompleted">
+                0
+            </div>
+
+            <small>
+                Completed
+            </small>
+
+        </div>
+
+
+        <div class="progress-card">
+
+            <h3>
+                Total Units
+            </h3>
+
+            <div
+                class="progress-value"
+                id="academicTotal">
+                0
+            </div>
+
+            <small>
+                Total
+            </small>
+
+        </div>
+
+
+        <div class="progress-card">
+
+            <h3>
+                Completion
+            </h3>
+
+            <div
+                class="progress-value"
+                id="academicPercent">
+                0%
+            </div>
+
+            <small id="academicRemaining">
+                Keep going!
+            </small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ASSETS
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                📁 My Assets
+            </h2>
+
+            <p>
+                Projects, achievements and certifications
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="asset-tabs">
+
+        <button
+            class="asset-tab active"
+            onclick="switchAssetTab('projects',this)">
+            💻 Projects
+        </button>
+
+        <button
+            class="asset-tab"
+            onclick="switchAssetTab('achievements',this)">
+            🏆 Achievements
+        </button>
+
+        <button
+            class="asset-tab"
+            onclick="switchAssetTab('certifications',this)">
+            📜 Certifications
+        </button>
+
+    </div>
+
+
+    <!-- PROJECTS -->
+
+    <div
+        class="asset-panel active"
+        id="projectsPanel">
+
+        <div class="asset-form">
+
+            <input
+                type="hidden"
+                id="projectEditId">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Project Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="projectTitle"
+                        placeholder="e.g. Skill Up Portal">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Technologies
+                    </label>
+
+                    <input
+                        type="text"
+                        id="projectTech"
+                        placeholder="HTML, CSS, JavaScript">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        GitHub Link
+                    </label>
+
+                    <input
+                        type="text"
+                        id="projectGithub"
+                        placeholder="https://github.com/...">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Live Demo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="projectDemo"
+                        placeholder="https://...">
+
+                </div>
+
+
+                <div class="form-group"
+                     style="grid-column:1/-1;">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="projectDescription"
+                        rows="4"
+                        placeholder="Describe your project">
+                    </textarea>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="saveProject()">
+                Save Project
+            </button>
+
+            <button
+                class="btn btn-light"
+                onclick="clearProjectForm()">
+                Clear
+            </button>
+
+        </div>
+
+
+        <div id="projectsList"></div>
+
+    </div>
+
+
+    <!-- ACHIEVEMENTS -->
+
+    <div
+        class="asset-panel"
+        id="achievementsPanel">
+
+        <div class="asset-form">
+
+            <input
+                type="hidden"
+                id="achievementEditId">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Achievement Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="achievementTitle"
+                        placeholder="e.g. SIH Internal Selection">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Date
+                    </label>
+
+                    <input
+                        type="text"
+                        id="achievementDate"
+                        placeholder="September 2026">
+
+                </div>
+
+
+                <div class="form-group"
+                     style="grid-column:1/-1;">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="achievementDescription"
+                        rows="4"
+                        placeholder="Describe your achievement">
+                    </textarea>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="saveAchievement()">
+                Save Achievement
+            </button>
+
+            <button
+                class="btn btn-light"
+                onclick="clearAchievementForm()">
+                Clear
+            </button>
+
+        </div>
+
+
+        <div id="achievementsList"></div>
+
+    </div>
+
+
+    <!-- CERTIFICATIONS -->
+
+    <div
+        class="asset-panel"
+        id="certificationsPanel">
+
+        <div class="asset-form">
+
+            <input
+                type="hidden"
+                id="certificationEditId">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Certification Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="certificationName"
+                        placeholder="Certification name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Issuing Organization
+                    </label>
+
+                    <input
+                        type="text"
+                        id="certificationIssuer"
+                        placeholder="Google, AWS, etc.">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Certificate ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="certificationId"
+                        placeholder="Certificate ID">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Date
+                    </label>
+
+                    <input
+                        type="text"
+                        id="certificationDate"
+                        placeholder="September 2026">
+
+                </div>
+
+
+                <div class="form-group"
+                     style="grid-column:1/-1;">
+
+                    <label>
+                        Certificate Link
+                    </label>
+
+                    <input
+                        type="text"
+                        id="certificationLink"
+                        placeholder="https://...">
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="saveCertification()">
+                Save Certification
+            </button>
+
+            <button
+                class="btn btn-light"
+                onclick="clearCertificationForm()">
+                Clear
+            </button>
+
+        </div>
+
+
+        <div id="certificationsList"></div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    © 2026
+    <span>Skill Up</span>
+    — Bridge the gap between skills and industry.
+
+</footer>
+
+
+<!-- =====================================================
+     PROFILE JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   GLOBAL DATA
+===================================================== */
+
+let currentUser = {};
+let latestAssessment = null;
+
+
+/* =====================================================
+   SAFE JSON
+===================================================== */
+
+function getJSON(key, fallback){
+
+    try{
+
+        const value = localStorage.getItem(key);
+
+        if(!value){
+            return fallback;
+        }
+
+        return JSON.parse(value);
+
+    }catch(error){
+
+        console.error(
+            "LocalStorage JSON error:",
+            key,
+            error
+        );
+
+        return fallback;
+    }
+}
+
+
+/* =====================================================
+   CENTRAL PROFILE
+===================================================== */
+
+function getCentralProfile(){
+
+    return getJSON(
+        "skillUpProfile",
+        {}
+    ) || {};
+
+}
+
+
+function saveCentralProfile(data){
+
+    const oldProfile =
+        getCentralProfile();
+
+    const newProfile = {
+        ...oldProfile,
+        ...data
+    };
+
+    localStorage.setItem(
+        "skillUpProfile",
+        JSON.stringify(newProfile)
+    );
+
+}
+
+
+/* =====================================================
+   USER
+===================================================== */
+
+function loadUser(){
+
+    let user =
+        getJSON("user", null);
+
+    const profile =
+        getCentralProfile();
+
+    if(!user){
+        user = {};
+    }
+
+    currentUser = {
+        ...profile,
+        ...user
+    };
+
+    displayProfile();
+
+}
+
+
+function displayProfile(){
+
+    const name =
+        currentUser.name ||
+        currentUser.studentName ||
+        "Student";
+
+    const email =
+        currentUser.email ||
+        "-";
+
+    const college =
+        currentUser.college ||
+        currentUser.collegeName ||
+        "College not added";
+
+    const branch =
+        currentUser.branch ||
+        currentUser.stream ||
+        "Branch not added";
+
+    const year =
+        currentUser.year ||
+        currentUser.studyYear ||
+        "-";
+
+
+    document.getElementById(
+        "profileName"
+    ).textContent = name;
+
+
+    document.getElementById(
+        "profileEmail"
+    ).textContent = email;
+
+
+    document.getElementById(
+        "profileCollege"
+    ).textContent = college;
+
+
+    document.getElementById(
+        "profileBranch"
+    ).textContent = branch;
+
+
+    document.getElementById(
+        "profileYear"
+    ).textContent = year;
+
+}
+
+
+/* =====================================================
+   PROFILE PHOTO
+===================================================== */
+
+function loadProfilePhoto(){
+
+    const image =
+        document.getElementById(
+            "profilePhoto"
+        );
+
+    const saved =
+        localStorage.getItem(
+            "skillUpProfilePhoto"
+        );
+
+    if(saved){
+
+        image.src = saved;
+
+    }else{
+
+        image.src =
+            "https://ui-avatars.com/api/?name=Student&background=ff7a00&color=fff&size=256";
+
+    }
+
+}
+
+
+function handlePhotoUpload(event){
+
+    const file =
+        event.target.files &&
+        event.target.files[0];
+
+    if(!file){
+        return;
+    }
+
+    if(!file.type.startsWith("image/")){
+
+        alert(
+            "Please select an image file."
+        );
+
+        return;
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload = function(){
+
+        localStorage.setItem(
+            "skillUpProfilePhoto",
+            reader.result
+        );
+
+        document.getElementById(
+            "profilePhoto"
+        ).src = reader.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+}
+
+
+document
+.getElementById("photoInput")
+.addEventListener(
+    "change",
+    handlePhotoUpload
+);
+
+
+function removeProfilePhoto(){
+
+    localStorage.removeItem(
+        "skillUpProfilePhoto"
+    );
+
+    loadProfilePhoto();
+
+}
+
+
+/* =====================================================
+   ASSESSMENT
+===================================================== */
+
+function loadAssessment(){
+
+    let data =
+        getCentralProfile();
+
+    let assessment =
+        data.assessment ||
+        getJSON(
+            "skillUpAssessment",
+            null
+        );
+
+    if(!assessment){
+
+        document.getElementById(
+            "assessmentData"
+        ).style.display = "none";
+
+        document.getElementById(
+            "noAssessment"
+        ).style.display = "block";
+
+        return;
+    }
+
+    latestAssessment = assessment;
+
+    showAssessment(
+        latestAssessment
+    );
+
+}
+
+
+function showAssessment(data){
+
+    document.getElementById(
+        "noAssessment"
+    ).style.display = "none";
+
+    document.getElementById(
+        "assessmentData"
+    ).style.display = "block";
+
+
+    const match =
+        Number(
+            data.matchPercentage ??
+            data.matchScore ??
+            data.match ??
+            0
+        );
+
+
+    document.getElementById(
+        "matchScore"
+    ).textContent =
+        match + "%";
+
+
+    document.getElementById(
+        "readinessLevel"
+    ).textContent =
+        data.overallLevel ||
+        data.careerReadiness ||
+        data.readiness ||
+        "-";
+
+
+    document.getElementById(
+        "analysisDomain"
+    ).textContent =
+        data.domain ||
+        "-";
+
+
+    document.getElementById(
+        "analysisCompany"
+    ).textContent =
+        data.company ||
+        "-";
+
+
+    document.getElementById(
+        "analysisRole"
+    ).textContent =
+        data.role ||
+        "-";
+
+
+    document.getElementById(
+        "readinessText"
+    ).textContent =
+        getReadinessText(
+            data,
+            match
+        );
+
+
+    renderTags(
+        "strongSkills",
+        data.strongSkills ||
+        data.strongSkillsList ||
+        []
+    );
+
+
+    renderTags(
+        "skillGaps",
+        data.skillGap ||
+        data.skillGaps ||
+        data.skillsToImprove ||
+        [],
+        true
+    );
+
+
+    renderTags(
+        "recommendedSkills",
+        data.recommendedSkills ||
+        []
+    );
+
+
+    renderCourseTags(
+        data.recommendedCourses ||
+        data.courses ||
+        []
+    );
+
+
+    renderLearningPath(
+        data.learningPath ||
+        []
+    );
+
+
+    document.getElementById(
+        "careerPath"
+    ).textContent =
+        data.careerPath ||
+        "Your personalized career path will appear here.";
+
+}
+
+
+function getReadinessText(
+    data,
+    match
+){
+
+    const readiness =
+        data.careerReadiness ||
+        data.readiness ||
+        data.overallLevel;
+
+
+    if(readiness){
+
+        return (
+            "Your current career readiness for the selected role is " +
+            readiness +
+            ". Continue improving your identified skill gaps and completing recommended courses."
+        );
+
+    }
+
+
+    if(match >= 80){
+
+        return (
+            "Your assessment shows a strong skill match. Focus on advanced skills, projects and interview preparation."
+        );
+
+    }
+
+
+    if(match >= 60){
+
+        return (
+            "You have a good foundation. Strengthen your identified skill gaps and follow the recommended learning path."
+        );
+
+    }
+
+
+    return (
+        "You are building your foundation. Start with the recommended skills and courses to improve your role readiness."
+    );
+
+}
+
+
+/* =====================================================
+   TAGS
+===================================================== */
+
+function renderTags(
+    elementId,
+    items,
+    isGap = false
+){
+
+    const container =
+        document.getElementById(
+            elementId
+        );
+
+    if(!container){
+        return;
+    }
+
+    container.innerHTML = "";
+
+
+    if(!Array.isArray(items) ||
+       items.length === 0){
+
+        const tag =
+            document.createElement(
+                "span"
+            );
+
+        tag.className =
+            isGap
+            ? "tag gap-tag"
+            : "tag";
+
+        tag.textContent =
+            "No data";
+
+        container.appendChild(tag);
+
+        return;
+    }
+
+
+    items.forEach(item => {
+
+        const tag =
+            document.createElement(
+                "span"
+            );
+
+        tag.className =
+            isGap
+            ? "tag gap-tag"
+            : "tag";
+
+
+        if(typeof item === "object"){
+
+            tag.textContent =
+                item.skill ||
+                item.name ||
+                item.title ||
+                "-";
+
+        }else{
+
+            tag.textContent =
+                item;
+
+        }
+
+
+        container.appendChild(tag);
+
+    });
+
+}
+
+
+function renderCourseTags(
+    courses
+){
+
+    const container =
+        document.getElementById(
+            "recommendedCourses"
+        );
+
+    container.innerHTML = "";
+
+
+    if(!Array.isArray(courses) ||
+       courses.length === 0){
+
+        const tag =
+            document.createElement(
+                "span"
+            );
+
+        tag.className =
+            "tag course-tag";
+
+        tag.textContent =
+            "Complete the assessment to get course recommendations";
+
+        container.appendChild(tag);
+
+        return;
+    }
+
+
+    courses.forEach(course => {
+
+        const tag =
+            document.createElement(
+                "span"
+            );
+
+        tag.className =
+            "tag course-tag";
+
+
+        if(typeof course === "object"){
+
+            tag.textContent =
+                course.name ||
+                course.title ||
+                course.course ||
+                "-";
+
+        }else{
+
+            tag.textContent =
+                course;
+
+        }
+
+
+        container.appendChild(tag);
+
+    });
+
+}
+
+
+function renderLearningPath(
+    path
+){
+
+    const container =
+        document.getElementById(
+            "learningPath"
+        );
+
+    container.innerHTML = "";
+
+
+    if(!Array.isArray(path) ||
+       path.length === 0){
+
+        container.innerHTML = `
+            <div class="learning-step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div>
+
+                    <strong>
+                        Complete your recommended skills
+                    </strong>
+
+                    <span>
+                        Your personalized learning path will appear here after assessment recommendations are available.
+                    </span>
+
+                </div>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    path.forEach(
+        (step,index) => {
+
+            let title;
+            let description;
+
+
+            if(typeof step === "object"){
+
+                title =
+                    step.title ||
+                    step.name ||
+                    step.skill ||
+                    step.course ||
+                    `Step ${index + 1}`;
+
+                description =
+                    step.description ||
+                    step.details ||
+                    step.reason ||
+                    "Continue learning and building projects in this area.";
+
+            }else{
+
+                title =
+                    step;
+
+                description =
+                    "Recommended step based on your assessment.";
+
+            }
+
+
+            const box =
+                document.createElement(
+                    "div"
+                );
+
+            box.className =
+                "learning-step";
+
+
+            box.innerHTML = `
+
+                <div class="step-number">
+                    ${index + 1}
+                </div>
+
+                <div>
+
+                    <strong>
+                        ${escapeHTML(title)}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(description)}
+                    </span>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                box
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   COURSE PROGRESS
+===================================================== */
+
+function loadCourseProgress(){
+
+    const data =
+        getJSON(
+            "skillUpCourseProgress",
+            {}
+        ) || {};
+
+
+    let values =
+        Object.values(data);
+
+
+    let total = 0;
+    let completed = 0;
+
+
+    values.forEach(item => {
+
+        if(typeof item === "number"){
+
+            total++;
+            completed +=
+                item >= 100 ? 1 : 0;
+
+        }else if(
+            typeof item === "object" &&
+            item !== null
+        ){
+
+            const progress =
+                Number(
+                    item.progress ??
+                    item.percent ??
+                    item.percentage ??
+                    0
+                );
+
+            total++;
+
+            if(progress >= 100){
+                completed++;
+            }
+
+        }
+
+    });
+
+
+    const progress =
+        total > 0
+        ? Math.round(
+            (completed / total) * 100
+        )
+        : 0;
+
+
+    setProgress(
+        "courseProgress",
+        "courseProgressBar",
+        progress
+    );
+
+
+    document.getElementById(
+        "completedCourses"
+    ).textContent =
+        completed +
+        " courses completed";
+
+
+    updateOverallProgress();
+
+}
+
+
+function setProgress(
+    textId,
+    barId,
+    value
+){
+
+    value =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                Number(value) || 0
+            )
+        );
+
+
+    const text =
+        document.getElementById(
+            textId
+        );
+
+    const bar =
+        document.getElementById(
+            barId
+        );
+
+
+    if(text){
+
+        text.textContent =
+            value + "%";
+
+    }
+
+
+    if(bar){
+
+        bar.style.width =
+            value + "%";
+
+    }
+
+}
+
+
+/* =====================================================
+   ACADEMIC PROGRESS
+===================================================== */
+
+function loadAcademicProgress(){
+
+    const academic =
+        getJSON(
+            "skillUpAcademics",
+            {}
+        ) || {};
+
+
+    let progress =
+        Number(
+            academic.progress ??
+            academic.percentage ??
+            academic.percent ??
+            academic.academicProgress ??
+            0
+        );
+
+
+    const completed =
+        Number(
+            academic.completedUnits ??
+            academic.academicCompletedUnits ??
+            0
+        );
+
+
+    const total =
+        Number(
+            academic.totalUnits ??
+            academic.academicTotalUnits ??
+            0
+        );
+
+
+    if(
+        total > 0 &&
+        progress === 0
+    ){
+
+        progress =
+            Math.round(
+                (completed / total) * 100
+            );
+
+    }
+
+
+    progress =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                progress
+            )
+        );
+
+
+    setProgress(
+        "academicProgress",
+        "academicProgressBar",
+        progress
+    );
+
+
+    document.getElementById(
+        "academicCompleted"
+    ).textContent =
+        completed;
+
+
+    document.getElementById(
+        "academicTotal"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "academicPercent"
+    ).textContent =
+        progress + "%";
+
+
+    document.getElementById(
+        "academicRemaining"
+    ).textContent =
+        total > completed
+        ? (total - completed) +
+          " units remaining"
+        : "All units completed";
+
+
+    updateOverallProgress();
+
+}
+
+
+/* =====================================================
+   OVERALL PROGRESS
+===================================================== */
+
+function updateOverallProgress(){
+
+    const assessment =
+        latestAssessment ? 100 : 0;
+
+
+    const academicText =
+        document.getElementById(
+            "academicProgress"
+        ).textContent || "0%";
+
+
+    const courseText =
+        document.getElementById(
+            "courseProgress"
+        ).textContent || "0%";
+
+
+    const academic =
+        parseInt(
+            academicText
+        ) || 0;
+
+
+    const course =
+        parseInt(
+            courseText
+        ) || 0;
+
+
+    const overall =
+        Math.round(
+            (
+                assessment +
+                academic +
+                course
+            ) / 3
+        );
+
+
+    document.getElementById(
+        "overallProgress"
+    ).textContent =
+        overall + "%";
+
+
+    document.getElementById(
+        "overallProgressBar"
+    ).style.width =
+        overall + "%";
+
+
+    document.getElementById(
+        "overallProgressCircle"
+    ).style.background =
+        `conic-gradient(
+            #ff7a00 ${overall * 3.6}deg,
+            #e6eaf0 ${overall * 3.6}deg
+        )`;
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        overall >= 80
+        ? "Excellent progress! Keep going!"
+        : overall >= 50
+        ? "Good progress! Keep learning!"
+        : "Keep learning and improving!";
+
+}
+
+
+/* =====================================================
+   EDIT PROFILE
+===================================================== */
+
+function editProfile(){
+
+    const section =
+        document.getElementById(
+            "editSection"
+        );
+
+    section.style.display =
+        "block";
+
+
+    document.getElementById(
+        "editName"
+    ).value =
+        currentUser.name ||
+        currentUser.studentName ||
+        "";
+
+
+    document.getElementById(
+        "editEmail"
+    ).value =
+        currentUser.email ||
+        "";
+
+
+    document.getElementById(
+        "editCollege"
+    ).value =
+        currentUser.college ||
+        currentUser.collegeName ||
+        "";
+
+
+    document.getElementById(
+        "editBranch"
+    ).value =
+        currentUser.branch ||
+        currentUser.stream ||
+        "";
+
+
+    document.getElementById(
+        "editYear"
+    ).value =
+        currentUser.year ||
+        currentUser.studyYear ||
+        "";
+
+
+    section.scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+function saveProfile(){
+
+    currentUser.name =
+        document.getElementById(
+            "editName"
+        ).value.trim();
+
+
+    currentUser.studentName =
+        currentUser.name;
+
+
+    currentUser.email =
+        document.getElementById(
+            "editEmail"
+        ).value.trim();
+
+
+    currentUser.college =
+        document.getElementById(
+            "editCollege"
+        ).value.trim();
+
+
+    currentUser.branch =
+        document.getElementById(
+            "editBranch"
+        ).value.trim();
+
+
+    currentUser.year =
+        document.getElementById(
+            "editYear"
+        ).value.trim();
+
+
+    localStorage.setItem(
+        "user",
+        JSON.stringify(
+            currentUser
+        )
+    );
+
+
+    saveCentralProfile(
+        currentUser
+    );
+
+
+    displayProfile();
+
+
+    document.getElementById(
+        "editSection"
+    ).style.display =
+        "none";
+
+
+    alert(
+        "Profile updated successfully!"
+    );
+
+}
+
+
+function closeEditProfile(){
+
+    document.getElementById(
+        "editSection"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   SHARING
+===================================================== */
+
+function loadSharing(){
+
+    const toggle =
+        document.getElementById(
+            "sharingToggle"
+        );
+
+    if(!toggle){
+        return;
+    }
+
+
+    const saved =
+        localStorage.getItem(
+            "companyProfileSharing"
+        );
+
+
+    toggle.checked =
+        saved === "true";
+
+
+    toggle.onchange =
+        function(){
+
+            localStorage.setItem(
+                "companyProfileSharing",
+                this.checked
+            );
+
+        };
+
+}
+
+
+function toggleCompanySharing(){
+
+    const toggle =
+        document.getElementById(
+            "sharingToggle"
+        );
+
+    if(!toggle){
+        return;
+    }
+
+    localStorage.setItem(
+        "companyProfileSharing",
+        toggle.checked
+    );
+
+}
+
+
+/* =====================================================
+   ASSET TABS
+===================================================== */
+
+function switchAssetTab(
+    type,
+    element
+){
+
+    document
+    .querySelectorAll(
+        ".asset-tab"
+    )
+    .forEach(
+        tab =>
+            tab.classList.remove(
+                "active"
+            )
+    );
+
+
+    document
+    .querySelectorAll(
+        ".asset-panel"
+    )
+    .forEach(
+        panel =>
+            panel.classList.remove(
+                "active"
+            )
+    );
+
+
+    element.classList.add(
+        "active"
+    );
+
+
+    const panel =
+        document.getElementById(
+            type + "Panel"
+        );
+
+
+    if(panel){
+
+        panel.classList.add(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   PROJECTS
+===================================================== */
+
+function getProjects(){
+
+    return getJSON(
+        "skillUpProjects",
+        []
+    ) || [];
+
+}
+
+
+function saveProjects(
+    projects
+){
+
+    localStorage.setItem(
+        "skillUpProjects",
+        JSON.stringify(projects)
+    );
+
+    saveCentralProfile({
+        projects:projects
+    });
+
+}
+
+
+function saveProject(){
+
+    const title =
+        document.getElementById(
+            "projectTitle"
+        ).value.trim();
+
+
+    if(!title){
+
+        alert(
+            "Please enter project title."
+        );
+
+        return;
+    }
+
+
+    const project = {
+
+        id:Date.now(),
+
+        title:title,
+
+        description:
+            document.getElementById(
+                "projectDescription"
+            ).value.trim(),
+
+        technologies:
+            document.getElementById(
+                "projectTech"
+            ).value.trim(),
+
+        github:
+            document.getElementById(
+                "projectGithub"
+            ).value.trim(),
+
+        demo:
+            document.getElementById(
+                "projectDemo"
+            ).value.trim(),
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    const projects =
+        getProjects();
+
+
+    const editId =
+        document.getElementById(
+            "projectEditId"
+        ).value;
+
+
+    if(editId){
+
+        const index =
+            projects.findIndex(
+                item =>
+                    String(item.id) ===
+                    String(editId)
+            );
+
+
+        if(index !== -1){
+
+            projects[index] = {
+                ...projects[index],
+                ...project,
+                id:projects[index].id
+            };
+
+        }
+
+    }else{
+
+        projects.push(
+            project
+        );
+
+    }
+
+
+    saveProjects(
+        projects
+    );
+
+    renderProjects();
+
+    clearProjectForm();
+
+
+    alert(
+        "Project saved successfully!"
+    );
+
+}
+
+
+function renderProjects(){
+
+    const container =
+        document.getElementById(
+            "projectsList"
+        );
+
+
+    const projects =
+        getProjects();
+
+
+    container.innerHTML =
+        "";
+
+
+    if(projects.length === 0){
+
+        container.innerHTML = `
+            <div class="empty-assets">
+
+                💻 No projects added yet.
+
+                <br><br>
+
+                Add your first project above.
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    projects.forEach(
+        project => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "asset-card";
+
+
+            card.innerHTML = `
+
+                <h3>
+                    💻 ${escapeHTML(
+                        project.title
+                    )}
+                </h3>
+
+                <p>
+                    ${escapeHTML(
+                        project.description ||
+                        "No description added."
+                    )}
+                </p>
+
+                <div class="asset-meta">
+
+                    <span>
+                        ${escapeHTML(
+                            project.technologies ||
+                            "Technology not added"
+                        )}
+                    </span>
+
+                </div>
+
+                <div class="asset-actions">
+
+                    ${
+                        project.github
+                        ? `
+                            <button
+                                class="btn btn-dark"
+                                onclick="openExternal('${escapeAttribute(project.github)}')">
+                                GitHub
+                            </button>
+                        `
+                        : ""
+                    }
+
+                    ${
+                        project.demo
+                        ? `
+                            <button
+                                class="btn"
+                                onclick="openExternal('${escapeAttribute(project.demo)}')">
+                                Live Demo
+                            </button>
+                        `
+                        : ""
+                    }
+
+                    <button
+                        class="btn"
+                        onclick="editProject(${project.id})">
+                        Edit
+                    </button>
+
+                    <button
+                        class="btn btn-danger"
+                        onclick="deleteProject(${project.id})">
+                        Delete
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+function editProject(id){
+
+    const project =
+        getProjects().find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if(!project){
+        return;
+    }
+
+
+    document.getElementById(
+        "projectEditId"
+    ).value =
+        project.id;
+
+
+    document.getElementById(
+        "projectTitle"
+    ).value =
+        project.title || "";
+
+
+    document.getElementById(
+        "projectDescription"
+    ).value =
+        project.description || "";
+
+
+    document.getElementById(
+        "projectTech"
+    ).value =
+        project.technologies || "";
+
+
+    document.getElementById(
+        "projectGithub"
+    ).value =
+        project.github || "";
+
+
+    document.getElementById(
+        "projectDemo"
+    ).value =
+        project.demo || "";
+
+
+    document.getElementById(
+        "projectsPanel"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+function deleteProject(id){
+
+    if(!confirm(
+        "Delete this project?"
+    )){
+        return;
+    }
+
+
+    const projects =
+        getProjects().filter(
+            project =>
+                String(project.id) !==
+                String(id)
+        );
+
+
+    saveProjects(
+        projects
+    );
+
+    renderProjects();
+
+}
+
+
+function clearProjectForm(){
+
+    document.getElementById(
+        "projectEditId"
+    ).value = "";
+
+
+    document.getElementById(
+        "projectTitle"
+    ).value = "";
+
+
+    document.getElementById(
+        "projectDescription"
+    ).value = "";
+
+
+    document.getElementById(
+        "projectTech"
+    ).value = "";
+
+
+    document.getElementById(
+        "projectGithub"
+    ).value = "";
+
+
+    document.getElementById(
+        "projectDemo"
+    ).value = "";
+
+}
+
+
+/* =====================================================
+   ACHIEVEMENTS
+===================================================== */
+
+function getAchievements(){
+
+    return getJSON(
+        "skillUpAchievements",
+        []
+    ) || [];
+
+}
+
+
+function saveAchievements(
+    items
+){
+
+    localStorage.setItem(
+        "skillUpAchievements",
+        JSON.stringify(items)
+    );
+
+    saveCentralProfile({
+        achievements:items
+    });
+
+}
+
+
+function saveAchievement(){
+
+    const title =
+        document.getElementById(
+            "achievementTitle"
+        ).value.trim();
+
+
+    if(!title){
+
+        alert(
+            "Please enter achievement title."
+        );
+
+        return;
+    }
+
+
+    const items =
+        getAchievements();
+
+
+    const editId =
+        document.getElementById(
+            "achievementEditId"
+        ).value;
+
+
+    const item = {
+
+        id:editId
+            ? Number(editId)
+            : Date.now(),
+
+        title:title,
+
+        description:
+            document.getElementById(
+                "achievementDescription"
+            ).value.trim(),
+
+        date:
+            document.getElementById(
+                "achievementDate"
+            ).value.trim()
+
+    };
+
+
+    if(editId){
+
+        const index =
+            items.findIndex(
+                achievement =>
+                    String(achievement.id) ===
+                    String(editId)
+            );
+
+
+        if(index !== -1){
+
+            items[index] =
+                item;
+
+        }
+
+    }else{
+
+        items.push(
+            item
+        );
+
+    }
+
+
+    saveAchievements(
+        items
+    );
+
+    renderAchievements();
+
+    clearAchievementForm();
+
+
+    alert(
+        "Achievement saved successfully!"
+    );
+
+}
+
+
+function renderAchievements(){
+
+    const container =
+        document.getElementById(
+            "achievementsList"
+        );
+
+
+    const items =
+        getAchievements();
+
+
+    container.innerHTML =
+        "";
+
+
+    if(items.length === 0){
+
+        container.innerHTML = `
+            <div class="empty-assets">
+
+                🏆 No achievements added yet.
+
+                <br><br>
+
+                Add your first achievement above.
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    items.forEach(
+        item => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "asset-card";
+
+
+            card.innerHTML = `
+
+                <h3>
+                    🏆 ${escapeHTML(
+                        item.title
+                    )}
+                </h3>
+
+                <p>
+                    ${escapeHTML(
+                        item.description ||
+                        "No description added."
+                    )}
+                </p>
+
+                ${
+                    item.date
+                    ? `
+                        <div class="asset-meta">
+
+                            <span>
+                                📅 ${escapeHTML(
+                                    item.date
+                                )}
+                            </span>
+
+                        </div>
+                    `
+                    : ""
+                }
+
+                <div class="asset-actions">
+
+                    <button
+                        class="btn"
+                        onclick="editAchievement(${item.id})">
+                        Edit
+                    </button>
+
+                    <button
+                        class="btn btn-danger"
+                        onclick="deleteAchievement(${item.id})">
+                        Delete
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+function editAchievement(id){
+
+    const item =
+        getAchievements().find(
+            achievement =>
+                String(achievement.id) ===
+                String(id)
+        );
+
+
+    if(!item){
+        return;
+    }
+
+
+    document.getElementById(
+        "achievementEditId"
+    ).value =
+        item.id;
+
+
+    document.getElementById(
+        "achievementTitle"
+    ).value =
+        item.title || "";
+
+
+    document.getElementById(
+        "achievementDescription"
+    ).value =
+        item.description || "";
+
+
+    document.getElementById(
+        "achievementDate"
+    ).value =
+        item.date || "";
+
+
+    document.getElementById(
+        "achievementsPanel"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+function deleteAchievement(id){
+
+    if(!confirm(
+        "Delete this achievement?"
+    )){
+        return;
+    }
+
+
+    const items =
+        getAchievements().filter(
+            item =>
+                String(item.id) !==
+                String(id)
+        );
+
+
+    saveAchievements(
+        items
+    );
+
+    renderAchievements();
+
+}
+
+
+function clearAchievementForm(){
+
+    document.getElementById(
+        "achievementEditId"
+    ).value = "";
+
+
+    document.getElementById(
+        "achievementTitle"
+    ).value = "";
+
+
+    document.getElementById(
+        "achievementDescription"
+    ).value = "";
+
+
+    document.getElementById(
+        "achievementDate"
+    ).value = "";
+
+}
+
+
+/* =====================================================
+   CERTIFICATIONS
+===================================================== */
+
+function getCertifications(){
+
+    return getJSON(
+        "skillUpCertifications",
+        []
+    ) || [];
+
+}
+
+
+function saveCertifications(
+    items
+){
+
+    localStorage.setItem(
+        "skillUpCertifications",
+        JSON.stringify(items)
+    );
+
+    saveCentralProfile({
+        certifications:items
+    });
+
+}
+
+
+function saveCertification(){
+
+    const name =
+        document.getElementById(
+            "certificationName"
+        ).value.trim();
+
+
+    const issuer =
+        document.getElementById(
+            "certificationIssuer"
+        ).value.trim();
+
+
+    const certificateId =
+        document.getElementById(
+            "certificationId"
+        ).value.trim();
+
+
+    if(!name){
+
+        alert(
+            "Please enter certificate name."
+        );
+
+        return;
+    }
+
+
+    if(!issuer){
+
+        alert(
+            "Please enter issuing organization."
+        );
+
+        return;
+    }
+
+
+    if(!certificateId){
+
+        alert(
+            "Please enter certificate ID."
+        );
+
+        return;
+    }
+
+
+    const items =
+        getCertifications();
+
+
+    const editId =
+        document.getElementById(
+            "certificationEditId"
+        ).value;
+
+
+    const item = {
+
+        id:
+            editId
+            ? Number(editId)
+            : Date.now(),
+
+        name:name,
+
+        issuer:issuer,
+
+        certificateId:
+            certificateId,
+
+        date:
+            document.getElementById(
+                "certificationDate"
+            ).value.trim(),
+
+        link:
+            document.getElementById(
+                "certificationLink"
+            ).value.trim(),
+
+        verificationStatus:
+            editId
+            ? (
+                items.find(
+                    x =>
+                        String(x.id) ===
+                        String(editId)
+                )?.verificationStatus ||
+                "pending"
+            )
+            : "pending",
+
+        verificationMessage:
+            "Verification is pending."
+
+    };
+
+
+    if(editId){
+
+        const index =
+            items.findIndex(
+                x =>
+                    String(x.id) ===
+                    String(editId)
+            );
+
+
+        if(index !== -1){
+
+            items[index] =
+                {
+                    ...items[index],
+                    ...item
+                };
+
+        }
+
+    }else{
+
+        items.push(
+            item
+        );
+
+    }
+
+
+    saveCertifications(
+        items
+    );
+
+    renderCertifications();
+
+    clearCertificationForm();
+
+
+    alert(
+        "Certification saved successfully."
+    );
+
+}
+
+
+function getCertificateStatus(
+    item
+){
+
+    const status =
+        item.verificationStatus ||
+        "pending";
+
+
+    if(status === "verified"){
+
+        return {
+
+            className:
+                "certificate-status status-verified",
+
+            icon:"✓",
+
+            text:"Verified"
+
+        };
+
+    }
+
+
+    if(status === "unverified"){
+
+        return {
+
+            className:
+                "certificate-status status-unverified",
+
+            icon:"✕",
+
+            text:"Not Verified"
+
+        };
+
+    }
+
+
+    return {
+
+        className:
+            "certificate-status status-pending",
+
+        icon:"⏳",
+
+        text:"Verification Pending"
+
+    };
+
+}
+
+
+/* =====================================================
+   CERTIFICATE VERIFY
+===================================================== */
+
+async function verifyCertificate(
+    id
+){
+
+    const items =
+        getCertifications();
+
+
+    const index =
+        items.findIndex(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if(index === -1){
+        return;
+    }
+
+
+    const certificate =
+        items[index];
+
+
+    const token =
+        localStorage.getItem(
+            "token"
+        );
+
+
+    if(!token){
+
+        alert(
+            "Please login again before verifying the certificate."
+        );
+
+        return;
+    }
+
+
+    try{
+
+        const response =
+            await fetch(
+                "http://localhost:5000/api/certificates/verify",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            "Bearer " + token
+                    },
+
+                    body:JSON.stringify({
+
+                        certificateId:
+                            certificate.certificateId,
+
+                        certificateLink:
+                            certificate.link || "",
+
+                        certificateName:
+                            certificate.name || "",
+
+                        issuer:
+                            certificate.issuer || "",
+
+                        issueDate:
+                            certificate.date || ""
+
+                    })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if(!response.ok){
+
+            alert(
+                result.message ||
+                "Certificate verification failed."
+            );
+
+            return;
+        }
+
+
+        certificate.verificationStatus =
+            result.status ||
+            "pending";
+
+
+        certificate.verificationMessage =
+            result.message ||
+            "Verification request received.";
+
+
+        certificate.verifiedAt =
+            result.checkedAt ||
+            new Date().toISOString();
+
+
+        items[index] =
+            certificate;
+
+
+        saveCertifications(
+            items
+        );
+
+
+        renderCertifications();
+
+
+        alert(
+            result.message ||
+            "Verification request submitted successfully."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Certificate verification error:",
+            error
+        );
+
+
+        alert(
+            "Backend se connect nahi ho pa raha. Check karo ki server running hai."
+        );
+
+    }
+
+}
+
+
+function renderCertifications(){
+
+    const container =
+        document.getElementById(
+            "certificationsList"
+        );
+
+
+    const items =
+        getCertifications();
+
+
+    container.innerHTML =
+        "";
+
+
+    if(items.length === 0){
+
+        container.innerHTML = `
+            <div class="empty-assets">
+
+                📜 No certifications added yet.
+
+                <br><br>
+
+                Add your first certification above.
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    items.forEach(
+        item => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "asset-card";
+
+
+            const status =
+                getCertificateStatus(
+                    item
+                );
+
+
+            card.innerHTML = `
+
+                <h3>
+                    📜 ${escapeHTML(
+                        item.name
+                    )}
+                </h3>
+
+                <p>
+
+                    <strong>
+                        Issued by:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.issuer ||
+                        "-"
+                    )}
+
+                </p>
+
+                <p>
+
+                    <strong>
+                        Certificate ID:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.certificateId ||
+                        "-"
+                    )}
+
+                </p>
+
+                ${
+                    item.date
+                    ? `
+                        <div class="asset-meta">
+
+                            <span>
+                                📅 ${escapeHTML(
+                                    item.date
+                                )}
+                            </span>
+
+                        </div>
+                    `
+                    : ""
+                }
+
+                <div>
+
+                    <span class="${status.className}">
+
+                        ${status.icon}
+
+                        ${status.text}
+
+                    </span>
+
+                </div>
+
+                ${
+                    item.verificationMessage
+                    ? `
+                        <div class="verification-info">
+
+                            ${escapeHTML(
+                                item.verificationMessage
+                            )}
+
+                        </div>
+                    `
+                    : ""
+                }
+
+                <div class="asset-actions">
+
+                    ${
+                        item.link
+                        ? `
+                            <button
+                                class="btn btn-dark"
+                                onclick="openExternal('${escapeAttribute(item.link)}')">
+                                View Certificate
+                            </button>
+                        `
+                        : ""
+                    }
+
+                    <button
+                        class="btn btn-verify"
+                        onclick="verifyCertificate(${item.id})">
+                        🔍 Verify Certificate
+                    </button>
+
+                    <button
+                        class="btn"
+                        onclick="editCertification(${item.id})">
+                        Edit
+                    </button>
+
+                    <button
+                        class="btn btn-danger"
+                        onclick="deleteCertification(${item.id})">
+                        Delete
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+function editCertification(id){
+
+    const item =
+        getCertifications().find(
+            certification =>
+                String(certification.id) ===
+                String(id)
+        );
+
+
+    if(!item){
+        return;
+    }
+
+
+    document.getElementById(
+        "certificationEditId"
+    ).value =
+        item.id;
+
+
+    document.getElementById(
+        "certificationName"
+    ).value =
+        item.name || "";
+
+
+    document.getElementById(
+        "certificationIssuer"
+    ).value =
+        item.issuer || "";
+
+
+    document.getElementById(
+        "certificationId"
+    ).value =
+        item.certificateId || "";
+
+
+    document.getElementById(
+        "certificationDate"
+    ).value =
+        item.date || "";
+
+
+    document.getElementById(
+        "certificationLink"
+    ).value =
+        item.link || "";
+
+
+    document.getElementById(
+        "certificationsPanel"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+function deleteCertification(id){
+
+    if(!confirm(
+        "Delete this certification?"
+    )){
+        return;
+    }
+
+
+    const items =
+        getCertifications().filter(
+            item =>
+                String(item.id) !==
+                String(id)
+        );
+
+
+    saveCertifications(
+        items
+    );
+
+    renderCertifications();
+
+}
+
+
+function clearCertificationForm(){
+
+    document.getElementById(
+        "certificationEditId"
+    ).value = "";
+
+
+    document.getElementById(
+        "certificationName"
+    ).value = "";
+
+
+    document.getElementById(
+        "certificationIssuer"
+    ).value = "";
+
+
+    document.getElementById(
+        "certificationId"
+    ).value = "";
+
+
+    document.getElementById(
+        "certificationDate"
+    ).value = "";
+
+
+    document.getElementById(
+        "certificationLink"
+    ).value = "";
+
+}
+
+
+/* =====================================================
+   DOCUMENT DATA
+===================================================== */
+
+function syncDocumentData(){
+
+    const data = {
+
+        user:
+            currentUser,
+
+        assessment:
+            latestAssessment,
+
+        academics:
+            getJSON(
+                "skillUpAcademics",
+                {}
+            ),
+
+        courseProgress:
+            getJSON(
+                "skillUpCourseProgress",
+                {}
+            ),
+
+        projects:
+            getProjects(),
+
+        achievements:
+            getAchievements(),
+
+        certifications:
+            getCertifications()
+
+    };
+
+
+    localStorage.setItem(
+        "resumeData",
+        JSON.stringify(data)
+    );
+
+
+    localStorage.setItem(
+        "portfolioData",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =====================================================
+   RESUME
+===================================================== */
+
+function generateResume(){
+
+    syncDocumentData();
+
+    window.location.href =
+        "resume.html";
+
+}
+
+
+function openResume(){
+
+    generateResume();
+
+}
+
+
+/* =====================================================
+   PORTFOLIO
+===================================================== */
+
+function openPortfolio(){
+
+    syncDocumentData();
+
+    window.location.href =
+        "portfolio.html";
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function goCourses(){
+
+    window.location.href =
+        "courses.html";
+
+}
+
+
+function goAcademics(){
+
+    window.location.href =
+        "academics.html";
+
+}
+
+
+function goAssessment(){
+
+    window.location.href =
+        "assessment.html";
+
+}
+
+
+function goToAssessment(){
+
+    goAssessment();
+
+}
+
+
+/* =====================================================
+   EXTERNAL
+===================================================== */
+
+function openExternal(url){
+
+    if(!url){
+        return;
+    }
+
+
+    if(!/^https?:\/\//i.test(url)){
+
+        url =
+            "https://" +
+            url;
+
+    }
+
+
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHTML(
+    value
+){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        value == null
+        ? ""
+        : String(value);
+
+
+    return div.innerHTML;
+
+}
+
+
+function escapeAttribute(
+    value
+){
+
+    return String(value)
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+        .replace(
+            /'/g,
+            "\\'"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+    localStorage.removeItem(
+        "token"
+    );
+
+    localStorage.removeItem(
+        "loggedIn"
+    );
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+function initializeProfile(){
+
+    try{
+
+        loadUser();
+
+        loadAssessment();
+
+        loadCourseProgress();
+
+        loadAcademicProgress();
+
+        loadProfilePhoto();
+
+        loadSharing();
+
+        renderProjects();
+
+        renderAchievements();
+
+        renderCertifications();
+
+    }catch(error){
+
+        console.error(
+            "PROFILE INITIALIZATION ERROR:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+if(
+    document.readyState ===
+    "loading"
+){
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeProfile
+    );
+
+}else{
+
+    initializeProfile();
+
+}
+
+</script>
+
+
+<!-- =====================================================
+     AUTH PROTECTION
+===================================================== -->
+
+<script src="protect.js"></script>
+
+</body>
+
+</html>

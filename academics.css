@@ -1,0 +1,3238 @@
+/* =========================================================
+   SKILL UP — ACADEMICS PAGE
+   COMPLETE RESPONSIVE PREMIUM CSS
+   Orange + White + Navy
+   ========================================================= */
+
+
+/* =========================================================
+   01. RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f5f7fb;
+    color: #14213d;
+
+    line-height: 1.5;
+
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   02. NAVBAR
+========================================================= */
+
+.navbar {
+    width: 100%;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 9999;
+
+    background: #14213d;
+
+    box-shadow:
+        0 8px 30px rgba(20, 33, 61, 0.18);
+}
+
+.nav-container {
+    width: min(1380px, 92%);
+
+    min-height: 72px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+}
+
+.logo {
+    color: #ffffff;
+
+    font-size: 28px;
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    white-space: nowrap;
+
+    flex-shrink: 0;
+}
+
+.logo span {
+    color: #f97316;
+}
+
+.nav-links {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 5px;
+
+    min-width: 0;
+}
+
+.nav-links a {
+    position: relative;
+
+    padding: 10px 13px;
+
+    border-radius: 9px;
+
+    color: #dce3ef;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+
+    background: rgba(249, 115, 22, 0.13);
+
+    transform: translateY(-1px);
+}
+
+.nav-links a.active {
+    color: #ffffff;
+
+    background: #f97316;
+
+    box-shadow:
+        0 6px 18px rgba(249, 115, 22, 0.22);
+}
+
+
+/* =========================================================
+   03. HERO
+========================================================= */
+
+.academic-hero {
+    position: relative;
+
+    min-height: 360px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(249, 115, 22, 0.24),
+            transparent 27%
+        ),
+        radial-gradient(
+            circle at 10% 100%,
+            rgba(255, 255, 255, 0.07),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #14213d 0%,
+            #192b4d 48%,
+            #243b62 100%
+        );
+}
+
+.academic-hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -180px;
+    top: -250px;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 50px rgba(255, 255, 255, 0.015),
+        0 0 0 100px rgba(255, 255, 255, 0.01);
+
+    pointer-events: none;
+}
+
+.academic-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    left: -150px;
+    bottom: -190px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(249, 115, 22, 0.08);
+
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(1380px, 88%);
+
+    margin: auto;
+
+    padding: 75px 0;
+}
+
+.hero-tag {
+    display: inline-flex;
+
+    padding: 7px 12px;
+
+    border-radius: 100px;
+
+    color: #fb923c;
+
+    background: rgba(249, 115, 22, 0.1);
+
+    border: 1px solid rgba(249, 115, 22, 0.2);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.hero-content h1 {
+    margin-top: 18px;
+
+    color: #ffffff;
+
+    font-size: clamp(43px, 6vw, 72px);
+
+    line-height: 0.98;
+
+    letter-spacing: -4px;
+
+    font-weight: 800;
+}
+
+.hero-content h1 span {
+    color: #f97316;
+}
+
+.hero-content p {
+    max-width: 720px;
+
+    margin-top: 25px;
+
+    color: #cbd5e1;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   04. MAIN CONTAINER
+========================================================= */
+
+.academic-container {
+    width: min(1380px, 88%);
+
+    margin: auto;
+
+    padding: 70px 0 90px;
+}
+
+.academic-container > section {
+    margin-bottom: 70px;
+}
+
+
+/* =========================================================
+   05. COMMON SECTION
+========================================================= */
+
+.section-heading {
+    margin-bottom: 30px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.section-label {
+    display: block;
+
+    color: #f97316;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.section-heading h2 {
+    margin-top: 6px;
+
+    color: #14213d;
+
+    font-size: 31px;
+
+    line-height: 1.15;
+
+    letter-spacing: -0.8px;
+}
+
+.section-heading p {
+    max-width: 750px;
+
+    margin-top: 9px;
+
+    color: #737d8e;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   06. STUDENT OVERVIEW
+========================================================= */
+
+.academic-overview {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.35fr)
+        minmax(320px, 0.65fr);
+
+    gap: 25px;
+}
+
+.student-card,
+.progress-card {
+    position: relative;
+
+    min-width: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf1;
+
+    border-radius: 25px;
+
+    padding: 32px;
+
+    box-shadow:
+        0 18px 55px rgba(20, 33, 61, 0.065);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.student-card:hover,
+.progress-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #fed7aa;
+
+    box-shadow:
+        0 24px 65px rgba(20, 33, 61, 0.1);
+}
+
+
+/* =========================================================
+   07. CARD HEADING
+========================================================= */
+
+.student-card .section-heading {
+    margin-bottom: 0;
+}
+
+.academic-icon {
+    width: 52px;
+    height: 52px;
+
+    flex: 0 0 52px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #ffedd5
+        );
+
+    border: 1px solid #fed7aa;
+
+    font-size: 24px;
+
+    box-shadow:
+        0 8px 20px rgba(249, 115, 22, 0.08);
+}
+
+
+/* =========================================================
+   08. STUDENT DETAILS
+========================================================= */
+
+.student-details {
+    margin-top: 27px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 13px;
+}
+
+.detail-item {
+    min-height: 82px;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 15px 18px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e7ebf1;
+
+    border-radius: 15px;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.detail-item:hover {
+    transform: translateY(-2px);
+
+    background: #fffaf6;
+
+    border-color: #fed7aa;
+
+    box-shadow:
+        0 8px 20px rgba(249, 115, 22, 0.06);
+}
+
+.detail-item span {
+    color: #8992a2;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+.detail-item strong {
+    margin-top: 5px;
+
+    color: #14213d;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   09. COLLEGE SPECIAL CARD
+========================================================= */
+
+.detail-item.college-detail {
+    position: relative;
+
+    grid-column: span 2;
+
+    min-height: 110px;
+
+    padding: 21px 25px 21px 29px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed 0%,
+            #ffffff 70%
+        );
+
+    border: 1.5px solid #fed7aa;
+
+    box-shadow:
+        0 10px 30px rgba(249, 115, 22, 0.07);
+}
+
+.detail-item.college-detail::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 16%;
+
+    width: 5px;
+    height: 68%;
+
+    border-radius: 0 8px 8px 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f97316,
+            #fb923c
+        );
+}
+
+.detail-item.college-detail::after {
+    content: "COLLEGE IDENTITY";
+
+    position: absolute;
+
+    right: 20px;
+    top: 17px;
+
+    padding: 5px 9px;
+
+    border-radius: 100px;
+
+    color: #c2410c;
+
+    background: #ffedd5;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.detail-item.college-detail span {
+    color: #ea580c;
+
+    font-size: 11px;
+}
+
+.detail-item.college-detail strong {
+    margin-top: 7px;
+
+    max-width: 85%;
+
+    color: #14213d;
+
+    font-size: 24px;
+
+    line-height: 1.25;
+
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+}
+
+.detail-item.college-detail:hover {
+    border-color: #f97316;
+
+    box-shadow:
+        0 15px 38px rgba(249, 115, 22, 0.13);
+}
+
+
+/* =========================================================
+   10. PROGRESS CARD
+========================================================= */
+
+.progress-card {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.progress-card h2 {
+    margin-top: 6px;
+
+    color: #14213d;
+
+    font-size: 28px;
+}
+
+.progress-circle {
+    width: 180px;
+    height: 180px;
+
+    margin: 28px auto 22px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            #f97316 0deg,
+            #f97316 0deg,
+            #edf0f5 0deg,
+            #edf0f5 360deg
+        );
+}
+
+.progress-circle::before {
+    content: "";
+
+    position: absolute;
+
+    width: 140px;
+    height: 140px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        inset 0 0 20px rgba(20, 33, 61, 0.03);
+}
+
+.progress-circle-inner {
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+}
+
+.progress-circle-inner strong {
+    display: block;
+
+    color: #14213d;
+
+    font-size: 35px;
+
+    font-weight: 800;
+}
+
+.progress-circle-inner span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #8992a2;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   11. MAIN PROGRESS BAR
+========================================================= */
+
+.progress-bar-container {
+    margin-top: 5px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 9px;
+
+    overflow: hidden;
+
+    background: #edf0f5;
+
+    border-radius: 100px;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f97316,
+            #fb923c
+        );
+
+    border-radius: 100px;
+
+    transition: width 0.6s ease;
+}
+
+
+/* =========================================================
+   12. PROGRESS STATS
+========================================================= */
+
+.progress-stats {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    margin-top: 25px;
+
+    padding-top: 21px;
+
+    border-top: 1px solid #edf0f4;
+}
+
+.progress-stats div {
+    text-align: center;
+
+    min-width: 0;
+}
+
+.progress-stats div + div {
+    border-left: 1px solid #edf0f4;
+}
+
+.progress-stats strong {
+    display: block;
+
+    color: #14213d;
+
+    font-size: 25px;
+}
+
+.progress-stats span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #8992a2;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   13. SEMESTER SELECTOR
+========================================================= */
+
+.semester-selector {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    flex-shrink: 0;
+}
+
+.semester-selector label {
+    color: #697386;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+.semester-selector select {
+    min-width: 165px;
+
+    padding: 12px 15px;
+
+    outline: none;
+
+    color: #14213d;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe5ed;
+
+    border-radius: 12px;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.semester-selector select:hover {
+    border-color: #f97316;
+}
+
+.semester-selector select:focus {
+    border-color: #f97316;
+
+    box-shadow:
+        0 0 0 4px rgba(249, 115, 22, 0.09);
+}
+
+
+/* =========================================================
+   14. SUBJECT GRID
+========================================================= */
+
+.subjects-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+/* =========================================================
+   15. SUBJECT CARD
+========================================================= */
+
+.subject-card {
+    position: relative;
+
+    overflow: hidden;
+
+    min-width: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf1;
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 14px 40px rgba(20, 33, 61, 0.055);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.subject-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f97316,
+            #fb923c,
+            transparent
+        );
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+}
+
+.subject-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #fed7aa;
+
+    box-shadow:
+        0 22px 55px rgba(20, 33, 61, 0.1);
+}
+
+.subject-card:hover::before {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   16. SUBJECT HEADER
+========================================================= */
+
+.subject-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.subject-header h3 {
+    color: #14213d;
+
+    font-size: 20px;
+
+    line-height: 1.25;
+
+    overflow-wrap: anywhere;
+}
+
+.subject-credits {
+    display: inline-block;
+
+    margin-top: 6px;
+
+    color: #8992a2;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.subject-status {
+    flex-shrink: 0;
+
+    padding: 7px 11px;
+
+    border-radius: 100px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+.subject-status.completed {
+    color: #166534;
+
+    background: #dcfce7;
+}
+
+.subject-status.in-progress {
+    color: #9a3412;
+
+    background: #ffedd5;
+}
+
+.subject-status.not-started,
+.subject-status.upcoming {
+    color: #475569;
+
+    background: #eef2f7;
+}
+
+
+/* =========================================================
+   17. SUBJECT PROGRESS
+========================================================= */
+
+.academic-subject-progress {
+    margin-top: 22px;
+}
+
+.progress-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+
+    color: #7b8494;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.progress-top strong {
+    color: #f97316;
+
+    font-size: 12px;
+}
+
+.subject-progress-bar {
+    width: 100%;
+    height: 7px;
+
+    overflow: hidden;
+
+    background: #edf0f5;
+
+    border-radius: 100px;
+}
+
+.subject-progress-fill {
+    width: 0%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f97316,
+            #fb923c
+        );
+
+    border-radius: inherit;
+
+    transition: width 0.5s ease;
+}
+
+
+/* =========================================================
+   18. SUBJECT INFO
+========================================================= */
+
+.subject-info {
+    display: grid;
+
+    grid-template-columns: 95px minmax(0, 1fr);
+
+    gap: 20px;
+
+    margin-top: 20px;
+
+    padding: 18px 0;
+
+    border-top: 1px solid #edf0f4;
+
+    border-bottom: 1px solid #edf0f4;
+}
+
+.subject-info small {
+    display: block;
+
+    color: #8992a2;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.6px;
+}
+
+.subject-info strong {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #14213d;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   19. SKILL TAGS
+========================================================= */
+
+.skill-tags,
+.role-tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin-top: 7px;
+
+    min-width: 0;
+}
+
+.skill-tag,
+.role-tag {
+    display: inline-flex;
+
+    align-items: center;
+
+    max-width: 100%;
+
+    padding: 6px 9px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    overflow-wrap: anywhere;
+}
+
+.skill-tag {
+    color: #b45309;
+
+    background: #fff7ed;
+
+    border: 1px solid #fed7aa;
+}
+
+.role-tag {
+    color: #1e40af;
+
+    background: #eff6ff;
+
+    border: 1px solid #dbeafe;
+}
+
+
+/* =========================================================
+   20. UNIT PROGRESS
+========================================================= */
+
+.academic-units {
+    margin-top: 20px;
+}
+
+.units-title {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+.units-title strong {
+    color: #374151;
+
+    font-size: 13px;
+}
+
+.units-title span {
+    color: #9aa2af;
+
+    font-size: 10px;
+}
+
+.units-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.academic-unit {
+    padding: 10px 12px;
+
+    background: #fafbfc;
+
+    border: 1px solid #edf0f4;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.academic-unit:hover {
+    background: #fff7ed;
+
+    border-color: #fed7aa;
+
+    transform: translateX(2px);
+}
+
+.unit-left {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    color: #4b5563;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+
+    min-width: 0;
+}
+
+.unit-left > span:last-child {
+    min-width: 0;
+
+    overflow-wrap: anywhere;
+}
+
+.unit-check {
+    width: 22px;
+    height: 22px;
+
+    flex: 0 0 22px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1.5px solid #cbd5e1;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    transition: 0.2s ease;
+}
+
+.unit-check.completed {
+    background: #f97316;
+
+    border-color: #f97316;
+
+    box-shadow:
+        0 4px 10px rgba(249, 115, 22, 0.2);
+}
+
+.academic-unit:has(.unit-check.completed) {
+    background: #fff9f4;
+
+    border-color: #fed7aa;
+}
+
+
+/* =========================================================
+   21. COURSE LINK
+========================================================= */
+
+.subject-footer {
+    margin-top: 18px;
+}
+
+.course-link {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #f97316;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    transition: gap 0.2s ease;
+}
+
+.course-link:hover {
+    gap: 9px;
+}
+
+
+/* =========================================================
+   22. EXAM PREPARATION
+========================================================= */
+
+.exam-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+.exam-card {
+    min-width: 0;
+
+    padding: 27px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf1;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 35px rgba(20, 33, 61, 0.05);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.exam-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #fed7aa;
+
+    box-shadow:
+        0 20px 45px rgba(20, 33, 61, 0.09);
+}
+
+.exam-card-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #fff1e8;
+
+    border: 1px solid #fed7aa;
+
+    border-radius: 14px;
+
+    font-size: 21px;
+}
+
+.exam-card h3 {
+    margin-top: 17px;
+
+    color: #14213d;
+
+    font-size: 18px;
+}
+
+.exam-card p {
+    margin-top: 8px;
+
+    color: #737d8e;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+.exam-card a {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    color: #f97316;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   23. PERFORMANCE
+========================================================= */
+
+.performance-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+.performance-card {
+    min-width: 0;
+
+    padding: 27px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf1;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 35px rgba(20, 33, 61, 0.05);
+}
+
+.performance-card-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #edf0f4;
+}
+
+.performance-icon {
+    width: 46px;
+    height: 46px;
+
+    flex: 0 0 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #fff7ed;
+
+    border: 1px solid #fed7aa;
+
+    border-radius: 13px;
+
+    font-size: 21px;
+}
+
+.performance-card h3 {
+    color: #14213d;
+
+    font-size: 18px;
+}
+
+.performance-card-header p {
+    margin-top: 2px;
+
+    color: #8a93a2;
+
+    font-size: 11px;
+}
+
+.performance-list {
+    margin-top: 8px;
+}
+
+.performance-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 13px 3px;
+
+    border-bottom: 1px solid #f0f2f5;
+}
+
+.performance-item:last-child {
+    border-bottom: none;
+}
+
+.performance-item span {
+    color: #4b5563;
+
+    font-size: 12px;
+
+    min-width: 0;
+
+    overflow-wrap: anywhere;
+}
+
+.performance-item strong {
+    color: #f97316;
+
+    font-size: 12px;
+
+    flex-shrink: 0;
+}
+
+.empty-message {
+    display: block;
+
+    padding: 20px 4px;
+
+    color: #8a93a2;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   24. INDUSTRY MAPPING
+========================================================= */
+
+.mapping-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+.mapping-card {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 18px;
+
+    min-width: 0;
+
+    padding: 25px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf1;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 35px rgba(20, 33, 61, 0.05);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.mapping-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #fed7aa;
+
+    box-shadow:
+        0 18px 42px rgba(20, 33, 61, 0.09);
+}
+
+.mapping-icon {
+    width: 50px;
+    height: 50px;
+
+    flex: 0 0 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #fff1e8;
+
+    border: 1px solid #fed7aa;
+
+    border-radius: 14px;
+
+    font-size: 22px;
+}
+
+.mapping-content {
+    min-width: 0;
+
+    flex: 1;
+}
+
+.mapping-content h3 {
+    color: #14213d;
+
+    font-size: 18px;
+
+    line-height: 1.3;
+
+    overflow-wrap: anywhere;
+}
+
+.mapping-content p {
+    margin-top: 4px;
+
+    color: #8a93a2;
+
+    font-size: 11px;
+}
+
+.mapping-section {
+    margin-top: 17px;
+}
+
+.mapping-section > strong {
+    color: #4b5563;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   25. RECOMMENDED SKILLS
+========================================================= */
+
+.recommended-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.recommendation-card {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    min-width: 0;
+
+    padding: 21px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf1;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(20, 33, 61, 0.045);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #fed7aa;
+}
+
+.recommendation-icon {
+    width: 43px;
+    height: 43px;
+
+    flex: 0 0 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #fff1e8;
+
+    border-radius: 12px;
+
+    font-size: 19px;
+}
+
+.recommendation-card h3 {
+    color: #14213d;
+
+    font-size: 15px;
+
+    overflow-wrap: anywhere;
+}
+
+.recommendation-card p {
+    margin-top: 5px;
+
+    color: #7b8494;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+.recommendation-card a {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    color: #f97316;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   26. ACADEMIC RESOURCES
+========================================================= */
+
+.resources-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.resource-card {
+    min-width: 0;
+
+    padding: 25px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf1;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(20, 33, 61, 0.045);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #fed7aa;
+
+    box-shadow:
+        0 18px 40px rgba(20, 33, 61, 0.08);
+}
+
+.resource-icon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #fff7ed;
+
+    border: 1px solid #fed7aa;
+
+    border-radius: 13px;
+
+    font-size: 21px;
+}
+
+.resource-card h3 {
+    margin-top: 15px;
+
+    color: #14213d;
+
+    font-size: 17px;
+
+    overflow-wrap: anywhere;
+}
+
+.resource-card p {
+    margin-top: 7px;
+
+    color: #7b8494;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+.resource-card a {
+    display: inline-block;
+
+    margin-top: 14px;
+
+    color: #f97316;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   27. INDUSTRY BANNER
+========================================================= */
+
+.industry-banner {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 60px;
+
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at 88% 15%,
+            rgba(249, 115, 22, 0.2),
+            transparent 26%
+        ),
+        linear-gradient(
+            135deg,
+            #14213d 0%,
+            #1d3158 100%
+        );
+
+    box-shadow:
+        0 25px 65px rgba(20, 33, 61, 0.15);
+}
+
+.industry-banner::before {
+    content: "";
+
+    position: absolute;
+
+    width: 380px;
+    height: 380px;
+
+    right: -190px;
+    top: -210px;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.industry-banner::after {
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+    height: 230px;
+
+    left: -130px;
+    bottom: -160px;
+
+    border: 1px solid rgba(249, 115, 22, 0.15);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.industry-banner-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 820px;
+}
+
+.industry-banner .section-label {
+    color: #fb923c;
+}
+
+.industry-banner h2 {
+    margin-top: 8px;
+
+    color: #ffffff;
+
+    font-size: clamp(30px, 4vw, 47px);
+
+    line-height: 1.1;
+
+    letter-spacing: -1.5px;
+}
+
+.industry-banner h2 span {
+    color: #f97316;
+}
+
+.industry-banner p {
+    margin-top: 18px;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+.banner-points {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 25px;
+}
+
+.banner-points span {
+    padding: 9px 13px;
+
+    color: #e5eaf1;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 100px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   28. FOOTER
+========================================================= */
+
+.footer {
+    background: #14213d;
+
+    color: #ffffff;
+}
+
+.footer-container {
+    width: min(1380px, 88%);
+
+    margin: auto;
+
+    padding: 45px 0;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 40px;
+}
+
+.footer-brand h2 {
+    color: #ffffff;
+
+    font-size: 25px;
+}
+
+.footer-brand h2 span {
+    color: #f97316;
+}
+
+.footer-brand p {
+    margin-top: 8px;
+
+    color: #aeb8c9;
+
+    font-size: 12px;
+}
+
+.footer-links {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 17px;
+}
+
+.footer-links a {
+    color: #cbd3e0;
+
+    font-size: 12px;
+
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #f97316;
+}
+
+.footer-bottom {
+    padding: 17px;
+
+    text-align: center;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    color: #8995aa;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   29. LARGE TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .nav-container {
+        width: 94%;
+    }
+
+    .nav-links {
+        gap: 2px;
+    }
+
+    .nav-links a {
+        padding: 9px 8px;
+
+        font-size: 11px;
+    }
+
+    .academic-container {
+        width: 92%;
+    }
+
+    .hero-content {
+        width: 92%;
+    }
+
+    .academic-overview {
+        grid-template-columns: 1fr;
+    }
+
+    .progress-card {
+        min-height: auto;
+    }
+
+    .subjects-container {
+        grid-template-columns: 1fr;
+    }
+
+    .mapping-container {
+        grid-template-columns: 1fr;
+    }
+
+    .recommended-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .resources-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   30. TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .nav-container {
+        min-height: 68px;
+
+        gap: 14px;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .nav-links {
+        overflow-x: auto;
+
+        justify-content: flex-start;
+
+        padding-bottom: 4px;
+
+        scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links a {
+        flex: 0 0 auto;
+    }
+
+    .academic-hero {
+        min-height: 320px;
+    }
+
+    .hero-content {
+        padding: 62px 0;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(40px, 7vw, 58px);
+
+        letter-spacing: -3px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+    .semester-selector {
+        width: 100%;
+
+        justify-content: flex-start;
+    }
+
+    .exam-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .performance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mapping-container {
+        grid-template-columns: 1fr;
+    }
+
+    .recommended-container {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .resources-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-container {
+        flex-direction: column;
+    }
+
+    .footer-links {
+        justify-content: flex-start;
+    }
+}
+
+
+/* =========================================================
+   31. MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* ---------- NAVBAR ---------- */
+
+    .nav-container {
+        width: 94%;
+
+        padding: 12px 0;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 11px;
+    }
+
+    .logo {
+        align-self: center;
+
+        font-size: 26px;
+    }
+
+    .nav-links {
+        width: 100%;
+
+        display: flex;
+
+        justify-content: flex-start;
+
+        gap: 5px;
+
+        overflow-x: auto;
+
+        padding: 2px 2px 5px;
+
+        scrollbar-width: none;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links a {
+        flex: 0 0 auto;
+
+        padding: 9px 12px;
+
+        font-size: 11px;
+    }
+
+
+    /* ---------- HERO ---------- */
+
+    .academic-hero {
+        min-height: 300px;
+    }
+
+    .hero-content {
+        width: 92%;
+
+        padding: 52px 0;
+    }
+
+    .hero-tag {
+        padding: 6px 10px;
+
+        font-size: 9px;
+
+        letter-spacing: 1.5px;
+    }
+
+    .hero-content h1 {
+        margin-top: 15px;
+
+        font-size: 43px;
+
+        line-height: 1.02;
+
+        letter-spacing: -2.5px;
+    }
+
+    .hero-content p {
+        max-width: 100%;
+
+        margin-top: 18px;
+
+        font-size: 13px;
+
+        line-height: 1.7;
+    }
+
+
+    /* ---------- MAIN ---------- */
+
+    .academic-container {
+        width: 92%;
+
+        padding: 48px 0 65px;
+    }
+
+    .academic-container > section {
+        margin-bottom: 52px;
+    }
+
+
+    /* ---------- HEADINGS ---------- */
+
+    .section-heading {
+        margin-bottom: 23px;
+
+        gap: 15px;
+    }
+
+    .section-label {
+        font-size: 9px;
+
+        letter-spacing: 1.5px;
+    }
+
+    .section-heading h2 {
+        font-size: 25px;
+
+        letter-spacing: -0.5px;
+    }
+
+    .section-heading p {
+        font-size: 12px;
+
+        line-height: 1.65;
+    }
+
+
+    /* ---------- OVERVIEW ---------- */
+
+    .academic-overview {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .student-card,
+    .progress-card {
+        padding: 21px;
+
+        border-radius: 20px;
+    }
+
+    .student-card .section-heading {
+        flex-direction: row;
+
+        align-items: center;
+
+        justify-content: space-between;
+    }
+
+    .academic-icon {
+        width: 46px;
+        height: 46px;
+
+        flex: 0 0 46px;
+
+        font-size: 21px;
+    }
+
+    .student-details {
+        margin-top: 21px;
+
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+    .detail-item {
+        min-height: 74px;
+
+        padding: 13px 15px;
+
+        border-radius: 13px;
+    }
+
+    .detail-item strong {
+        font-size: 15px;
+    }
+
+    .detail-item.college-detail {
+        grid-column: span 1;
+
+        min-height: 94px;
+
+        padding: 18px 18px 18px 23px;
+    }
+
+    .detail-item.college-detail::after {
+        display: none;
+    }
+
+    .detail-item.college-detail strong {
+        max-width: 100%;
+
+        font-size: 19px;
+    }
+
+
+    /* ---------- PROGRESS ---------- */
+
+    .progress-card h2 {
+        font-size: 24px;
+    }
+
+    .progress-circle {
+        width: 160px;
+        height: 160px;
+
+        margin: 23px auto 20px;
+    }
+
+    .progress-circle::before {
+        width: 124px;
+        height: 124px;
+    }
+
+    .progress-circle-inner strong {
+        font-size: 31px;
+    }
+
+    .progress-stats {
+        margin-top: 20px;
+
+        padding-top: 18px;
+    }
+
+    .progress-stats strong {
+        font-size: 22px;
+    }
+
+
+    /* ---------- SEMESTER ---------- */
+
+    .semester-selector {
+        width: 100%;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+    }
+
+    .semester-selector label {
+        font-size: 11px;
+    }
+
+    .semester-selector select {
+        min-width: 0;
+
+        flex: 1;
+
+        padding: 11px 12px;
+
+        font-size: 12px;
+    }
+
+
+    /* ---------- SUBJECTS ---------- */
+
+    .subjects-container {
+        grid-template-columns: 1fr;
+
+        gap: 17px;
+    }
+
+    .subject-card {
+        padding: 20px;
+
+        border-radius: 19px;
+    }
+
+    .subject-header {
+        gap: 10px;
+    }
+
+    .subject-header h3 {
+        font-size: 18px;
+    }
+
+    .subject-status {
+        padding: 6px 9px;
+
+        font-size: 9px;
+    }
+
+    .academic-subject-progress {
+        margin-top: 18px;
+    }
+
+    .subject-info {
+        grid-template-columns: 90px minmax(0, 1fr);
+
+        gap: 14px;
+
+        margin-top: 17px;
+
+        padding: 16px 0;
+    }
+
+    .subject-info strong {
+        font-size: 17px;
+    }
+
+    .skill-tag,
+    .role-tag {
+        padding: 5px 7px;
+
+        font-size: 9px;
+    }
+
+    .academic-units {
+        margin-top: 17px;
+    }
+
+    .units-title {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 4px;
+    }
+
+    .units-title strong {
+        font-size: 12px;
+    }
+
+    .units-title span {
+        font-size: 9px;
+    }
+
+    .academic-unit {
+        padding: 10px;
+
+        border-radius: 9px;
+    }
+
+    .unit-left {
+        gap: 8px;
+
+        font-size: 10px;
+    }
+
+    .unit-check {
+        width: 21px;
+        height: 21px;
+
+        flex-basis: 21px;
+    }
+
+
+    /* ---------- EXAM ---------- */
+
+    .exam-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .exam-card {
+        padding: 22px;
+
+        border-radius: 18px;
+    }
+
+    .exam-card h3 {
+        font-size: 17px;
+    }
+
+    .exam-card p {
+        font-size: 11px;
+    }
+
+
+    /* ---------- PERFORMANCE ---------- */
+
+    .performance-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .performance-card {
+        padding: 21px;
+
+        border-radius: 18px;
+    }
+
+    .performance-card-header {
+        gap: 11px;
+    }
+
+    .performance-icon {
+        width: 42px;
+        height: 42px;
+
+        flex-basis: 42px;
+    }
+
+    .performance-card h3 {
+        font-size: 16px;
+    }
+
+    .performance-card-header p {
+        font-size: 10px;
+    }
+
+    .performance-item {
+        padding: 11px 2px;
+    }
+
+    .performance-item span {
+        font-size: 11px;
+    }
+
+
+    /* ---------- INDUSTRY MAPPING ---------- */
+
+    .mapping-container {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .mapping-card {
+        flex-direction: column;
+
+        gap: 13px;
+
+        padding: 21px;
+
+        border-radius: 18px;
+    }
+
+    .mapping-icon {
+        width: 45px;
+        height: 45px;
+
+        flex-basis: 45px;
+
+        font-size: 20px;
+    }
+
+    .mapping-content h3 {
+        font-size: 17px;
+    }
+
+    .mapping-content p {
+        font-size: 10px;
+    }
+
+    .mapping-section {
+        margin-top: 14px;
+    }
+
+
+    /* ---------- RECOMMENDATIONS ---------- */
+
+    .recommended-container {
+        grid-template-columns: 1fr;
+
+        gap: 13px;
+    }
+
+    .recommendation-card {
+        padding: 18px;
+
+        border-radius: 16px;
+    }
+
+    .recommendation-card h3 {
+        font-size: 14px;
+    }
+
+    .recommendation-card p {
+        font-size: 10px;
+    }
+
+
+    /* ---------- RESOURCES ---------- */
+
+    .resources-grid {
+        grid-template-columns: 1fr;
+
+        gap: 13px;
+    }
+
+    .resource-card {
+        padding: 21px;
+
+        border-radius: 17px;
+    }
+
+    .resource-card h3 {
+        font-size: 16px;
+    }
+
+    .resource-card p {
+        font-size: 10px;
+    }
+
+
+    /* ---------- INDUSTRY BANNER ---------- */
+
+    .industry-banner {
+        padding: 36px 23px;
+
+        border-radius: 21px;
+    }
+
+    .industry-banner h2 {
+        font-size: 31px;
+
+        letter-spacing: -1px;
+    }
+
+    .industry-banner p {
+        font-size: 12px;
+
+        line-height: 1.7;
+    }
+
+    .banner-points {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 7px;
+
+        margin-top: 20px;
+    }
+
+    .banner-points span {
+        display: block;
+
+        padding: 8px 11px;
+
+        font-size: 10px;
+    }
+
+
+    /* ---------- FOOTER ---------- */
+
+    .footer-container {
+        width: 92%;
+
+        padding: 36px 0;
+
+        flex-direction: column;
+
+        gap: 25px;
+    }
+
+    .footer-brand h2 {
+        font-size: 23px;
+    }
+
+    .footer-links {
+        width: 100%;
+
+        justify-content: flex-start;
+
+        gap: 12px 16px;
+    }
+
+    .footer-links a {
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   32. SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    /* ---------- NAVBAR ---------- */
+
+    .nav-container {
+        width: 95%;
+
+        padding: 11px 0;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .nav-links {
+        gap: 4px;
+    }
+
+    .nav-links a {
+        padding: 8px 10px;
+
+        font-size: 10px;
+    }
+
+
+    /* ---------- HERO ---------- */
+
+    .academic-hero {
+        min-height: 275px;
+    }
+
+    .hero-content {
+        width: 92%;
+
+        padding: 45px 0;
+    }
+
+    .hero-content h1 {
+        font-size: 37px;
+
+        letter-spacing: -2px;
+    }
+
+    .hero-content p {
+        margin-top: 16px;
+
+        font-size: 11px;
+    }
+
+
+    /* ---------- MAIN ---------- */
+
+    .academic-container {
+        width: 92%;
+
+        padding-top: 40px;
+    }
+
+    .academic-container > section {
+        margin-bottom: 44px;
+    }
+
+    .section-heading h2 {
+        font-size: 23px;
+    }
+
+
+    /* ---------- CARDS ---------- */
+
+    .student-card,
+    .progress-card {
+        padding: 18px;
+
+        border-radius: 18px;
+    }
+
+    .subject-card {
+        padding: 17px;
+
+        border-radius: 17px;
+    }
+
+
+    /* ---------- STUDENT ---------- */
+
+    .student-card .section-heading {
+        align-items: flex-start;
+    }
+
+    .academic-icon {
+        width: 42px;
+        height: 42px;
+
+        flex-basis: 42px;
+
+        font-size: 19px;
+    }
+
+    .detail-item {
+        min-height: 70px;
+
+        padding: 12px 13px;
+    }
+
+    .detail-item span {
+        font-size: 9px;
+    }
+
+    .detail-item strong {
+        font-size: 14px;
+    }
+
+    .detail-item.college-detail {
+        min-height: 90px;
+
+        padding: 16px 15px 16px 20px;
+    }
+
+    .detail-item.college-detail strong {
+        font-size: 17px;
+    }
+
+
+    /* ---------- PROGRESS ---------- */
+
+    .progress-circle {
+        width: 145px;
+        height: 145px;
+    }
+
+    .progress-circle::before {
+        width: 112px;
+        height: 112px;
+    }
+
+    .progress-circle-inner strong {
+        font-size: 28px;
+    }
+
+    .progress-circle-inner span {
+        font-size: 10px;
+    }
+
+    .progress-stats strong {
+        font-size: 20px;
+    }
+
+    .progress-stats span {
+        font-size: 10px;
+    }
+
+
+    /* ---------- SEMESTER ---------- */
+
+    .semester-selector {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+    .semester-selector select {
+        width: 100%;
+    }
+
+
+    /* ---------- SUBJECT ---------- */
+
+    .subject-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .subject-status {
+        align-self: flex-start;
+    }
+
+    .subject-header h3 {
+        font-size: 17px;
+    }
+
+    .subject-info {
+        grid-template-columns: 1fr;
+
+        gap: 13px;
+    }
+
+    .subject-info strong {
+        font-size: 16px;
+    }
+
+    .progress-top {
+        font-size: 10px;
+    }
+
+    .academic-unit {
+        padding: 9px;
+    }
+
+    .unit-left {
+        font-size: 10px;
+
+        line-height: 1.45;
+    }
+
+
+    /* ---------- MAPPING ---------- */
+
+    .mapping-card {
+        padding: 18px;
+    }
+
+
+    /* ---------- BANNER ---------- */
+
+    .industry-banner {
+        padding: 30px 19px;
+
+        border-radius: 18px;
+    }
+
+    .industry-banner h2 {
+        font-size: 28px;
+    }
+
+    .industry-banner p {
+        font-size: 11px;
+    }
+
+
+    /* ---------- FOOTER ---------- */
+
+    .footer-container {
+        width: 92%;
+
+        padding: 32px 0;
+    }
+
+    .footer-links {
+        gap: 10px 14px;
+    }
+
+    .footer-bottom {
+        padding: 14px 10px;
+
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   33. VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .nav-container {
+        width: 96%;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .nav-links a {
+        padding: 7px 9px;
+
+        font-size: 9px;
+    }
+
+    .academic-hero {
+        min-height: 255px;
+    }
+
+    .hero-content {
+        width: 93%;
+
+        padding: 38px 0;
+    }
+
+    .hero-tag {
+        font-size: 8px;
+
+        letter-spacing: 1px;
+    }
+
+    .hero-content h1 {
+        font-size: 33px;
+
+        letter-spacing: -1.8px;
+    }
+
+    .hero-content p {
+        font-size: 10px;
+    }
+
+    .academic-container {
+        width: 94%;
+
+        padding-top: 35px;
+    }
+
+    .section-heading h2 {
+        font-size: 21px;
+    }
+
+    .student-card,
+    .progress-card {
+        padding: 15px;
+    }
+
+    .subject-card {
+        padding: 15px;
+    }
+
+    .exam-card,
+    .performance-card,
+    .mapping-card,
+    .recommendation-card,
+    .resource-card {
+        padding: 16px;
+    }
+
+    .industry-banner {
+        padding: 27px 16px;
+    }
+
+    .industry-banner h2 {
+        font-size: 25px;
+    }
+
+    .banner-points span {
+        font-size: 9px;
+
+        padding: 7px 9px;
+    }
+}
+
+
+/* =========================================================
+   34. EXTREMELY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 320px) {
+
+    .nav-links a {
+        padding: 7px 8px;
+
+        font-size: 8.5px;
+    }
+
+    .hero-content h1 {
+        font-size: 30px;
+    }
+
+    .hero-content p {
+        font-size: 9.5px;
+    }
+
+    .section-heading h2 {
+        font-size: 20px;
+    }
+
+    .progress-circle {
+        width: 135px;
+        height: 135px;
+    }
+
+    .progress-circle::before {
+        width: 104px;
+        height: 104px;
+    }
+
+    .progress-circle-inner strong {
+        font-size: 25px;
+    }
+
+    .detail-item.college-detail strong {
+        font-size: 15px;
+    }
+
+    .subject-header h3 {
+        font-size: 16px;
+    }
+
+    .unit-left {
+        font-size: 9px;
+    }
+
+    .skill-tag,
+    .role-tag {
+        font-size: 8px;
+
+        padding: 4px 6px;
+    }
+
+    .industry-banner h2 {
+        font-size: 23px;
+    }
+}
+
+
+/* =========================================================
+   35. SELECTION
+========================================================= */
+
+::selection {
+    color: #ffffff;
+
+    background: #f97316;
+}
+
+
+/* =========================================================
+   36. SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #eef1f5;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c7ced9;
+
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #f97316;
+}
+
+
+/* =========================================================
+   37. SAFETY FALLBACK
+   For browsers without :has()
+========================================================= */
+
+.academic-unit .unit-check.completed {
+    box-shadow:
+        0 3px 9px rgba(249, 115, 22, 0.18);
+}
+
+
+/* =========================================================
+   38. TOUCH DEVICE FIX
+========================================================= */
+
+@media (hover: none) {
+
+    .student-card:hover,
+    .progress-card:hover,
+    .subject-card:hover,
+    .exam-card:hover,
+    .mapping-card:hover,
+    .recommendation-card:hover,
+    .resource-card:hover {
+        transform: none;
+    }
+
+    .academic-unit:hover {
+        transform: none;
+    }
+}

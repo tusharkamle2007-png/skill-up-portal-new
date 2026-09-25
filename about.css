@@ -1,0 +1,1555 @@
+/* =========================================================
+   SKILL UP — ABOUT PAGE
+   COMPLETE RESPONSIVE CSS
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #14213d;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    width: 100%;
+    min-height: 76px;
+
+    background: #14213d;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    box-shadow: 0 4px 18px rgba(20, 33, 61, 0.15);
+}
+
+.logo {
+    color: white;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+}
+
+.logo span {
+    color: #ff6333;
+}
+
+.navbar nav {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.navbar nav::-webkit-scrollbar {
+    display: none;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    position: relative;
+
+    transition: 0.3s ease;
+
+    white-space: nowrap;
+}
+
+.navbar nav a::after {
+    content: "";
+
+    position: absolute;
+
+    width: 0;
+    height: 2px;
+
+    background: #ff6333;
+
+    left: 0;
+    bottom: -7px;
+
+    transition: 0.3s ease;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+    color: #ff6333;
+}
+
+.navbar nav a:hover::after,
+.navbar nav a.active::after {
+    width: 100%;
+}
+
+
+/* =========================================================
+   COMMON
+========================================================= */
+
+section {
+    width: 100%;
+}
+
+.eyebrow {
+    color: #ff6333;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    margin-bottom: 12px;
+}
+
+.section-title {
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto 55px;
+}
+
+.section-title h2 {
+    font-size: 42px;
+    line-height: 1.2;
+    color: #14213d;
+}
+
+.section-title h2 span {
+    color: #ff6333;
+}
+
+.section-subtitle {
+    margin-top: 15px;
+    color: #687386;
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.about-hero {
+    min-height: 650px;
+
+    padding: 100px 8% 80px;
+
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(255, 99, 51, 0.12),
+            transparent 30%
+        ),
+        #14213d;
+
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 70px;
+}
+
+.hero-content {
+    max-width: 650px;
+    width: 100%;
+}
+
+.about-hero .eyebrow {
+    color: #ff6333;
+}
+
+.hero-content h1 {
+    font-size: clamp(50px, 6vw, 82px);
+
+    line-height: 1.02;
+
+    margin-bottom: 30px;
+}
+
+.hero-content h1 span {
+    color: #ff6333;
+}
+
+.hero-text {
+    max-width: 570px;
+
+    color: #d9deea;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+}
+
+.hero-line {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-top: 35px;
+}
+
+.hero-line span {
+    width: 55px;
+    height: 3px;
+
+    background: #ff6333;
+
+    display: block;
+
+    flex-shrink: 0;
+}
+
+.hero-line p {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   JOURNEY
+========================================================= */
+
+.journey {
+    width: 420px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+
+    flex-shrink: 0;
+}
+
+.journey-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    padding: 22px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    transition: 0.3s ease;
+}
+
+.journey-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+
+    border-color: rgba(255, 99, 51, 0.6);
+
+    transform: translateX(-5px);
+}
+
+.journey-item.highlight {
+    background: rgba(255, 99, 51, 0.1);
+    border-color: rgba(255, 99, 51, 0.5);
+}
+
+.number {
+    min-width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ff6333;
+    color: white;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    flex-shrink: 0;
+}
+
+.journey-item h3 {
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+.journey-item p {
+    color: #bfc7d8;
+    font-size: 14px;
+}
+
+.vertical-line {
+    width: 2px;
+    height: 25px;
+
+    background: rgba(255, 99, 51, 0.5);
+
+    margin-left: 45px;
+}
+
+
+/* =========================================================
+   WHY SECTION
+========================================================= */
+
+.why-section {
+    padding: 110px 8%;
+    background: #ffffff;
+}
+
+.story-box {
+    max-width: 1000px;
+
+    margin: auto;
+
+    display: flex;
+
+    gap: 35px;
+
+    padding: 45px;
+
+    border-radius: 20px;
+
+    background: #f5f7fb;
+
+    border-left: 5px solid #ff6333;
+
+    transition: 0.3s ease;
+}
+
+.story-box:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 20px 50px rgba(20, 33, 61, 0.08);
+}
+
+.story-number {
+    font-size: 45px;
+
+    font-weight: 800;
+
+    color: #ff6333;
+
+    line-height: 1;
+
+    flex-shrink: 0;
+}
+
+.story-content {
+    max-width: 750px;
+}
+
+.story-content h3 {
+    font-size: 27px;
+
+    margin-bottom: 20px;
+
+    color: #14213d;
+}
+
+.story-content p {
+    color: #667085;
+
+    margin-bottom: 15px;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   PROBLEM SECTION
+========================================================= */
+
+.problem-section {
+    padding: 110px 8%;
+    background: #f5f7fb;
+}
+
+.problem-grid {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.problem-card {
+    background: white;
+
+    border: 2px solid transparent;
+
+    border-radius: 18px;
+
+    padding: 35px;
+
+    min-height: 280px;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+
+    cursor: pointer;
+}
+
+.problem-icon {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff0eb;
+
+    color: #ff6333;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    margin-bottom: 25px;
+
+    transition: 0.3s ease;
+}
+
+.problem-card h3 {
+    font-size: 23px;
+
+    margin-bottom: 13px;
+
+    color: #14213d;
+}
+
+.problem-card p {
+    color: #6b7280;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   PROBLEM HOVER
+========================================================= */
+
+.problem-card:hover {
+    background: #14213d;
+
+    border: 2px solid #ff6333;
+
+    color: white;
+
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 18px 40px rgba(20, 33, 61, 0.25),
+        0 0 22px rgba(255, 99, 51, 0.2);
+}
+
+.problem-card:hover h3,
+.problem-card:hover p {
+    color: white;
+}
+
+.problem-card:hover .problem-icon {
+    background: rgba(255, 99, 51, 0.15);
+
+    color: #ff6333;
+}
+
+
+/* =========================================================
+   SOLUTION SECTION
+========================================================= */
+
+.solution-section {
+    padding: 110px 8%;
+
+    background: white;
+}
+
+.solution-grid {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.solution-card {
+    background: #f5f7fb;
+
+    border: 2px solid transparent;
+
+    border-radius: 18px;
+
+    padding: 35px;
+
+    min-height: 260px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+.solution-number {
+    color: #ff6333;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    margin-bottom: 25px;
+}
+
+.solution-card h3 {
+    color: #14213d;
+
+    font-size: 24px;
+
+    margin-bottom: 12px;
+}
+
+.solution-card p {
+    color: #6b7280;
+
+    font-size: 15px;
+}
+
+.solution-card:hover {
+    background: #14213d;
+
+    border: 2px solid #ff6333;
+
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 18px 40px rgba(20, 33, 61, 0.25),
+        0 0 22px rgba(255, 99, 51, 0.2);
+}
+
+.solution-card:hover h3,
+.solution-card:hover p {
+    color: white;
+}
+
+.solution-card:hover .solution-number {
+    color: #ff6333;
+}
+
+
+/* =========================================================
+   STUDENT SECTION
+========================================================= */
+
+.student-section {
+    padding: 110px 8%;
+
+    background: #f5f7fb;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 60px;
+}
+
+.student-content {
+    max-width: 720px;
+}
+
+.student-content h2 {
+    color: #14213d;
+
+    font-size: 50px;
+
+    line-height: 1.15;
+
+    margin-bottom: 25px;
+}
+
+.student-content h2 span {
+    color: #ff6333;
+}
+
+.student-content > p:last-child {
+    color: #667085;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+}
+
+.student-tag {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    min-width: 190px;
+}
+
+.student-tag span {
+    padding: 15px 22px;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #14213d;
+
+    font-weight: 800;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+
+    border-left: 4px solid #ff6333;
+
+    box-shadow: 0 8px 25px rgba(20, 33, 61, 0.06);
+
+    transition: 0.3s ease;
+}
+
+.student-tag span:hover {
+    background: #14213d;
+
+    color: white;
+
+    transform: translateX(-5px);
+}
+
+
+/* =========================================================
+   VISION
+========================================================= */
+
+.vision-section {
+    padding: 110px 8%;
+
+    text-align: center;
+
+    background: #162750;
+
+    color: white;
+}
+
+.vision-section .eyebrow {
+    color: #ff6333;
+}
+
+.vision-section h2 {
+    max-width: 900px;
+
+    margin: auto;
+
+    font-size: 45px;
+
+    line-height: 1.25;
+}
+
+.vision-section h2 span {
+    color: #ff6333;
+}
+
+.vision-section > p:last-child {
+    max-width: 700px;
+
+    margin: 25px auto 0;
+
+    color: #c8cfdd;
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-section {
+    padding: 90px 8%;
+
+    background: #ffffff;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.contact-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 30px;
+
+    background: #f5f7fb;
+
+    border: 2px solid transparent;
+
+    border-radius: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+
+    min-width: 0;
+}
+
+.contact-icon {
+    min-width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #fff0eb;
+
+    color: #ff6333;
+
+    font-size: 22px;
+
+    flex-shrink: 0;
+}
+
+.contact-card small {
+    color: #ff6333;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.contact-card h3 {
+    color: #14213d;
+
+    font-size: 20px;
+
+    margin: 2px 0;
+}
+
+.contact-card p {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    overflow-wrap: anywhere;
+}
+
+.contact-card a {
+    color: #ff6333;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CONTACT HOVER
+========================================================= */
+
+.contact-card:hover {
+    background: #1f4699;
+
+    border: 2px solid #ff6333;
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 18px 40px rgba(20, 33, 61, 0.25),
+        0 0 22px rgba(255, 99, 51, 0.2);
+}
+
+.contact-card:hover h3,
+.contact-card:hover p {
+    color: white;
+}
+
+.contact-card:hover small {
+    color: #ff6333;
+}
+
+.contact-card:hover .contact-icon {
+    background: rgba(255, 99, 51, 0.15);
+
+    color: #ff6333;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    background: #0f2c6a;
+
+    color: #bfc7d8;
+
+    text-align: center;
+
+    padding: 25px;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .navbar {
+        padding: 0 5%;
+    }
+
+    .navbar nav {
+        gap: 22px;
+    }
+
+    .about-hero {
+        padding-left: 6%;
+        padding-right: 6%;
+        gap: 45px;
+    }
+
+    .journey {
+        width: 360px;
+    }
+
+    .problem-section,
+    .solution-section,
+    .why-section,
+    .student-section {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .contact-section {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .problem-grid,
+    .solution-grid {
+        gap: 18px;
+    }
+
+    .problem-card,
+    .solution-card {
+        padding: 28px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .navbar {
+        min-height: 72px;
+    }
+
+    .navbar nav {
+        gap: 16px;
+    }
+
+    .navbar nav a {
+        font-size: 13px;
+    }
+
+    .about-hero {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding-top: 80px;
+        padding-bottom: 80px;
+
+        gap: 55px;
+    }
+
+    .hero-content {
+        max-width: 750px;
+    }
+
+    .journey {
+        width: 100%;
+        max-width: 650px;
+    }
+
+    .problem-grid,
+    .solution-grid,
+    .contact-section {
+        grid-template-columns: 1fr;
+        max-width: 700px;
+    }
+
+    .problem-card,
+    .solution-card {
+        min-height: auto;
+    }
+
+    .student-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .student-content {
+        max-width: 800px;
+    }
+
+    .student-tag {
+        width: 100%;
+        max-width: 500px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    /* ---------- NAVBAR ---------- */
+
+    .navbar {
+        min-height: 68px;
+
+        padding: 14px 5%;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 13px;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .navbar nav {
+        width: 100%;
+
+        display: flex;
+
+        gap: 20px;
+
+        overflow-x: auto;
+
+        overflow-y: hidden;
+
+        justify-content: flex-start;
+
+        padding-bottom: 4px;
+
+        -webkit-overflow-scrolling: touch;
+
+        scrollbar-width: none;
+    }
+
+    .navbar nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .navbar nav a {
+        font-size: 12px;
+
+        flex-shrink: 0;
+    }
+
+    .navbar nav a::after {
+        bottom: -4px;
+    }
+
+
+    /* ---------- HERO ---------- */
+
+    .about-hero {
+        min-height: auto;
+
+        padding: 70px 6% 60px;
+
+        gap: 45px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(43px, 13vw, 60px);
+
+        letter-spacing: -2px;
+
+        margin-bottom: 22px;
+    }
+
+    .hero-text {
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+    .hero-line {
+        align-items: flex-start;
+
+        gap: 12px;
+
+        margin-top: 25px;
+    }
+
+    .hero-line span {
+        width: 40px;
+
+        margin-top: 8px;
+
+        flex-shrink: 0;
+    }
+
+    .hero-line p {
+        font-size: 12px;
+
+        line-height: 1.5;
+    }
+
+
+    /* ---------- JOURNEY ---------- */
+
+    .journey {
+        width: 100%;
+
+        gap: 12px;
+    }
+
+    .journey-item {
+        width: 100%;
+
+        padding: 18px;
+
+        gap: 15px;
+    }
+
+    .journey-item h3 {
+        font-size: 17px;
+    }
+
+    .journey-item p {
+        font-size: 12px;
+
+        line-height: 1.5;
+    }
+
+    .number {
+        min-width: 43px;
+        width: 43px;
+        height: 43px;
+    }
+
+    .vertical-line {
+        height: 20px;
+
+        margin-left: 20px;
+    }
+
+
+    /* ---------- COMMON SECTIONS ---------- */
+
+    .section-title {
+        margin-bottom: 35px;
+    }
+
+    .eyebrow {
+        font-size: 11px;
+
+        letter-spacing: 1.5px;
+    }
+
+    .section-title h2 {
+        font-size: 31px;
+
+        line-height: 1.2;
+    }
+
+    .section-subtitle {
+        font-size: 14px;
+    }
+
+
+    /* ---------- WHY ---------- */
+
+    .why-section {
+        padding: 70px 6%;
+    }
+
+    .story-box {
+        flex-direction: column;
+
+        gap: 18px;
+
+        padding: 25px;
+
+        border-left-width: 4px;
+    }
+
+    .story-number {
+        font-size: 35px;
+    }
+
+    .story-content h3 {
+        font-size: 22px;
+
+        line-height: 1.3;
+    }
+
+    .story-content p {
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* ---------- PROBLEM ---------- */
+
+    .problem-section {
+        padding: 70px 6%;
+    }
+
+    .problem-grid {
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+    .problem-card {
+        padding: 25px;
+
+        min-height: auto;
+    }
+
+    .problem-icon {
+        width: 46px;
+        height: 46px;
+
+        margin-bottom: 18px;
+    }
+
+    .problem-card h3 {
+        font-size: 20px;
+    }
+
+    .problem-card p {
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* ---------- SOLUTION ---------- */
+
+    .solution-section {
+        padding: 70px 6%;
+    }
+
+    .solution-grid {
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+    .solution-card {
+        padding: 25px;
+
+        min-height: auto;
+    }
+
+    .solution-number {
+        margin-bottom: 18px;
+    }
+
+    .solution-card h3 {
+        font-size: 21px;
+    }
+
+    .solution-card p {
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* ---------- STUDENT ---------- */
+
+    .student-section {
+        padding: 70px 6%;
+
+        gap: 35px;
+    }
+
+    .student-content h2 {
+        font-size: clamp(34px, 10vw, 45px);
+
+        line-height: 1.15;
+    }
+
+    .student-content > p:last-child {
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+    .student-tag {
+        width: 100%;
+
+        min-width: 0;
+
+        gap: 10px;
+    }
+
+    .student-tag span {
+        padding: 13px 18px;
+
+        font-size: 12px;
+    }
+
+
+    /* ---------- VISION ---------- */
+
+    .vision-section {
+        padding: 70px 6%;
+    }
+
+    .vision-section h2 {
+        font-size: clamp(30px, 8vw, 40px);
+
+        line-height: 1.2;
+    }
+
+    .vision-section > p:last-child {
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* ---------- CONTACT ---------- */
+
+    .contact-section {
+        padding: 65px 6%;
+
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .contact-card {
+        padding: 22px;
+
+        gap: 15px;
+
+        align-items: flex-start;
+    }
+
+    .contact-icon {
+        min-width: 45px;
+        width: 45px;
+        height: 45px;
+
+        font-size: 19px;
+    }
+
+    .contact-card h3 {
+        font-size: 18px;
+    }
+
+    .contact-card p {
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+        padding: 22px 6%;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 13px 4%;
+    }
+
+    .navbar nav {
+        gap: 18px;
+    }
+
+    .navbar nav a {
+        font-size: 11px;
+    }
+
+    .about-hero {
+        padding: 60px 5% 50px;
+    }
+
+    .hero-content h1 {
+        font-size: 43px;
+
+        letter-spacing: -1.5px;
+    }
+
+    .hero-text {
+        font-size: 14px;
+    }
+
+    .journey-item {
+        padding: 15px;
+
+        gap: 12px;
+    }
+
+    .journey-item h3 {
+        font-size: 16px;
+    }
+
+    .journey-item p {
+        font-size: 11px;
+    }
+
+    .number {
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+
+        font-size: 11px;
+    }
+
+    .vertical-line {
+        margin-left: 19px;
+    }
+
+    .why-section,
+    .problem-section,
+    .solution-section,
+    .student-section,
+    .vision-section {
+        padding: 60px 5%;
+    }
+
+    .section-title h2 {
+        font-size: 28px;
+    }
+
+    .story-box {
+        padding: 21px;
+    }
+
+    .story-content h3 {
+        font-size: 20px;
+    }
+
+    .story-content p {
+        font-size: 13px;
+    }
+
+    .problem-card,
+    .solution-card {
+        padding: 22px;
+    }
+
+    .student-content h2 {
+        font-size: 34px;
+    }
+
+    .vision-section h2 {
+        font-size: 29px;
+    }
+
+    .contact-section {
+        padding: 55px 5%;
+    }
+
+    .contact-card {
+        padding: 18px;
+    }
+
+    .contact-card h3 {
+        font-size: 17px;
+    }
+
+    .contact-card p {
+        font-size: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .navbar nav {
+        gap: 15px;
+    }
+
+    .navbar nav a {
+        font-size: 10px;
+    }
+
+    .about-hero {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .hero-content h1 {
+        font-size: 38px;
+    }
+
+    .hero-line p {
+        font-size: 11px;
+    }
+
+    .journey-item {
+        padding: 13px;
+    }
+
+    .journey-item h3 {
+        font-size: 15px;
+    }
+
+    .journey-item p {
+        font-size: 10px;
+    }
+
+    .section-title h2 {
+        font-size: 25px;
+    }
+
+    .student-content h2 {
+        font-size: 31px;
+    }
+
+    .vision-section h2 {
+        font-size: 26px;
+    }
+
+    .contact-card {
+        gap: 11px;
+    }
+
+    .contact-icon {
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+        font-size: 17px;
+    }
+
+}

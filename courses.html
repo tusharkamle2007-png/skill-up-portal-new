@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Courses | Skill Up</title>
+<script src="api.js"></script>
+<script src="protect.js"></script>
+    <link rel="stylesheet" href="./courses.css">
+
+</head>
+
+
+<body class="courses-page">
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            SKILL<span>UP</span>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="dashboard.html">Dashboard</a>
+
+            <a href="career.html">Career</a>
+
+            <a href="courses.html" class="active">Courses</a>
+
+            <a href="assessment.html">Assessment</a>
+
+            <a href="academics.html">Academics</a>
+
+            <a href="about.html">About Us</a>
+
+            <a href="profile.html">Profile</a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="courses-hero">
+
+        <h1>
+            Learning Hub
+        </h1>
+
+        <p>
+            Build the skills you need to move from campus to career.
+        </p>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         AI RECOMMENDATIONS
+    ====================================================== -->
+
+    <section class="recommend-section">
+
+        <div class="recommend-title">
+
+            <h2>
+                AI Recommended For You
+            </h2>
+
+            <p>
+                Based on your assessment and identified skill gaps.
+            </p>
+
+        </div>
+
+
+        <div
+            id="recommendedCourses"
+            class="recommended-grid"
+        >
+
+            <div class="loading">
+                Analysing your skill gaps...
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ALL COURSES TITLE
+    ====================================================== -->
+
+    <div class="all-title">
+
+        <h2>
+            Explore All Courses
+        </h2>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ALL COURSES
+    ====================================================== -->
+
+    <section
+        class="courses-grid"
+        id="coursesGrid"
+    >
+
+
+        <!-- HTML & CSS -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🌐</div>
+
+            <h3>HTML & CSS</h3>
+
+            <p>
+                Learn website structure, styling, layouts and responsive design.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="HTML & CSS"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- JAVASCRIPT -->
+
+        <div class="course-card">
+
+            <div class="course-icon">⚡</div>
+
+            <h3>JavaScript</h3>
+
+            <p>
+                Learn programming logic, DOM, events, APIs and modern JavaScript.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="JavaScript"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- REACT -->
+
+        <div class="course-card">
+
+            <div class="course-icon">⚛️</div>
+
+            <h3>React</h3>
+
+            <p>
+                Build modern interactive web applications using React.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="React"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- PYTHON -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🐍</div>
+
+            <h3>Python</h3>
+
+            <p>
+                Learn Python fundamentals, functions, OOP and practical development.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Python"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- SQL -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🗄️</div>
+
+            <h3>SQL & Databases</h3>
+
+            <p>
+                Learn databases, queries, joins, relationships and SQL.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="SQL & Databases"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- DATA ANALYTICS -->
+
+        <div class="course-card">
+
+            <div class="course-icon">📊</div>
+
+            <h3>Data Analytics</h3>
+
+            <p>
+                Learn data analysis, visualization and data-driven decision making.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Data Analytics"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- NODE -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🟢</div>
+
+            <h3>Node.js</h3>
+
+            <p>
+                Learn server-side JavaScript and backend development.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Node.js"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- EXPRESS -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🚂</div>
+
+            <h3>Express.js</h3>
+
+            <p>
+                Build APIs and backend applications using Express.js.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Express.js"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- MONGODB -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🍃</div>
+
+            <h3>MongoDB</h3>
+
+            <p>
+                Learn NoSQL databases, collections, documents and queries.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="MongoDB"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- GIT -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🔧</div>
+
+            <h3>Git & GitHub</h3>
+
+            <p>
+                Learn version control, repositories, branches and collaboration.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Git & GitHub"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- ML -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🤖</div>
+
+            <h3>Machine Learning</h3>
+
+            <p>
+                Learn ML fundamentals, algorithms, training and evaluation.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Machine Learning"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- DEEP LEARNING -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🧠</div>
+
+            <h3>Deep Learning</h3>
+
+            <p>
+                Learn neural networks and deep learning fundamentals.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Deep Learning"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- POWER BI -->
+
+        <div class="course-card">
+
+            <div class="course-icon">📈</div>
+
+            <h3>Power BI</h3>
+
+            <p>
+                Create dashboards and interactive business intelligence reports.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Power BI"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- CLOUD -->
+
+        <div class="course-card">
+
+            <div class="course-icon">☁️</div>
+
+            <h3>Cloud Computing</h3>
+
+            <p>
+                Understand cloud architecture, services and deployment.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Cloud Computing"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- AWS -->
+
+        <div class="course-card">
+
+            <div class="course-icon">☁️</div>
+
+            <h3>AWS Fundamentals</h3>
+
+            <p>
+                Learn AWS services and basic cloud deployment concepts.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="AWS Fundamentals"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- CYBER SECURITY -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🔐</div>
+
+            <h3>Cyber Security</h3>
+
+            <p>
+                Learn security fundamentals, threats and defensive concepts.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Cyber Security"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- NETWORKING -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🌐</div>
+
+            <h3>Computer Networking</h3>
+
+            <p>
+                Learn networking fundamentals, protocols and network architecture.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="Computer Networking"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+
+        <!-- UI UX -->
+
+        <div class="course-card">
+
+            <div class="course-icon">🎨</div>
+
+            <h3>UI / UX Design</h3>
+
+            <p>
+                Learn user interface design, user experience and design principles.
+            </p>
+
+            <button
+                class="course-btn"
+                data-course="UI / UX Design"
+            >
+                Start Learning
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        /* =====================================================
+           API
+        ===================================================== */
+
+        const API = "http://localhost:5000";
+
+
+        /* =====================================================
+           START COURSE
+        ===================================================== */
+
+        function startCourse(courseName) {
+
+            if (!courseName) {
+                console.error("Course name is missing.");
+                return;
+            }
+
+            // Save selected course
+            localStorage.setItem(
+                "currentCourse",
+                courseName
+            );
+
+            // Open course detail page
+            window.location.href =
+                "course.html?course=" +
+                encodeURIComponent(courseName);
+        }
+
+
+
+        /* =====================================================
+           ALL START LEARNING BUTTONS
+        ===================================================== */
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const buttons =
+                document.querySelectorAll(".course-btn[data-course]");
+
+            buttons.forEach(function (button) {
+
+                button.addEventListener("click", function () {
+
+                    const courseName =
+                        button.getAttribute("data-course");
+
+                    startCourse(courseName);
+
+                });
+
+            });
+
+            loadRecommendations();
+
+        });
+
+
+
+        /* =====================================================
+           NORMALIZE SKILL NAME
+        ===================================================== */
+
+        function normalizeSkill(skill) {
+
+            return String(skill || "")
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, " ");
+
+        }
+
+
+
+        /* =====================================================
+           COURSE MAP
+        ===================================================== */
+
+        const courseMap = {
+
+            "html": "HTML & CSS",
+
+            "html & css": "HTML & CSS",
+
+            "css": "HTML & CSS",
+
+            "javascript": "JavaScript",
+
+            "js": "JavaScript",
+
+            "react": "React",
+
+            "react.js": "React",
+
+            "python": "Python",
+
+            "sql": "SQL & Databases",
+
+            "database": "SQL & Databases",
+
+            "databases": "SQL & Databases",
+
+            "sql & databases": "SQL & Databases",
+
+            "data analytics": "Data Analytics",
+
+            "analytics": "Data Analytics",
+
+            "node": "Node.js",
+
+            "node.js": "Node.js",
+
+            "nodejs": "Node.js",
+
+            "express": "Express.js",
+
+            "express.js": "Express.js",
+
+            "mongodb": "MongoDB",
+
+            "mongo": "MongoDB",
+
+            "git": "Git & GitHub",
+
+            "github": "Git & GitHub",
+
+            "git & github": "Git & GitHub",
+
+            "machine learning": "Machine Learning",
+
+            "machine-learning": "Machine Learning",
+
+            "ml": "Machine Learning",
+
+            "deep learning": "Deep Learning",
+
+            "deep-learning": "Deep Learning",
+
+            "dl": "Deep Learning",
+
+            "power bi": "Power BI",
+
+            "powerbi": "Power BI",
+
+            "cloud": "Cloud Computing",
+
+            "cloud computing": "Cloud Computing",
+
+            "aws": "AWS Fundamentals",
+
+            "aws fundamentals": "AWS Fundamentals",
+
+            "cyber security": "Cyber Security",
+
+            "cybersecurity": "Cyber Security",
+
+            "cyber-security": "Cyber Security",
+
+            "networking": "Computer Networking",
+
+            "computer networking": "Computer Networking",
+
+            "ui/ux": "UI / UX Design",
+
+            "ui ux": "UI / UX Design",
+
+            "ui/ux design": "UI / UX Design",
+
+            "ux": "UI / UX Design",
+
+            "ui": "UI / UX Design"
+
+        };
+
+
+
+        /* =====================================================
+           GET SKILL FROM DIFFERENT FORMATS
+        ===================================================== */
+
+        function getSkillName(gap) {
+
+            if (typeof gap === "string") {
+
+                return gap;
+
+            }
+
+            if (gap && typeof gap === "object") {
+
+                return (
+                    gap.skill ||
+                    gap.name ||
+                    gap.title ||
+                    gap.requiredSkill ||
+                    ""
+                );
+
+            }
+
+            return "";
+
+        }
+
+
+
+        /* =====================================================
+           LOAD AI RECOMMENDATIONS
+        ===================================================== */
+
+        async function loadRecommendations() {
+
+            const container =
+                document.getElementById("recommendedCourses");
+
+
+            if (!container) {
+                return;
+            }
+
+
+            const token =
+                localStorage.getItem("token");
+
+
+            /*
+             * First try assessment saved locally.
+             * This makes recommendation work even if
+             * backend GET endpoint is unavailable.
+             */
+
+            let assessment = null;
+
+
+            try {
+
+                const savedAssessment =
+                    localStorage.getItem("assessmentResult");
+
+                if (savedAssessment) {
+
+                    assessment =
+                        JSON.parse(savedAssessment);
+
+                }
+
+            } catch (error) {
+
+                console.log(
+                    "Local assessment data unavailable."
+                );
+
+            }
+
+
+
+            /* =================================================
+               TRY BACKEND ASSESSMENT
+            ================================================= */
+
+            if (token) {
+
+                try {
+
+                    const response =
+                        await fetch(
+                            API + "/api/assessment",
+                            {
+                                method: "GET",
+
+                                headers: {
+                                    "Authorization":
+                                        "Bearer " + token,
+
+                                    "Content-Type":
+                                        "application/json"
+                                }
+                            }
+                        );
+
+
+                    if (response.ok) {
+
+                        const backendData =
+                            await response.json();
+
+                        assessment =
+                            backendData;
+
+                        // Save latest assessment locally
+                        localStorage.setItem(
+                            "assessmentResult",
+                            JSON.stringify(backendData)
+                        );
+
+                    }
+
+                } catch (error) {
+
+                    console.log(
+                        "Backend assessment fetch failed."
+                    );
+
+                }
+
+            }
+
+
+
+            /* =================================================
+               FIND SKILL GAPS
+            ================================================= */
+
+            let gaps = [];
+
+
+            if (assessment) {
+
+                gaps =
+                    assessment.skillGap ||
+                    assessment.skillGaps ||
+                    assessment.gaps ||
+                    assessment.skillsToImprove ||
+                    [];
+
+            }
+
+
+
+            /*
+             * Also support a direct localStorage skill gap.
+             */
+
+            if (
+                gaps.length === 0
+            ) {
+
+                try {
+
+                    const localGap =
+                        localStorage.getItem("skillGap");
+
+                    if (localGap) {
+
+                        const parsed =
+                            JSON.parse(localGap);
+
+                        if (Array.isArray(parsed)) {
+
+                            gaps = parsed;
+
+                        }
+
+                    }
+
+                } catch (error) {
+
+                    console.log(
+                        "Local skill gap not available."
+                    );
+
+                }
+
+            }
+
+
+
+            /* =================================================
+               IF NO ASSESSMENT
+            ================================================= */
+
+            if (
+                !assessment &&
+                gaps.length === 0
+            ) {
+
+                container.innerHTML = `
+
+                    <div class="course-card">
+
+                        <span class="recommend-badge">
+                            Get Started
+                        </span>
+
+                        <div class="course-icon">
+                            🎯
+                        </div>
+
+                        <h3>
+                            Complete Your Assessment
+                        </h3>
+
+                        <p>
+                            Take the skill assessment to
+                            receive personalised course
+                            recommendations.
+                        </p>
+
+                        <button
+                            class="course-btn"
+                            onclick="window.location.href='assessment.html'"
+                        >
+                            Take Assessment
+                        </button>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+
+            /* =================================================
+               CONVERT GAPS TO COURSES
+            ================================================= */
+
+            const recommended = [];
+
+
+            gaps.forEach(function (gap) {
+
+                const rawSkill =
+                    getSkillName(gap);
+
+                const normalized =
+                    normalizeSkill(rawSkill);
+
+                const course =
+                    courseMap[normalized];
+
+
+                if (
+                    course &&
+                    !recommended.includes(course)
+                ) {
+
+                    recommended.push(course);
+
+                }
+
+            });
+
+
+
+            /* =================================================
+               NO MATCHING COURSE
+            ================================================= */
+
+            if (recommended.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="course-card">
+
+                        <span class="recommend-badge">
+                            Based On Your Assessment
+                        </span>
+
+                        <div class="course-icon">
+                            📚
+                        </div>
+
+                        <h3>
+                            Explore Your Learning Path
+                        </h3>
+
+                        <p>
+                            Your assessment is complete.
+                            Explore the available courses
+                            to strengthen your skills.
+                        </p>
+
+                        <button
+                            class="course-btn"
+                            data-course="JavaScript"
+                            onclick="startCourse('JavaScript')"
+                        >
+                            Start Learning
+                        </button>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+
+            /* =================================================
+               SHOW MAX 4 RECOMMENDATIONS
+            ================================================= */
+
+            const finalCourses =
+                recommended.slice(0, 4);
+
+
+
+            container.innerHTML =
+                finalCourses.map(function (course) {
+
+                    return `
+
+                        <div class="course-card">
+
+                            <span class="recommend-badge">
+                                Recommended For You
+                            </span>
+
+                            <div class="course-icon">
+                                📚
+                            </div>
+
+                            <h3>
+                                ${course}
+                            </h3>
+
+                            <p>
+                                This course is recommended
+                                based on your identified
+                                skill gaps.
+                            </p>
+
+                            <button
+                                class="course-btn"
+                                onclick="startCourse(${JSON.stringify(course)})"
+                            >
+                                Start Learning
+                            </button>
+
+                        </div>
+
+                    `;
+
+                }).join("");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,2777 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Course | Skill Up</title>
+
+    <script src="api.js"></script>
+    <script src="protect.js"></script>
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f8fc;
+            color: #14213d;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            width: 100%;
+            min-height: 72px;
+
+            background: #14213d;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .logo span {
+            color: #fca311;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+
+            white-space: nowrap;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+
+            position: relative;
+
+            padding: 26px 0;
+
+            flex-shrink: 0;
+
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #fca311;
+        }
+
+        .nav-links a.active {
+            color: #fca311;
+        }
+
+        .nav-links a.active::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 17px;
+
+            height: 3px;
+
+            background: #fca311;
+
+            border-radius: 5px;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .course-hero {
+            position: relative;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(252,163,17,0.28),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 10% 90%,
+                    rgba(252,163,17,0.12),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #14213d,
+                    #1d3158
+                );
+
+            color: white;
+
+            padding: 75px 6%;
+        }
+
+        .hero-circle {
+            position: absolute;
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+        }
+
+        .circle-one {
+            width: 300px;
+            height: 300px;
+
+            right: -80px;
+            top: -100px;
+        }
+
+        .circle-two {
+            width: 450px;
+            height: 450px;
+
+            right: -160px;
+            top: -170px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            max-width: 1150px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 30px;
+        }
+
+        .course-icon {
+            width: 100px;
+            height: 100px;
+
+            min-width: 100px;
+
+            border-radius: 25px;
+
+            background: rgba(255,255,255,0.12);
+
+            backdrop-filter: blur(12px);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 48px;
+
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero-text {
+            min-width: 0;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+
+            line-height: 1.15;
+
+            margin-bottom: 12px;
+
+            word-break: break-word;
+        }
+
+        .hero-text p {
+            max-width: 700px;
+
+            color: #dce3ef;
+
+            line-height: 1.7;
+
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .course-container {
+            width: 100%;
+            max-width: 1150px;
+
+            margin: 50px auto;
+
+            padding: 0 20px;
+        }
+
+        .section-card {
+            width: 100%;
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 10px 35px rgba(20,33,61,0.07);
+
+            border: 1px solid #e8ebf1;
+
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-size: 25px;
+
+            margin-bottom: 20px;
+
+            color: #14213d;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            line-height: 1.3;
+        }
+
+        .section-title::before {
+            content: "";
+
+            width: 6px;
+            min-width: 6px;
+
+            height: 28px;
+
+            border-radius: 5px;
+
+            background: #fca311;
+        }
+
+        .about-text {
+            color: #606a7b;
+
+            line-height: 1.8;
+
+            font-size: 15px;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        /* =====================================================
+           MODULES
+        ===================================================== */
+
+        .modules-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            gap: 18px;
+        }
+
+        .module-card {
+            min-width: 0;
+
+            padding: 22px;
+
+            background: #f8f9fc;
+
+            border: 1px solid #e7eaf0;
+
+            border-radius: 15px;
+
+            transition: 0.25s;
+        }
+
+        .module-card:hover {
+            transform: translateY(-3px);
+
+            border-color: #fca311;
+
+            box-shadow:
+                0 8px 25px rgba(20,33,61,0.08);
+        }
+
+        .module-number {
+            display: inline-flex;
+
+            width: 34px;
+            height: 34px;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #14213d;
+
+            color: white;
+
+            border-radius: 50%;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 12px;
+        }
+
+        .module-card h3 {
+            margin-bottom: 8px;
+
+            font-size: 17px;
+
+            line-height: 1.4;
+
+            color: #14213d;
+        }
+
+        .module-card p {
+            color: #687386;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           OBJECTIVES
+        ===================================================== */
+
+        .objectives-list {
+            display: grid;
+
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            gap: 12px;
+        }
+
+        .objective-item {
+            min-width: 0;
+
+            padding: 15px;
+
+            background: #f8f9fc;
+
+            border-radius: 12px;
+
+            color: #4d586a;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            overflow-wrap: anywhere;
+        }
+
+        .objective-item::before {
+            content: "✓";
+
+            color: #fca311;
+
+            font-weight: bold;
+
+            margin-right: 8px;
+        }
+
+
+        /* =====================================================
+           RESOURCES
+        ===================================================== */
+
+        .resources-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            gap: 18px;
+        }
+
+        .resource-card {
+            min-width: 0;
+
+            border: 1px solid #e6e9ef;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            background: #fafbfe;
+        }
+
+        .resource-card h3 {
+            margin-bottom: 8px;
+
+            color: #14213d;
+
+            font-size: 18px;
+
+            line-height: 1.4;
+        }
+
+        .resource-card p {
+            color: #697386;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 15px;
+        }
+
+        .resource-btn {
+            display: inline-block;
+
+            padding: 10px 16px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+
+            max-width: 100%;
+        }
+
+        .official-btn {
+            background: #14213d;
+
+            color: white;
+        }
+
+        .official-btn:hover {
+            background: #fca311;
+
+            color: #14213d;
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .progress-wrapper {
+            margin-top: 10px;
+
+            width: 100%;
+        }
+
+        .progress-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 10px;
+        }
+
+        .progress-header strong {
+            font-size: 16px;
+        }
+
+        #progressText {
+            color: #fca311;
+
+            font-weight: bold;
+
+            flex-shrink: 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+
+            height: 14px;
+
+            background: #e8ebf1;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        #progressFill {
+            height: 100%;
+
+            width: 0%;
+
+            background: linear-gradient(
+                90deg,
+                #fca311,
+                #ffbd45
+            );
+
+            border-radius: 20px;
+
+            transition: width 0.5s ease;
+        }
+
+        .progress-buttons {
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 20px;
+        }
+
+        .btn {
+            border: none;
+
+            cursor: pointer;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            background: #fca311;
+
+            color: #14213d;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 18px rgba(252,163,17,0.25);
+        }
+
+        .btn-dark {
+            background: #14213d;
+
+            color: white;
+        }
+
+        .btn-dark:hover {
+            background: #24385f;
+        }
+
+        #completionMessage {
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            background: #eaf8ef;
+
+            color: #16733a;
+
+            font-weight: bold;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            background: #14213d;
+
+            color: #dbe2ef;
+
+            padding: 30px 6%;
+
+            text-align: center;
+
+            margin-top: 60px;
+
+            line-height: 1.6;
+        }
+
+        footer span {
+            color: #fca311;
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .hero-content {
+                max-width: 900px;
+            }
+
+            .course-container {
+                max-width: 950px;
+            }
+
+        }
+
+
+        /* =====================================================
+           TABLET / SMALL LAPTOP
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .navbar {
+                min-height: 70px;
+            }
+
+            .nav-links {
+                gap: 12px;
+
+                overflow-x: auto;
+
+                max-width: 75vw;
+
+                scrollbar-width: none;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+
+                padding: 24px 0;
+            }
+
+            .hero-content {
+                flex-direction: column;
+
+                text-align: center;
+
+                gap: 22px;
+            }
+
+            .hero-text h1 {
+                font-size: 34px;
+            }
+
+            .hero-text p {
+                margin: auto;
+            }
+
+            .modules-grid,
+            .objectives-list,
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+                width: 100%;
+            }
+
+            .navbar {
+                min-height: 70px;
+
+                height: auto;
+
+                padding: 16px 5%;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                justify-content: center;
+
+                gap: 14px;
+            }
+
+            .logo {
+                text-align: center;
+
+                font-size: 24px;
+            }
+
+            .nav-links {
+                width: 100%;
+
+                max-width: 100%;
+
+                display: flex;
+
+                flex-wrap: nowrap;
+
+                justify-content: flex-start;
+
+                gap: 22px;
+
+                overflow-x: auto;
+
+                overflow-y: hidden;
+
+                padding: 2px 4px 8px;
+
+                scrollbar-width: none;
+
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+
+                padding: 5px 0;
+
+                white-space: nowrap;
+            }
+
+            .nav-links a.active::after {
+                bottom: -5px;
+
+                height: 2px;
+            }
+
+            .course-hero {
+                padding: 55px 6%;
+            }
+
+            .circle-one {
+                width: 220px;
+                height: 220px;
+
+                right: -90px;
+                top: -80px;
+            }
+
+            .circle-two {
+                width: 320px;
+                height: 320px;
+
+                right: -130px;
+                top: -120px;
+            }
+
+            .hero-content {
+                width: 100%;
+            }
+
+            .course-icon {
+                width: 80px;
+                height: 80px;
+
+                min-width: 80px;
+
+                border-radius: 20px;
+
+                font-size: 38px;
+            }
+
+            .hero-text h1 {
+                font-size: 30px;
+
+                margin-bottom: 10px;
+            }
+
+            .hero-text p {
+                font-size: 14px;
+
+                line-height: 1.7;
+            }
+
+            .course-container {
+                width: 100%;
+
+                margin: 30px auto;
+
+                padding: 0 12px;
+            }
+
+            .section-card {
+                padding: 20px;
+
+                border-radius: 16px;
+
+                margin-bottom: 18px;
+            }
+
+            .section-title {
+                font-size: 21px;
+
+                margin-bottom: 17px;
+
+                gap: 8px;
+            }
+
+            .section-title::before {
+                width: 5px;
+                min-width: 5px;
+
+                height: 24px;
+            }
+
+            .about-text {
+                font-size: 14px;
+
+                line-height: 1.75;
+            }
+
+            .modules-grid,
+            .objectives-list,
+            .resources-grid {
+                grid-template-columns: 1fr;
+
+                gap: 12px;
+            }
+
+            .module-card {
+                padding: 18px;
+            }
+
+            .module-card h3 {
+                font-size: 16px;
+            }
+
+            .module-card p {
+                font-size: 13px;
+            }
+
+            .objective-item {
+                padding: 13px;
+
+                font-size: 13px;
+            }
+
+            .resource-card {
+                padding: 17px;
+            }
+
+            .resource-card h3 {
+                font-size: 16px;
+            }
+
+            .resource-card p {
+                font-size: 13px;
+            }
+
+            .progress-header strong {
+                font-size: 14px;
+            }
+
+            #progressText {
+                font-size: 14px;
+            }
+
+            .progress-bar {
+                height: 12px;
+            }
+
+            .progress-buttons {
+                flex-direction: column;
+
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+
+                padding: 12px 15px;
+            }
+
+            footer {
+                margin-top: 35px;
+
+                padding: 24px 6%;
+
+                font-size: 13px;
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 400px) {
+
+            .navbar {
+                padding: 14px 4%;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .nav-links {
+                gap: 19px;
+            }
+
+            .nav-links a {
+                font-size: 11px;
+            }
+
+            .course-hero {
+                padding: 45px 5%;
+            }
+
+            .course-icon {
+                width: 72px;
+                height: 72px;
+
+                min-width: 72px;
+
+                font-size: 34px;
+            }
+
+            .hero-text h1 {
+                font-size: 27px;
+            }
+
+            .hero-text p {
+                font-size: 13px;
+            }
+
+            .course-container {
+                padding: 0 9px;
+
+                margin-top: 25px;
+            }
+
+            .section-card {
+                padding: 17px;
+
+                border-radius: 14px;
+            }
+
+            .section-title {
+                font-size: 19px;
+            }
+
+            .about-text {
+                font-size: 13px;
+            }
+
+            .module-card {
+                padding: 16px;
+            }
+
+            .resource-card {
+                padding: 15px;
+            }
+
+            .resource-btn {
+                width: 100%;
+
+                text-align: center;
+            }
+
+            .progress-header {
+                align-items: flex-start;
+            }
+
+            footer {
+                font-size: 12px;
+            }
+
+        }
+
+
+        /* =====================================================
+           VERY SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 320px) {
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 10px;
+            }
+
+            .hero-text h1 {
+                font-size: 24px;
+            }
+
+            .section-card {
+                padding: 15px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .btn {
+                font-size: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Skill<span>Up</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="career.html">
+            Career
+        </a>
+
+        <a href="courses.html" class="active">
+            Courses
+        </a>
+
+        <a href="assessment.html">
+            Assessment
+        </a>
+
+        <a href="academics.html">
+            Academics
+        </a>
+
+        <a href="about.html">
+            About Us
+        </a>
+
+        <a href="profile.html">
+            Profile
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="course-hero">
+
+    <div class="hero-circle circle-one"></div>
+
+    <div class="hero-circle circle-two"></div>
+
+    <div class="hero-content">
+
+        <div
+            class="course-icon"
+            id="courseIcon">
+
+            📚
+
+        </div>
+
+        <div class="hero-text">
+
+            <h1 id="courseTitle">
+                Course
+            </h1>
+
+            <p id="courseDescription">
+                Learn industry-ready skills with
+                structured learning.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="course-container">
+
+
+    <!-- ABOUT -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            About This Course
+        </h2>
+
+        <p
+            class="about-text"
+            id="courseAbout">
+
+            Loading course information...
+
+        </p>
+
+    </section>
+
+
+    <!-- MODULES -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            Course Modules
+        </h2>
+
+        <div
+            class="modules-grid"
+            id="modulesContainer">
+
+        </div>
+
+    </section>
+
+
+    <!-- OBJECTIVES -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            What You Will Learn
+        </h2>
+
+        <div
+            class="objectives-list"
+            id="objectivesList">
+
+        </div>
+
+    </section>
+
+
+    <!-- RESOURCES -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            Learning Resources
+        </h2>
+
+        <div
+            class="resources-grid"
+            id="resourcesContainer">
+
+        </div>
+
+    </section>
+
+
+    <!-- PROGRESS -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            Your Course Progress
+        </h2>
+
+        <div class="progress-wrapper">
+
+            <div class="progress-header">
+
+                <strong>
+                    Course Completion
+                </strong>
+
+                <span id="progressText">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div id="progressFill"></div>
+
+            </div>
+
+
+            <div class="progress-buttons">
+
+                <button
+                    class="btn"
+                    onclick="updateProgress()">
+
+                    Update Progress
+
+                </button>
+
+
+                <button
+                    class="btn"
+                    onclick="completeCourse()">
+
+                    Mark as Completed ✓
+
+                </button>
+
+
+                <button
+                    class="btn btn-dark"
+                    onclick="window.location.href='courses.html'">
+
+                    ← Back to Courses
+
+                </button>
+
+            </div>
+
+
+            <div id="completionMessage">
+
+                🎉 Congratulations! You have completed
+                this course.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <p>
+        © 2026 <span>Skill Up</span> |
+        Learn • Build • Grow
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   COURSE DATA
+========================================================= */
+
+const courseData = {
+
+    "HTML & CSS": {
+        icon: "🌐",
+        description:
+            "Build modern, responsive and professional websites using HTML and CSS.",
+        about:
+            "Learn the foundations of web development by understanding HTML structure, semantic elements, forms, CSS styling, layouts, responsive design and modern UI techniques.",
+        modules: [
+            "HTML Fundamentals",
+            "Semantic HTML & Forms",
+            "CSS Fundamentals",
+            "Flexbox & Grid",
+            "Responsive Web Design",
+            "Modern Website Project"
+        ],
+        objectives: [
+            "Create structured HTML webpages",
+            "Build forms and navigation",
+            "Style websites using CSS",
+            "Use Flexbox and CSS Grid",
+            "Create responsive layouts"
+        ]
+    },
+
+    "JavaScript": {
+        icon: "🟨",
+        description:
+            "Learn JavaScript fundamentals and build interactive web applications.",
+        about:
+            "Understand variables, functions, arrays, objects, DOM manipulation, events, ES6 concepts and asynchronous JavaScript.",
+        modules: [
+            "JavaScript Basics",
+            "Functions & Scope",
+            "Arrays & Objects",
+            "DOM Manipulation",
+            "ES6+ Concepts",
+            "Async JavaScript"
+        ],
+        objectives: [
+            "Write JavaScript programs",
+            "Work with arrays and objects",
+            "Manipulate the DOM",
+            "Handle browser events",
+            "Understand asynchronous programming"
+        ]
+    },
+
+    "React": {
+        icon: "⚛️",
+        description:
+            "Build modern component-based web interfaces using React.",
+        about:
+            "Learn React components, props, state, hooks, events, forms and API integration.",
+        modules: [
+            "React Fundamentals",
+            "Components & Props",
+            "State & Events",
+            "React Hooks",
+            "Forms & API",
+            "React Project"
+        ],
+        objectives: [
+            "Create React components",
+            "Manage state",
+            "Use React hooks",
+            "Handle forms",
+            "Build React applications"
+        ]
+    },
+
+    "Python": {
+        icon: "🐍",
+        description:
+            "Learn Python programming from fundamentals to practical development.",
+        about:
+            "Master Python syntax, data structures, functions, OOP, modules and practical programming.",
+        modules: [
+            "Python Basics",
+            "Conditions & Loops",
+            "Functions",
+            "Lists & Dictionaries",
+            "OOP in Python",
+            "Python Project"
+        ],
+        objectives: [
+            "Write Python programs",
+            "Use data structures",
+            "Create reusable functions",
+            "Understand OOP",
+            "Build Python projects"
+        ]
+    },
+
+    "SQL & Databases": {
+        icon: "🗄️",
+        description:
+            "Learn databases and SQL queries for real-world applications.",
+        about:
+            "Understand relational databases, tables, queries, joins, constraints and database design.",
+        modules: [
+            "Database Fundamentals",
+            "SQL Basics",
+            "Filtering & Sorting",
+            "Joins",
+            "Functions & Grouping",
+            "Database Project"
+        ],
+        objectives: [
+            "Create SQL queries",
+            "Work with tables",
+            "Use joins",
+            "Analyze database data",
+            "Understand relational databases"
+        ]
+    },
+
+    "Data Analytics": {
+        icon: "📊",
+        description:
+            "Learn how to analyze data and extract useful insights.",
+        about:
+            "Learn data cleaning, analysis, visualization and interpretation using practical tools.",
+        modules: [
+            "Data Analytics Basics",
+            "Data Cleaning",
+            "Exploratory Analysis",
+            "Data Visualization",
+            "Statistics",
+            "Analytics Project"
+        ],
+        objectives: [
+            "Clean datasets",
+            "Analyze data",
+            "Create visualizations",
+            "Understand basic statistics",
+            "Generate insights"
+        ]
+    },
+
+    "Node.js": {
+        icon: "🟢",
+        description:
+            "Build backend applications using Node.js.",
+        about:
+            "Learn server-side JavaScript, modules, HTTP, APIs and backend architecture.",
+        modules: [
+            "Node.js Basics",
+            "Modules",
+            "HTTP Server",
+            "File System",
+            "REST APIs",
+            "Backend Project"
+        ],
+        objectives: [
+            "Create Node servers",
+            "Use modules",
+            "Build APIs",
+            "Work with files",
+            "Create backend applications"
+        ]
+    },
+
+    "Express.js": {
+        icon: "🚂",
+        description:
+            "Build fast and scalable backend APIs using Express.js.",
+        about:
+            "Learn routing, middleware, APIs, error handling and backend architecture using Express.",
+        modules: [
+            "Express Fundamentals",
+            "Routing",
+            "Middleware",
+            "REST APIs",
+            "Error Handling",
+            "Express Project"
+        ],
+        objectives: [
+            "Create Express servers",
+            "Build routes",
+            "Use middleware",
+            "Create REST APIs",
+            "Handle backend errors"
+        ]
+    },
+
+    "MongoDB": {
+        icon: "🍃",
+        description:
+            "Learn MongoDB and NoSQL database development.",
+        about:
+            "Understand collections, documents, CRUD operations, queries and MongoDB integration.",
+        modules: [
+            "MongoDB Basics",
+            "Documents & Collections",
+            "CRUD Operations",
+            "Queries",
+            "MongoDB with Node.js",
+            "Database Project"
+        ],
+        objectives: [
+            "Understand NoSQL databases",
+            "Create collections",
+            "Perform CRUD operations",
+            "Write MongoDB queries",
+            "Connect MongoDB with backend"
+        ]
+    },
+
+    "Git & GitHub": {
+        icon: "🐙",
+        description:
+            "Learn version control and collaborate using Git and GitHub.",
+        about:
+            "Understand repositories, commits, branches, merging and collaboration workflows.",
+        modules: [
+            "Git Basics",
+            "Repositories",
+            "Commits",
+            "Branches",
+            "GitHub",
+            "Collaboration"
+        ],
+        objectives: [
+            "Use Git commands",
+            "Create repositories",
+            "Manage branches",
+            "Push projects to GitHub",
+            "Collaborate with developers"
+        ]
+    },
+
+    "Machine Learning": {
+        icon: "🤖",
+        description:
+            "Understand machine learning concepts and practical workflows.",
+        about:
+            "Learn data preprocessing, supervised learning, unsupervised learning and model evaluation.",
+        modules: [
+            "ML Fundamentals",
+            "Data Preparation",
+            "Regression",
+            "Classification",
+            "Clustering",
+            "ML Project"
+        ],
+        objectives: [
+            "Understand ML concepts",
+            "Prepare datasets",
+            "Train models",
+            "Evaluate models",
+            "Build ML projects"
+        ]
+    },
+
+    "Deep Learning": {
+        icon: "🧠",
+        description:
+            "Learn neural networks and deep learning fundamentals.",
+        about:
+            "Understand neural networks, activation functions, training and deep learning workflows.",
+        modules: [
+            "Deep Learning Basics",
+            "Neural Networks",
+            "Activation Functions",
+            "Training Models",
+            "CNN Basics",
+            "Deep Learning Project"
+        ],
+        objectives: [
+            "Understand neural networks",
+            "Build basic models",
+            "Train neural networks",
+            "Understand CNNs",
+            "Work with deep learning concepts"
+        ]
+    },
+
+    "Power BI": {
+        icon: "📈",
+        description:
+            "Create interactive dashboards and business reports using Power BI.",
+        about:
+            "Learn data import, transformation, visualization, dashboards and reporting.",
+        modules: [
+            "Power BI Basics",
+            "Data Import",
+            "Data Cleaning",
+            "Visualizations",
+            "Dashboards",
+            "Power BI Project"
+        ],
+        objectives: [
+            "Import data",
+            "Transform datasets",
+            "Create charts",
+            "Build dashboards",
+            "Create business reports"
+        ]
+    },
+
+    "Cloud Computing": {
+        icon: "☁️",
+        description:
+            "Understand cloud computing concepts and services.",
+        about:
+            "Learn cloud models, virtualization, storage, networking and cloud architecture.",
+        modules: [
+            "Cloud Fundamentals",
+            "Service Models",
+            "Virtualization",
+            "Cloud Storage",
+            "Cloud Networking",
+            "Cloud Project"
+        ],
+        objectives: [
+            "Understand cloud computing",
+            "Learn cloud service models",
+            "Understand virtualization",
+            "Work with cloud storage",
+            "Understand cloud architecture"
+        ]
+    },
+
+    "AWS Fundamentals": {
+        icon: "☁️",
+        description:
+            "Learn the fundamentals of Amazon Web Services.",
+        about:
+            "Understand core AWS services including compute, storage, networking and security.",
+        modules: [
+            "AWS Basics",
+            "EC2",
+            "S3",
+            "Networking",
+            "IAM",
+            "AWS Project"
+        ],
+        objectives: [
+            "Understand AWS",
+            "Use EC2",
+            "Understand S3",
+            "Learn IAM",
+            "Understand AWS networking"
+        ]
+    },
+
+    "Cyber Security": {
+        icon: "🔐",
+        description:
+            "Understand cybersecurity fundamentals and common security practices.",
+        about:
+            "Learn cybersecurity concepts, threats, authentication, network security and defensive practices.",
+        modules: [
+            "Cybersecurity Basics",
+            "Threats & Attacks",
+            "Authentication",
+            "Network Security",
+            "Web Security",
+            "Security Project"
+        ],
+        objectives: [
+            "Understand security concepts",
+            "Identify common threats",
+            "Understand authentication",
+            "Learn network security",
+            "Understand web security"
+        ]
+    },
+
+    "Computer Networking": {
+        icon: "🌐",
+        description:
+            "Understand computer networks and communication protocols.",
+        about:
+            "Learn networking fundamentals, OSI model, TCP/IP, IP addressing, routing and network security.",
+        modules: [
+            "Networking Basics",
+            "OSI Model",
+            "TCP/IP",
+            "IP Addressing",
+            "Routing",
+            "Network Security"
+        ],
+        objectives: [
+            "Understand networking",
+            "Learn OSI model",
+            "Understand TCP/IP",
+            "Work with IP addresses",
+            "Understand routing"
+        ]
+    },
+
+    "UI/UX Design": {
+        icon: "🎨",
+        description:
+            "Learn modern UI/UX design principles and workflows.",
+        about:
+            "Understand user research, wireframes, visual design, prototypes and usability.",
+        modules: [
+            "UI/UX Fundamentals",
+            "User Research",
+            "Wireframing",
+            "Visual Design",
+            "Prototyping",
+            "UI/UX Project"
+        ],
+        objectives: [
+            "Understand UX principles",
+            "Create wireframes",
+            "Design interfaces",
+            "Build prototypes",
+            "Improve usability"
+        ]
+    }
+
+};
+
+
+/* =========================================================
+   LEARNING RESOURCES
+========================================================= */
+
+const resources = {
+
+    "HTML & CSS": [
+        {
+            name: "YouTube Learning",
+            description: "Learn HTML and CSS through practical tutorials.",
+            url: "https://www.youtube.com/results?search_query=HTML+CSS+full+course"
+        },
+        {
+            name: "MDN Web Docs",
+            description: "Official HTML and CSS documentation.",
+            url: "https://developer.mozilla.org/en-US/docs/Learn"
+        }
+    ],
+
+    "JavaScript": [
+        {
+            name: "YouTube Learning",
+            description: "Complete JavaScript tutorials and projects.",
+            url: "https://www.youtube.com/results?search_query=JavaScript+full+course"
+        },
+        {
+            name: "MDN JavaScript",
+            description: "Official JavaScript documentation.",
+            url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+        }
+    ],
+
+    "React": [
+        {
+            name: "YouTube Learning",
+            description: "React tutorials and practical projects.",
+            url: "https://www.youtube.com/results?search_query=React+JS+full+course"
+        },
+        {
+            name: "React Official",
+            description: "Official React documentation.",
+            url: "https://react.dev/learn"
+        }
+    ],
+
+    "Python": [
+        {
+            name: "YouTube Learning",
+            description: "Python programming tutorials.",
+            url: "https://www.youtube.com/results?search_query=Python+full+course"
+        },
+        {
+            name: "Python Official",
+            description: "Official Python documentation.",
+            url: "https://docs.python.org/3/tutorial/"
+        }
+    ],
+
+    "SQL & Databases": [
+        {
+            name: "YouTube Learning",
+            description: "SQL and database tutorials.",
+            url: "https://www.youtube.com/results?search_query=SQL+full+course"
+        },
+        {
+            name: "SQL Tutorial",
+            description: "Interactive SQL learning.",
+            url: "https://www.w3schools.com/sql/"
+        }
+    ],
+
+    "Data Analytics": [
+        {
+            name: "YouTube Learning",
+            description: "Data analytics tutorials.",
+            url: "https://www.youtube.com/results?search_query=data+analytics+full+course"
+        },
+        {
+            name: "Microsoft Learn",
+            description: "Data analytics learning resources.",
+            url: "https://learn.microsoft.com/en-us/training/"
+        }
+    ],
+
+    "Node.js": [
+        {
+            name: "YouTube Learning",
+            description: "Node.js backend development tutorials.",
+            url: "https://www.youtube.com/results?search_query=Node.js+full+course"
+        },
+        {
+            name: "Node.js Official",
+            description: "Official Node.js documentation.",
+            url: "https://nodejs.org/en/learn"
+        }
+    ],
+
+    "Express.js": [
+        {
+            name: "YouTube Learning",
+            description: "Express.js backend tutorials.",
+            url: "https://www.youtube.com/results?search_query=Express.js+full+course"
+        },
+        {
+            name: "Express Official",
+            description: "Official Express documentation.",
+            url: "https://expressjs.com/"
+        }
+    ],
+
+    "MongoDB": [
+        {
+            name: "YouTube Learning",
+            description: "MongoDB tutorials and projects.",
+            url: "https://www.youtube.com/results?search_query=MongoDB+full+course"
+        },
+        {
+            name: "MongoDB University",
+            description: "Official MongoDB learning resources.",
+            url: "https://learn.mongodb.com/"
+        }
+    ],
+
+    "Git & GitHub": [
+        {
+            name: "YouTube Learning",
+            description: "Git and GitHub tutorials.",
+            url: "https://www.youtube.com/results?search_query=Git+GitHub+full+course"
+        },
+        {
+            name: "GitHub Docs",
+            description: "Official GitHub documentation.",
+            url: "https://docs.github.com/"
+        }
+    ],
+
+    "Machine Learning": [
+        {
+            name: "YouTube Learning",
+            description: "Machine learning tutorials.",
+            url: "https://www.youtube.com/results?search_query=Machine+Learning+full+course"
+        },
+        {
+            name: "Google ML",
+            description: "Machine learning resources.",
+            url: "https://developers.google.com/machine-learning"
+        }
+    ],
+
+    "Deep Learning": [
+        {
+            name: "YouTube Learning",
+            description: "Deep learning tutorials.",
+            url: "https://www.youtube.com/results?search_query=Deep+Learning+full+course"
+        },
+        {
+            name: "TensorFlow",
+            description: "Official TensorFlow tutorials.",
+            url: "https://www.tensorflow.org/tutorials"
+        }
+    ],
+
+    "Power BI": [
+        {
+            name: "YouTube Learning",
+            description: "Power BI tutorials.",
+            url: "https://www.youtube.com/results?search_query=Power+BI+full+course"
+        },
+        {
+            name: "Microsoft Power BI",
+            description: "Official Power BI learning resources.",
+            url: "https://learn.microsoft.com/en-us/training/powerplatform/power-bi/"
+        }
+    ],
+
+    "Cloud Computing": [
+        {
+            name: "YouTube Learning",
+            description: "Cloud computing tutorials.",
+            url: "https://www.youtube.com/results?search_query=Cloud+Computing+full+course"
+        },
+        {
+            name: "AWS Training",
+            description: "Cloud learning resources.",
+            url: "https://aws.amazon.com/training/"
+        }
+    ],
+
+    "AWS Fundamentals": [
+        {
+            name: "YouTube Learning",
+            description: "AWS beginner tutorials.",
+            url: "https://www.youtube.com/results?search_query=AWS+beginner+full+course"
+        },
+        {
+            name: "AWS Skill Builder",
+            description: "Official AWS learning platform.",
+            url: "https://skillbuilder.aws/"
+        }
+    ],
+
+    "Cyber Security": [
+        {
+            name: "YouTube Learning",
+            description: "Cybersecurity fundamentals.",
+            url: "https://www.youtube.com/results?search_query=Cyber+Security+full+course"
+        },
+        {
+            name: "Cisco Networking Academy",
+            description: "Cybersecurity learning resources.",
+            url: "https://www.netacad.com/"
+        }
+    ],
+
+    "Computer Networking": [
+        {
+            name: "YouTube Learning",
+            description: "Computer networking tutorials.",
+            url: "https://www.youtube.com/results?search_query=Computer+Networking+full+course"
+        },
+        {
+            name: "Cisco Networking Academy",
+            description: "Networking learning resources.",
+            url: "https://www.netacad.com/"
+        }
+    ],
+
+    "UI/UX Design": [
+        {
+            name: "YouTube Learning",
+            description: "UI/UX design tutorials.",
+            url: "https://www.youtube.com/results?search_query=UI+UX+design+full+course"
+        },
+        {
+            name: "Figma Learn",
+            description: "Official Figma learning resources.",
+            url: "https://help.figma.com/hc/en-us/categories/360002051613"
+        }
+    ]
+
+};
+
+
+/* =========================================================
+   CURRENT COURSE
+========================================================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+let currentCourse =
+    params.get("course");
+
+
+if (currentCourse === "UI / UX Design") {
+    currentCourse = "UI/UX Design";
+}
+
+
+if (
+    !currentCourse ||
+    !courseData[currentCourse]
+) {
+
+    currentCourse =
+        localStorage.getItem(
+            "currentCourse"
+        ) || "HTML & CSS";
+
+}
+
+
+localStorage.setItem(
+    "currentCourse",
+    currentCourse
+);
+
+
+/* =========================================================
+   PROGRESS STORAGE
+========================================================= */
+
+function getProgressData() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "skillUpCourseProgress"
+            )
+        ) || {};
+
+    } catch (error) {
+
+        return {};
+
+    }
+
+}
+
+
+function saveProgressData(data) {
+
+    localStorage.setItem(
+        "skillUpCourseProgress",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================================================
+   GET NUMERIC PROGRESS
+========================================================= */
+
+function getCourseProgressValue(value) {
+
+    if (typeof value === "number") {
+
+        return Math.max(
+            0,
+            Math.min(
+                100,
+                value
+            )
+        );
+
+    }
+
+
+    if (
+        value &&
+        typeof value === "object"
+    ) {
+
+        return Math.max(
+            0,
+            Math.min(
+                100,
+                Number(value.progress) || 0
+            )
+        );
+
+    }
+
+
+    return 0;
+
+}
+
+
+/* =========================================================
+   OVERALL COURSE PROGRESS
+========================================================= */
+
+function calculateOverallCourseProgress(data) {
+
+    const courses =
+        Object.keys(data);
+
+
+    if (courses.length === 0) {
+        return 0;
+    }
+
+
+    let total = 0;
+
+
+    courses.forEach(course => {
+
+        total +=
+            getCourseProgressValue(
+                data[course]
+            );
+
+    });
+
+
+    return Math.round(
+        total / courses.length
+    );
+
+}
+
+
+/* =========================================================
+   SYNC COURSE DATA TO PROFILE
+========================================================= */
+
+function syncCourseDataToProfile() {
+
+    const data =
+        getProgressData();
+
+
+    const courseNames =
+        Object.keys(data);
+
+
+    let completedCourses = 0;
+
+
+    courseNames.forEach(course => {
+
+        const progress =
+            getCourseProgressValue(
+                data[course]
+            );
+
+
+        if (progress >= 100) {
+            completedCourses++;
+        }
+
+    });
+
+
+    const totalCourses = 18;
+
+
+    const overallProgress =
+        calculateOverallCourseProgress(
+            data
+        );
+
+
+    let profile = {};
+
+
+    try {
+
+        profile =
+            JSON.parse(
+                localStorage.getItem(
+                    "skillUpProfile"
+                )
+            ) || {};
+
+    } catch (error) {
+
+        profile = {};
+
+    }
+
+
+    profile.courseProgress =
+        overallProgress;
+
+    profile.totalCourses =
+        totalCourses;
+
+    profile.completedCourses =
+        completedCourses;
+
+    profile.courseProgressData =
+        data;
+
+    profile.lastCourseUpdate =
+        new Date().toISOString();
+
+
+    localStorage.setItem(
+        "skillUpProfile",
+        JSON.stringify(profile)
+    );
+
+
+    localStorage.setItem(
+
+        "skillUpCourseSummary",
+
+        JSON.stringify({
+
+            progress:
+                overallProgress,
+
+            total:
+                totalCourses,
+
+            completed:
+                completedCourses,
+
+            lastUpdated:
+                new Date().toISOString()
+
+        })
+
+    );
+
+
+    document.dispatchEvent(
+        new CustomEvent(
+            "skillUpCourseProgressUpdated",
+            {
+                detail: {
+                    progress:
+                        overallProgress,
+
+                    completed:
+                        completedCourses,
+
+                    total:
+                        totalCourses
+                }
+            }
+        )
+    );
+
+}
+
+
+/* =========================================================
+   LOAD PROGRESS
+========================================================= */
+
+function loadProgress() {
+
+    const data =
+        getProgressData();
+
+
+    const progress =
+        getCourseProgressValue(
+            data[currentCourse]
+        );
+
+
+    updateProgressUI(
+        progress
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE PROGRESS UI
+========================================================= */
+
+function updateProgressUI(progress) {
+
+    progress =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                Number(progress) || 0
+            )
+        );
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        progress + "%";
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        progress + "%";
+
+
+    checkCompletion(
+        progress
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+    const current =
+        getCourseProgressValue(
+            getProgressData()[
+                currentCourse
+            ]
+        );
+
+
+    let progress =
+        prompt(
+            "Enter your course progress (0-100):",
+            current
+        );
+
+
+    if (progress === null) {
+        return;
+    }
+
+
+    progress =
+        Number(progress);
+
+
+    if (
+        isNaN(progress) ||
+        progress < 0 ||
+        progress > 100
+    ) {
+
+        alert(
+            "Please enter a number between 0 and 100."
+        );
+
+        return;
+
+    }
+
+
+    const data =
+        getProgressData();
+
+
+    data[currentCourse] =
+        progress;
+
+
+    saveProgressData(
+        data
+    );
+
+
+    syncCourseDataToProfile();
+
+    updateProgressUI(
+        progress
+    );
+
+
+    alert(
+        "Course progress updated successfully!"
+    );
+
+}
+
+
+/* =========================================================
+   COMPLETE COURSE
+========================================================= */
+
+function completeCourse() {
+
+    const data =
+        getProgressData();
+
+
+    data[currentCourse] = {
+
+        progress: 100,
+
+        completed: true,
+
+        completedAt:
+            new Date().toISOString()
+
+    };
+
+
+    saveProgressData(
+        data
+    );
+
+
+    syncCourseDataToProfile();
+
+    updateProgressUI(
+        100
+    );
+
+
+    alert(
+        "🎉 Course marked as completed!"
+    );
+
+}
+
+
+/* =========================================================
+   CHECK COMPLETION
+========================================================= */
+
+function checkCompletion(progress) {
+
+    const message =
+        document.getElementById(
+            "completionMessage"
+        );
+
+
+    if (progress >= 100) {
+
+        message.style.display =
+            "block";
+
+    } else {
+
+        message.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   COURSE COMPLETION SYNC
+========================================================= */
+
+function syncCourseCompletion() {
+
+    const data =
+        getProgressData();
+
+
+    const currentValue =
+        getCourseProgressValue(
+            data[currentCourse]
+        );
+
+
+    if (currentValue >= 100) {
+
+        data[currentCourse] = {
+
+            progress: 100,
+
+            completed: true,
+
+            completedAt:
+                data[currentCourse]?.completedAt ||
+                new Date().toISOString()
+
+        };
+
+
+        saveProgressData(
+            data
+        );
+
+    }
+
+
+    syncCourseDataToProfile();
+
+}
+
+
+/* =========================================================
+   LOAD COURSE
+========================================================= */
+
+function loadCourse() {
+
+    const course =
+        courseData[currentCourse];
+
+
+    if (!course) {
+        return;
+    }
+
+
+    document.title =
+        `${currentCourse} | Skill Up`;
+
+
+    document.getElementById(
+        "courseIcon"
+    ).textContent =
+        course.icon;
+
+
+    document.getElementById(
+        "courseTitle"
+    ).textContent =
+        currentCourse;
+
+
+    document.getElementById(
+        "courseDescription"
+    ).textContent =
+        course.description;
+
+
+    document.getElementById(
+        "courseAbout"
+    ).textContent =
+        course.about;
+
+
+    /* =====================================================
+       MODULES
+    ===================================================== */
+
+    const modulesContainer =
+        document.getElementById(
+            "modulesContainer"
+        );
+
+
+    modulesContainer.innerHTML = "";
+
+
+    course.modules.forEach(
+        (module, index) => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "module-card";
+
+
+            card.innerHTML = `
+
+                <span class="module-number">
+                    ${index + 1}
+                </span>
+
+                <h3>
+                    ${module}
+                </h3>
+
+                <p>
+                    Learn the important concepts
+                    and practical skills covered
+                    in this module.
+                </p>
+
+            `;
+
+
+            modulesContainer.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       OBJECTIVES
+    ===================================================== */
+
+    const objectivesList =
+        document.getElementById(
+            "objectivesList"
+        );
+
+
+    objectivesList.innerHTML = "";
+
+
+    course.objectives.forEach(
+        objective => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "objective-item";
+
+
+            item.textContent =
+                objective;
+
+
+            objectivesList.appendChild(
+                item
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       RESOURCES
+    ===================================================== */
+
+    loadResources();
+
+
+    /* =====================================================
+       PROGRESS
+    ===================================================== */
+
+    loadProgress();
+
+}
+
+
+/* =========================================================
+   LOAD RESOURCES
+========================================================= */
+
+function loadResources() {
+
+    const container =
+        document.getElementById(
+            "resourcesContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    const courseResources =
+        resources[currentCourse] || [];
+
+
+    courseResources.forEach(
+        resource => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "resource-card";
+
+
+            card.innerHTML = `
+
+                <h3>
+                    ${resource.name}
+                </h3>
+
+                <p>
+                    ${resource.description}
+                </p>
+
+                <a
+                    href="${resource.url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="resource-btn official-btn">
+
+                    Start Learning →
+
+                </a>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+syncCourseCompletion();
+
+syncCourseDataToProfile();
+
+loadCourse();
+
+
+/* =========================================================
+   SAVE BEFORE LEAVING
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function () {
+
+        syncCourseCompletion();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,675 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6f8fc;
+    color: #14213d;
+}
+
+
+/* NAVBAR */
+
+.navbar {
+
+    height: 65px;
+
+    background: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    border-bottom: 1px solid #e8ebf0;
+
+}
+
+
+.logo {
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+}
+
+
+.logo span {
+
+    color: #4f7cff;
+
+}
+
+
+.navbar nav {
+
+    display: flex;
+
+    gap: 28px;
+
+}
+
+
+.navbar nav a {
+
+    text-decoration: none;
+
+    color: #555;
+
+    font-size: 14px;
+
+}
+
+
+.navbar nav a:hover,
+.navbar nav a.active {
+
+    color: #14213d;
+
+    font-weight: 600;
+
+}
+
+
+/* HERO */
+
+.hero {
+
+    background: #14213d;
+
+    color: white;
+
+    padding: 75px 8%;
+
+}
+
+
+.hero span {
+
+    color: #8da9ff;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    font-weight: bold;
+
+}
+
+
+.hero h1 {
+
+    font-size: 42px;
+
+    margin: 12px 0;
+
+}
+
+
+.hero p {
+
+    color: #d5dbea;
+
+    font-size: 17px;
+
+}
+
+
+/* CONTAINER */
+
+.container {
+
+    max-width: 1200px;
+
+    margin: 50px auto;
+
+    padding: 0 20px;
+
+}
+
+
+.section-title {
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-title h2 {
+
+    font-size: 28px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.section-title p {
+
+    color: #777;
+
+}
+
+
+/* GRID */
+
+.project-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 22px;
+
+}
+
+
+.project-card {
+
+    background: white;
+
+    border: 1px solid #e7eaf0;
+
+    border-radius: 17px;
+
+    padding: 25px;
+
+    transition: 0.25s;
+
+}
+
+
+.project-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.08);
+
+}
+
+
+.project-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+
+}
+
+
+.domain {
+
+    font-size: 12px;
+
+    color: #4169d8;
+
+    background: #edf2ff;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+}
+
+
+.difficulty {
+
+    font-size: 11px;
+
+    color: #777;
+
+    padding: 6px 10px;
+
+    background: #f3f4f6;
+
+    border-radius: 20px;
+
+}
+
+
+.project-card h3 {
+
+    font-size: 19px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.project-card p {
+
+    color: #707070;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    min-height: 67px;
+
+}
+
+
+/* SKILLS */
+
+.skills {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin: 18px 0;
+
+}
+
+
+.skills span {
+
+    background: #f0f3f8;
+
+    padding: 6px 9px;
+
+    border-radius: 15px;
+
+    font-size: 11px;
+
+    color: #555;
+
+}
+
+
+/* BUTTON */
+
+.project-btn {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #14213d;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+
+.project-btn:hover {
+
+    background: #203863;
+
+}
+
+
+/* SUBMITTED */
+
+.submitted-title {
+
+    margin-top: 70px;
+
+}
+
+
+.submitted-grid {
+
+    display: grid;
+
+    gap: 15px;
+
+}
+
+
+.submitted-card {
+
+    background: white;
+
+    border: 1px solid #e7eaf0;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    display: flex;
+
+    gap: 18px;
+
+    align-items: flex-start;
+
+}
+
+
+.submitted-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: #e1f6e9;
+
+    color: #18864d;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: bold;
+
+}
+
+
+.submitted-card h3 {
+
+    margin-bottom: 7px;
+
+}
+
+
+.submitted-card p {
+
+    color: #777;
+
+    margin-bottom: 12px;
+
+}
+
+
+.links {
+
+    display: flex;
+
+    gap: 15px;
+
+}
+
+
+.links a {
+
+    text-decoration: none;
+
+    color: #4169d8;
+
+    font-size: 13px;
+
+}
+
+
+.status {
+
+    display: inline-block;
+
+    margin-top: 12px;
+
+    padding: 5px 9px;
+
+    border-radius: 15px;
+
+    background: #fff3cd;
+
+    color: #856404;
+
+    font-size: 11px;
+
+}
+
+
+/* EMPTY */
+
+.empty {
+
+    background: white;
+
+    padding: 35px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    color: #777;
+
+}
+
+
+/* LOADING */
+
+.loading {
+
+    padding: 30px;
+
+    text-align: center;
+
+    color: #777;
+
+}
+
+
+/* MODAL */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.55);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 5000;
+
+}
+
+
+.modal.show {
+
+    display: flex;
+
+}
+
+
+.modal-box {
+
+    background: white;
+
+    width: 100%;
+
+    max-width: 520px;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    position: relative;
+
+}
+
+
+.modal-box h2 {
+
+    margin-bottom: 8px;
+
+}
+
+
+#modalProjectName {
+
+    color: #4169d8;
+
+    margin-bottom: 25px;
+
+}
+
+
+.close-btn {
+
+    position: absolute;
+
+    right: 18px;
+
+    top: 15px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    color: #777;
+
+}
+
+
+/* FORM */
+
+#projectForm {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+#projectForm label {
+
+    margin: 12px 0 6px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+#projectForm input,
+#projectForm textarea {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #dfe3ea;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: inherit;
+
+}
+
+
+#projectForm input:focus,
+#projectForm textarea:focus {
+
+    border-color: #4f7cff;
+
+}
+
+
+#projectForm textarea {
+
+    min-height: 110px;
+
+    resize: vertical;
+
+}
+
+
+.submit-btn {
+
+    margin-top: 20px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #14213d;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width: 900px) {
+
+    .project-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media(max-width: 600px) {
+
+    .navbar {
+
+        padding: 0 20px;
+
+    }
+
+    .navbar nav {
+
+        gap: 12px;
+
+    }
+
+    .navbar nav a {
+
+        font-size: 11px;
+
+    }
+
+    .hero h1 {
+
+        font-size: 32px;
+
+    }
+
+    .project-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}

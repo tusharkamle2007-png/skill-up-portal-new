@@ -1,0 +1,3008 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Skill Up | About Us</title>
+
+    <script src="api.js"></script>
+    <script src="protect.js"></script>
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f7f8fb;
+            color: #14213d;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+            width: 100%;
+            min-height: 72px;
+
+            background: #14213d;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 1000;
+
+            box-shadow:
+                0 4px 18px rgba(20, 33, 61, 0.12);
+
+            gap: 25px;
+        }
+
+        .logo {
+            color: white;
+
+            font-size: 25px;
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+            white-space: nowrap;
+
+            flex-shrink: 0;
+        }
+
+        .logo span {
+            color: #f97316;
+        }
+
+        .navbar nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            gap: 8px;
+
+            min-width: 0;
+        }
+
+        .navbar nav a {
+            color: #dfe5ef;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            padding: 9px 11px;
+
+            border-radius: 8px;
+
+            white-space: nowrap;
+
+            transition:
+                color 0.3s ease,
+                background 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        .navbar nav a:hover {
+            color: #ffffff;
+
+            background: rgba(249, 115, 22, 0.10);
+
+            transform: translateY(-1px);
+        }
+
+        .navbar nav a.active {
+            color: #ffffff;
+
+            background: #f97316;
+
+            box-shadow:
+                0 5px 15px rgba(249, 115, 22, 0.18);
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .about-hero {
+            position: relative;
+
+            min-height: 650px;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(249, 115, 22, 0.16),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #14213d,
+                    #1d3153
+                );
+
+            color: white;
+
+            padding: 90px 7%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 450px;
+            height: 450px;
+
+            right: -220px;
+            top: -230px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 0 55px rgba(255,255,255,0.015),
+                0 0 0 110px rgba(255,255,255,0.01);
+
+            pointer-events: none;
+        }
+
+        .about-hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            left: -150px;
+            bottom: -170px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(249,115,22,0.12);
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            max-width: 850px;
+
+            margin: auto;
+
+            width: 100%;
+        }
+
+        .eyebrow {
+            color: #f97316;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 15px;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(45px, 7vw, 82px);
+
+            line-height: 0.98;
+
+            letter-spacing: -3px;
+
+            margin-bottom: 25px;
+        }
+
+        .about-hero h1 span {
+            color: #f97316;
+        }
+
+        .hero-text {
+            max-width: 650px;
+
+            color: #dce4f1;
+
+            line-height: 1.8;
+
+            font-size: 16px;
+        }
+
+        .hero-line {
+            margin-top: 30px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .hero-line span {
+            width: 50px;
+            height: 2px;
+
+            background: #f97316;
+
+            flex-shrink: 0;
+        }
+
+        .hero-line p {
+            color: #b9c5d7;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           JOURNEY
+        ===================================================== */
+
+        .journey {
+            position: relative;
+            z-index: 2;
+
+            width: 100%;
+            max-width: 850px;
+
+            margin: 70px auto 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 18px;
+        }
+
+        .journey-item {
+            display: flex;
+            align-items: center;
+
+            gap: 14px;
+
+            max-width: 230px;
+
+            min-width: 0;
+        }
+
+        .journey-item .number {
+            width: 45px;
+            height: 45px;
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            flex-shrink: 0;
+        }
+
+        .journey-item h3 {
+            font-size: 16px;
+
+            margin-bottom: 5px;
+        }
+
+        .journey-item p {
+            color: #9eabc0;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+        .journey-item.highlight .number {
+            background: #f97316;
+
+            border-color: #f97316;
+
+            color: white;
+        }
+
+        .vertical-line {
+            width: 55px;
+            height: 1px;
+
+            background: rgba(255,255,255,0.2);
+
+            flex-shrink: 0;
+        }
+
+
+        /* =====================================================
+           COMMON SECTION
+        ===================================================== */
+
+        section:not(.about-hero) {
+            padding: 90px 7%;
+        }
+
+        .section-title {
+            max-width: 750px;
+
+            margin: 0 auto 45px;
+
+            text-align: center;
+        }
+
+        .section-title h2 {
+            font-size: clamp(30px, 5vw, 48px);
+
+            margin-bottom: 14px;
+
+            line-height: 1.1;
+        }
+
+        .section-title h2 span {
+            color: #f97316;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           STORY
+        ===================================================== */
+
+        .story-box {
+            max-width: 950px;
+
+            margin: auto;
+
+            background: white;
+
+            border: 1px solid #e8edf3;
+
+            border-radius: 20px;
+
+            padding: 40px;
+
+            display: flex;
+
+            gap: 30px;
+
+            box-shadow:
+                0 12px 35px rgba(20,33,61,0.06);
+        }
+
+        .story-number {
+            color: #f97316;
+
+            font-size: 35px;
+
+            font-weight: 800;
+
+            flex-shrink: 0;
+        }
+
+        .story-content {
+            min-width: 0;
+        }
+
+        .story-content h3 {
+            font-size: 24px;
+
+            margin-bottom: 18px;
+        }
+
+        .story-content p {
+            color: #64748b;
+
+            line-height: 1.8;
+
+            font-size: 14px;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =====================================================
+           PROBLEM
+        ===================================================== */
+
+        .problem-section {
+            background: #f1f4f8;
+        }
+
+        .problem-grid,
+        .solution-grid {
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 20px;
+        }
+
+        .problem-card,
+        .solution-card {
+            min-width: 0;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            border: 1px solid #e5eaf0;
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .problem-card:hover,
+        .solution-card:hover {
+            transform: translateY(-5px);
+
+            border-color: #f97316;
+
+            box-shadow:
+                0 12px 30px rgba(20,33,61,0.08);
+        }
+
+        .problem-icon,
+        .solution-number {
+            color: #f97316;
+
+            font-weight: 800;
+
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+        .problem-card h3,
+        .solution-card h3 {
+            font-size: 20px;
+
+            margin-bottom: 12px;
+        }
+
+        .problem-card p,
+        .solution-card p {
+            color: #64748b;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           STUDENT SECTION
+        ===================================================== */
+
+        .student-section {
+            background: #14213d;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 50px;
+        }
+
+        .student-content {
+            max-width: 650px;
+
+            min-width: 0;
+        }
+
+        .student-content h2 {
+            font-size: clamp(35px, 5vw, 60px);
+
+            line-height: 1.05;
+
+            margin-bottom: 25px;
+        }
+
+        .student-content h2 span {
+            color: #f97316;
+        }
+
+        .student-content > p:last-child {
+            color: #c5cfdd;
+
+            line-height: 1.8;
+
+            font-size: 14px;
+        }
+
+        .student-tag {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+            flex-shrink: 0;
+        }
+
+        .student-tag span {
+            border: 1px solid rgba(255,255,255,0.15);
+
+            padding: 13px 20px;
+
+            border-radius: 30px;
+
+            color: #cbd5e1;
+
+            font-size: 12px;
+
+            letter-spacing: 1px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           VISION
+        ===================================================== */
+
+        .vision-section {
+            text-align: center;
+
+            max-width: 950px;
+
+            margin: auto;
+        }
+
+        .vision-section h2 {
+            font-size: clamp(32px, 5vw, 55px);
+
+            line-height: 1.15;
+
+            margin-bottom: 25px;
+        }
+
+        .vision-section h2 span {
+            color: #f97316;
+        }
+
+        .vision-section > p:last-child {
+            color: #64748b;
+
+            max-width: 650px;
+
+            margin: auto;
+
+            line-height: 1.8;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           CONTACT
+        ===================================================== */
+
+        .contact-section {
+            background: #14213d;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 18px;
+        }
+
+        .contact-card {
+            min-width: 0;
+
+            background: rgba(255,255,255,0.06);
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            color: white;
+        }
+
+        .contact-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 10px;
+
+            background: #f97316;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 18px;
+
+            font-size: 19px;
+        }
+
+        .contact-card small {
+            color: #f97316;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+        .contact-card h3 {
+            margin: 7px 0;
+
+            font-size: 18px;
+
+            overflow-wrap: anywhere;
+        }
+
+        .contact-card p {
+            color: #b9c5d7;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            overflow-wrap: anywhere;
+        }
+
+        .contact-card button {
+            margin-top: 12px;
+
+            border: none;
+
+            background: #f97316;
+
+            color: white;
+
+            padding: 11px 16px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .contact-card button:hover {
+            background: #ea580c;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            background: #101b31;
+
+            color: #94a3b8;
+
+            text-align: center;
+
+            padding: 25px;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           AI CHAT OVERLAY
+        ===================================================== */
+
+        .ai-chat-overlay {
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(8, 15, 30, 0.72);
+
+            backdrop-filter: blur(6px);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: 0.3s ease;
+
+            z-index: 9999;
+        }
+
+        .ai-chat-overlay.active {
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+
+        /* =====================================================
+           AI CHAT BOX
+        ===================================================== */
+
+        .ai-chat-box {
+            width: 100%;
+
+            max-width: 480px;
+
+            height: 620px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            display: flex;
+
+            flex-direction: column;
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,0.35);
+
+            transform:
+                translateY(25px)
+                scale(0.96);
+
+            transition: 0.3s ease;
+        }
+
+        .ai-chat-overlay.active .ai-chat-box {
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        /* =====================================================
+           CHAT HEADER
+        ===================================================== */
+
+        .ai-chat-header {
+            background: #14213d;
+
+            color: white;
+
+            padding: 18px 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .ai-chat-header-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-width: 0;
+        }
+
+        .ai-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #f97316;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 21px;
+
+            flex-shrink: 0;
+        }
+
+        .ai-chat-header h3 {
+            font-size: 17px;
+
+            margin-bottom: 4px;
+        }
+
+        .ai-chat-header p {
+            color: #aebbd0;
+
+            font-size: 11px;
+
+            line-height: 1.4;
+        }
+
+        .ai-close {
+            width: 35px;
+            height: 35px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.08);
+
+            color: white;
+
+            font-size: 24px;
+
+            cursor: pointer;
+
+            flex-shrink: 0;
+        }
+
+        .ai-close:hover {
+            background: #f97316;
+        }
+
+
+        /* =====================================================
+           CHAT MESSAGES
+        ===================================================== */
+
+        .ai-chat-messages {
+            flex: 1;
+
+            min-height: 0;
+
+            overflow-y: auto;
+
+            padding: 20px;
+
+            background: #f5f7fb;
+        }
+
+        .ai-message {
+            max-width: 82%;
+
+            padding: 12px 15px;
+
+            border-radius: 14px;
+
+            margin-bottom: 12px;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            overflow-wrap: anywhere;
+        }
+
+        .ai-message.bot {
+            background: white;
+
+            color: #14213d;
+
+            border: 1px solid #e5eaf1;
+
+            border-bottom-left-radius: 4px;
+        }
+
+        .ai-message.user {
+            margin-left: auto;
+
+            background: #f97316;
+
+            color: white;
+
+            border-bottom-right-radius: 4px;
+        }
+
+
+        /* =====================================================
+           CHAT INPUT
+        ===================================================== */
+
+        .ai-chat-input {
+            display: flex;
+
+            gap: 10px;
+
+            padding: 14px;
+
+            background: white;
+
+            border-top: 1px solid #e5eaf1;
+        }
+
+        .ai-chat-input input {
+            flex: 1;
+
+            min-width: 0;
+
+            border: 1px solid #dbe2ea;
+
+            border-radius: 10px;
+
+            padding: 12px;
+
+            outline: none;
+
+            font-size: 13px;
+        }
+
+        .ai-chat-input input:focus {
+            border-color: #f97316;
+
+            box-shadow:
+                0 0 0 3px rgba(249,115,22,0.08);
+        }
+
+        .ai-chat-input button {
+            border: none;
+
+            background: #f97316;
+
+            color: white;
+
+            padding: 11px 17px;
+
+            border-radius: 9px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            flex-shrink: 0;
+        }
+
+        .ai-chat-input button:hover {
+            background: #ea580c;
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .navbar nav {
+                gap: 3px;
+            }
+
+            .navbar nav a {
+                padding: 8px 8px;
+
+                font-size: 11px;
+            }
+
+            .about-hero {
+                padding-left: 6%;
+                padding-right: 6%;
+            }
+
+            section:not(.about-hero) {
+                padding-left: 6%;
+                padding-right: 6%;
+            }
+
+            .problem-grid,
+            .solution-grid,
+            .contact-section {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .student-section {
+                gap: 35px;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE NAVBAR
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                min-height: auto;
+
+                padding: 12px 4%;
+
+                flex-direction: column;
+
+                gap: 10px;
+
+                align-items: stretch;
+            }
+
+            .logo {
+                align-self: center;
+
+                font-size: 25px;
+            }
+
+            .navbar nav {
+                width: 100%;
+
+                justify-content: flex-start;
+
+                overflow-x: auto;
+
+                gap: 5px;
+
+                padding: 2px 2px 5px;
+
+                scrollbar-width: none;
+
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .navbar nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            .navbar nav a {
+                flex: 0 0 auto;
+
+                padding: 8px 11px;
+
+                font-size: 10px;
+            }
+
+
+            /* HERO */
+
+            .about-hero {
+                min-height: auto;
+
+                padding: 65px 7% 55px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .about-hero h1 {
+                font-size: clamp(43px, 10vw, 62px);
+
+                letter-spacing: -2.5px;
+            }
+
+            .hero-text {
+                font-size: 14px;
+
+                line-height: 1.75;
+            }
+
+            .hero-line {
+                margin-top: 23px;
+
+                align-items: flex-start;
+            }
+
+            .hero-line span {
+                width: 35px;
+
+                margin-top: 7px;
+            }
+
+            .hero-line p {
+                font-size: 11px;
+
+                line-height: 1.5;
+            }
+
+
+            /* JOURNEY */
+
+            .journey {
+                width: 100%;
+
+                margin-top: 50px;
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 0;
+            }
+
+            .journey-item {
+                max-width: 100%;
+
+                width: 100%;
+
+                gap: 13px;
+            }
+
+            .journey-item .number {
+                width: 42px;
+                height: 42px;
+
+                flex-basis: 42px;
+            }
+
+            .journey-item h3 {
+                font-size: 15px;
+            }
+
+            .journey-item p {
+                font-size: 10px;
+            }
+
+            .vertical-line {
+                width: 1px;
+                height: 25px;
+
+                margin-left: 21px;
+            }
+
+
+            /* COMMON SECTIONS */
+
+            section:not(.about-hero) {
+                padding: 70px 6%;
+            }
+
+            .section-title {
+                margin-bottom: 32px;
+            }
+
+            .section-title h2 {
+                font-size: clamp(28px, 8vw, 40px);
+            }
+
+            .section-subtitle {
+                font-size: 12px;
+            }
+
+
+            /* STORY */
+
+            .story-box {
+                flex-direction: column;
+
+                padding: 27px;
+
+                gap: 15px;
+
+                border-radius: 18px;
+            }
+
+            .story-number {
+                font-size: 28px;
+            }
+
+            .story-content h3 {
+                font-size: 21px;
+
+                line-height: 1.3;
+            }
+
+            .story-content p {
+                font-size: 12px;
+
+                line-height: 1.75;
+            }
+
+
+            /* PROBLEM + SOLUTION */
+
+            .problem-grid,
+            .solution-grid,
+            .contact-section {
+                grid-template-columns: 1fr;
+
+                gap: 15px;
+            }
+
+            .problem-card,
+            .solution-card {
+                padding: 23px;
+
+                border-radius: 16px;
+            }
+
+            .problem-icon,
+            .solution-number {
+                margin-bottom: 17px;
+            }
+
+            .problem-card h3,
+            .solution-card h3 {
+                font-size: 18px;
+            }
+
+            .problem-card p,
+            .solution-card p {
+                font-size: 11px;
+
+                line-height: 1.7;
+            }
+
+
+            /* STUDENT */
+
+            .student-section {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 30px;
+            }
+
+            .student-content {
+                max-width: 100%;
+            }
+
+            .student-content h2 {
+                font-size: clamp(34px, 9vw, 50px);
+
+                letter-spacing: -1px;
+            }
+
+            .student-content > p:last-child {
+                font-size: 12px;
+            }
+
+            .student-tag {
+                width: 100%;
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+
+                gap: 7px;
+            }
+
+            .student-tag span {
+                padding: 10px 8px;
+
+                text-align: center;
+
+                font-size: 9px;
+            }
+
+
+            /* VISION */
+
+            .vision-section h2 {
+                font-size: clamp(30px, 8vw, 45px);
+            }
+
+            .vision-section > p:last-child {
+                font-size: 12px;
+            }
+
+
+            /* CONTACT */
+
+            .contact-section {
+                padding-top: 65px !important;
+                padding-bottom: 65px !important;
+            }
+
+            .contact-card {
+                padding: 21px;
+
+                border-radius: 15px;
+            }
+
+            .contact-card h3 {
+                font-size: 17px;
+            }
+
+            .contact-card p {
+                font-size: 11px;
+            }
+
+
+            /* CHAT */
+
+            .ai-chat-overlay {
+                padding: 12px;
+            }
+
+            .ai-chat-box {
+                width: 100%;
+
+                height: min(650px, 92vh);
+
+                max-height: 92vh;
+
+                border-radius: 17px;
+            }
+
+            .ai-chat-header {
+                padding: 15px;
+            }
+
+            .ai-avatar {
+                width: 38px;
+                height: 38px;
+
+                flex-basis: 38px;
+
+                font-size: 19px;
+            }
+
+            .ai-chat-header h3 {
+                font-size: 15px;
+            }
+
+            .ai-chat-header p {
+                font-size: 9px;
+            }
+
+            .ai-chat-messages {
+                padding: 15px;
+            }
+
+            .ai-message {
+                max-width: 90%;
+
+                padding: 11px 13px;
+
+                font-size: 12px;
+            }
+
+            .ai-chat-input {
+                padding: 10px;
+            }
+
+            .ai-chat-input input {
+                padding: 10px;
+
+                font-size: 11px;
+            }
+
+            .ai-chat-input button {
+                padding: 10px 13px;
+
+                font-size: 11px;
+            }
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 500px) {
+
+            .navbar {
+                padding: 11px 3%;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .navbar nav {
+                gap: 4px;
+            }
+
+            .navbar nav a {
+                padding: 7px 9px;
+
+                font-size: 9px;
+            }
+
+
+            /* HERO */
+
+            .about-hero {
+                padding: 52px 6% 45px;
+            }
+
+            .eyebrow {
+                font-size: 9px;
+
+                letter-spacing: 1.5px;
+
+                margin-bottom: 11px;
+            }
+
+            .about-hero h1 {
+                font-size: 39px;
+
+                line-height: 1;
+
+                letter-spacing: -2px;
+
+                margin-bottom: 19px;
+            }
+
+            .hero-text {
+                font-size: 12px;
+            }
+
+            .hero-line {
+                gap: 10px;
+
+                margin-top: 20px;
+            }
+
+            .hero-line span {
+                width: 28px;
+            }
+
+            .hero-line p {
+                font-size: 9.5px;
+            }
+
+
+            /* JOURNEY */
+
+            .journey {
+                margin-top: 40px;
+            }
+
+            .journey-item .number {
+                width: 38px;
+                height: 38px;
+
+                flex-basis: 38px;
+
+                font-size: 10px;
+            }
+
+            .vertical-line {
+                margin-left: 19px;
+
+                height: 22px;
+            }
+
+            .journey-item h3 {
+                font-size: 14px;
+            }
+
+            .journey-item p {
+                font-size: 9px;
+            }
+
+
+            /* SECTIONS */
+
+            section:not(.about-hero) {
+                padding: 58px 6%;
+            }
+
+            .section-title {
+                margin-bottom: 27px;
+            }
+
+            .section-title h2 {
+                font-size: 27px;
+
+                line-height: 1.15;
+            }
+
+
+            /* STORY */
+
+            .story-box {
+                padding: 21px;
+
+                border-radius: 16px;
+            }
+
+            .story-number {
+                font-size: 25px;
+            }
+
+            .story-content h3 {
+                font-size: 18px;
+            }
+
+            .story-content p {
+                font-size: 11px;
+            }
+
+
+            /* CARDS */
+
+            .problem-card,
+            .solution-card {
+                padding: 20px;
+            }
+
+            .problem-card h3,
+            .solution-card h3 {
+                font-size: 17px;
+            }
+
+
+            /* STUDENT */
+
+            .student-content h2 {
+                font-size: 34px;
+            }
+
+            .student-content > p:last-child {
+                font-size: 11px;
+            }
+
+            .student-tag {
+                grid-template-columns: 1fr;
+            }
+
+            .student-tag span {
+                padding: 9px;
+
+                font-size: 9px;
+            }
+
+
+            /* VISION */
+
+            .vision-section h2 {
+                font-size: 29px;
+            }
+
+            .vision-section > p:last-child {
+                font-size: 11px;
+            }
+
+
+            /* CONTACT */
+
+            .contact-card {
+                padding: 18px;
+            }
+
+            .contact-icon {
+                width: 39px;
+                height: 39px;
+
+                margin-bottom: 14px;
+
+                font-size: 17px;
+            }
+
+            .contact-card small {
+                font-size: 8px;
+            }
+
+            .contact-card h3 {
+                font-size: 16px;
+            }
+
+            .contact-card p {
+                font-size: 10px;
+            }
+
+            .contact-card button {
+                padding: 10px 13px;
+
+                font-size: 10px;
+            }
+
+
+            /* CHAT */
+
+            .ai-chat-overlay {
+                padding: 8px;
+            }
+
+            .ai-chat-box {
+                height: 94vh;
+
+                max-height: 94vh;
+
+                border-radius: 14px;
+            }
+
+            .ai-chat-header {
+                padding: 12px;
+            }
+
+            .ai-avatar {
+                width: 35px;
+                height: 35px;
+
+                flex-basis: 35px;
+
+                font-size: 17px;
+            }
+
+            .ai-chat-header h3 {
+                font-size: 14px;
+            }
+
+            .ai-chat-header p {
+                font-size: 8px;
+            }
+
+            .ai-close {
+                width: 32px;
+                height: 32px;
+
+                font-size: 21px;
+            }
+
+            .ai-chat-messages {
+                padding: 12px;
+            }
+
+            .ai-message {
+                max-width: 92%;
+
+                font-size: 11px;
+
+                padding: 10px 11px;
+            }
+
+            .ai-chat-input {
+                gap: 6px;
+
+                padding: 8px;
+            }
+
+            .ai-chat-input input {
+                padding: 9px;
+
+                font-size: 10px;
+            }
+
+            .ai-chat-input button {
+                padding: 9px 11px;
+
+                font-size: 10px;
+            }
+
+
+            /* FOOTER */
+
+            footer {
+                padding: 20px 12px;
+
+                font-size: 10px;
+            }
+        }
+
+
+        /* =====================================================
+           VERY SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 350px) {
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .navbar nav a {
+                padding: 6px 8px;
+
+                font-size: 8px;
+            }
+
+            .about-hero h1 {
+                font-size: 34px;
+            }
+
+            .hero-text {
+                font-size: 11px;
+            }
+
+            .section-title h2 {
+                font-size: 24px;
+            }
+
+            .story-box {
+                padding: 17px;
+            }
+
+            .problem-card,
+            .solution-card,
+            .contact-card {
+                padding: 16px;
+            }
+
+            .student-content h2 {
+                font-size: 30px;
+            }
+
+            .vision-section h2 {
+                font-size: 26px;
+            }
+
+            .ai-chat-box {
+                height: 95vh;
+
+                max-height: 95vh;
+            }
+
+            .ai-chat-header-left {
+                gap: 8px;
+            }
+
+            .ai-chat-header p {
+                display: none;
+            }
+        }
+
+
+        /* =====================================================
+           TOUCH DEVICE FIX
+        ===================================================== */
+
+        @media (hover: none) {
+
+            .problem-card:hover,
+            .solution-card:hover,
+            .contact-card button:hover {
+                transform: none;
+            }
+        }
+
+
+        /* =====================================================
+           TEXT SELECTION
+        ===================================================== */
+
+        ::selection {
+            color: white;
+            background: #f97316;
+        }
+
+
+        /* =====================================================
+           SCROLLBAR
+        ===================================================== */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #eef1f5;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c7ced9;
+            border-radius: 100px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f97316;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ===================================================== -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            SKILL<span>UP</span>
+        </div>
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="career.html">
+                Career
+            </a>
+
+            <a href="courses.html">
+                Courses
+            </a>
+
+            <a href="assessment.html">
+                Assessment
+            </a>
+
+            <a href="academics.html">
+                Academics
+            </a>
+
+            <a href="about.html" class="active">
+                About Us
+            </a>
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="about-hero">
+
+        <div class="hero-content">
+
+            <p class="eyebrow">
+                ABOUT CAMPUS TO CAREER
+            </p>
+
+            <h1>
+                From <span>Campus</span><br>
+                to <span>Career.</span>
+            </h1>
+
+            <p class="hero-text">
+                We are college students ourselves, and we understand
+                the challenges students face while preparing for
+                their careers.
+            </p>
+
+            <div class="hero-line">
+
+                <span></span>
+
+                <p>
+                    Bridging the gap between students and industry
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- JOURNEY -->
+
+        <div class="journey">
+
+            <div class="journey-item">
+
+                <div class="number">
+                    01
+                </div>
+
+                <div>
+
+                    <h3>
+                        Campus
+                    </h3>
+
+                    <p>
+                        Learn, explore and discover your strengths.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="vertical-line"></div>
+
+
+            <div class="journey-item highlight">
+
+                <div class="number">
+                    02
+                </div>
+
+                <div>
+
+                    <h3>
+                        Skill Up
+                    </h3>
+
+                    <p>
+                        Identify skill gaps and build the right skills.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="vertical-line"></div>
+
+
+            <div class="journey-item">
+
+                <div class="number">
+                    03
+                </div>
+
+                <div>
+
+                    <h3>
+                        Career
+                    </h3>
+
+                    <p>
+                        Move towards a career that matches your skills.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         WHY WE STARTED
+    ===================================================== -->
+
+    <section class="why-section">
+
+        <div class="section-title">
+
+            <p class="eyebrow">
+                OUR STORY
+            </p>
+
+            <h2>
+                Why did we start <span>Skill Up?</span>
+            </h2>
+
+        </div>
+
+
+        <div class="story-box">
+
+            <div class="story-number">
+                01
+            </div>
+
+            <div class="story-content">
+
+                <h3>
+                    The idea started with a simple problem.
+                </h3>
+
+                <p>
+                    As students ourselves, we have experienced the gap
+                    between what we learn in college and what the
+                    industry expects.
+                </p>
+
+                <p>
+                    Students often struggle to identify the right
+                    skills, choose a suitable career path and find
+                    the right learning resources.
+                </p>
+
+                <p>
+                    That's why we created Skill Up — a platform
+                    designed to make the journey from campus to
+                    career simpler and clearer.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PROBLEM
+    ===================================================== -->
+
+    <section class="problem-section">
+
+        <div class="section-title">
+
+            <p class="eyebrow">
+                THE CHALLENGE
+            </p>
+
+            <h2>
+                The Problem <span>We Saw</span>
+            </h2>
+
+            <p class="section-subtitle">
+                Students have opportunities, but finding the right
+                direction can be difficult.
+            </p>
+
+        </div>
+
+
+        <div class="problem-grid">
+
+            <div class="problem-card">
+
+                <div class="problem-icon">
+                    01
+                </div>
+
+                <h3>
+                    Too Many Choices
+                </h3>
+
+                <p>
+                    Students often have multiple career options but
+                    don't know which path matches their interests
+                    and skills.
+                </p>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-icon">
+                    02
+                </div>
+
+                <h3>
+                    Skill Confusion
+                </h3>
+
+                <p>
+                    It can be difficult to understand which skills
+                    are actually required for a particular career
+                    or job role.
+                </p>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-icon">
+                    03
+                </div>
+
+                <h3>
+                    Industry Gap
+                </h3>
+
+                <p>
+                    What students learn academically and what
+                    companies expect can sometimes be very different.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         WHAT SKILL UP DOES
+    ===================================================== -->
+
+    <section class="solution-section">
+
+        <div class="section-title">
+
+            <p class="eyebrow">
+                OUR APPROACH
+            </p>
+
+            <h2>
+                What <span>Skill Up</span> Does
+            </h2>
+
+        </div>
+
+
+        <div class="solution-grid">
+
+            <div class="solution-card">
+
+                <div class="solution-number">
+                    01
+                </div>
+
+                <h3>
+                    Discover
+                </h3>
+
+                <p>
+                    Understand your current skills and explore
+                    different career possibilities.
+                </p>
+
+            </div>
+
+
+            <div class="solution-card">
+
+                <div class="solution-number">
+                    02
+                </div>
+
+                <h3>
+                    Identify
+                </h3>
+
+                <p>
+                    Find the skills you need to develop for your
+                    desired career path.
+                </p>
+
+            </div>
+
+
+            <div class="solution-card">
+
+                <div class="solution-number">
+                    03
+                </div>
+
+                <h3>
+                    Build
+                </h3>
+
+                <p>
+                    Learn the right skills and take meaningful steps
+                    towards your career goals.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         BUILT BY STUDENTS
+    ===================================================== -->
+
+    <section class="student-section">
+
+        <div class="student-content">
+
+            <p class="eyebrow">
+                OUR PERSPECTIVE
+            </p>
+
+            <h2>
+                Built By Students,<br>
+                <span>For Students.</span>
+            </h2>
+
+            <p>
+                Skill Up is built from a student's perspective.
+                We know the confusion of choosing a career,
+                understanding industry requirements and deciding
+                what to learn next — because we are experiencing
+                it ourselves.
+            </p>
+
+        </div>
+
+
+        <div class="student-tag">
+
+            <span>
+                STUDENT
+            </span>
+
+            <span>
+                SKILLS
+            </span>
+
+            <span>
+                CAREER
+            </span>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         VISION
+    ===================================================== -->
+
+    <section class="vision-section">
+
+        <p class="eyebrow">
+            OUR VISION
+        </p>
+
+        <h2>
+            Making career preparation
+            <span>simpler, clearer</span>
+            and more accessible.
+        </h2>
+
+        <p>
+            Helping students understand where they are,
+            where they want to go, and what they need to
+            learn next.
+        </p>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONTACT
+    ===================================================== -->
+
+    <section class="contact-section">
+
+        <div class="contact-card">
+
+            <div class="contact-icon">
+                ✉
+            </div>
+
+            <div>
+
+                <small>
+                    GET IN TOUCH
+                </small>
+
+                <h3>
+                    Email Us
+                </h3>
+
+                <p>
+                    yourteam@email.com
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="contact-card">
+
+            <div class="contact-icon">
+                ⌖
+            </div>
+
+            <div>
+
+                <small>
+                    WHERE WE ARE
+                </small>
+
+                <h3>
+                    Location
+                </h3>
+
+                <p>
+                    Bhopal, Madhya Pradesh
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI CHAT -->
+
+        <div class="contact-card">
+
+            <div class="contact-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <small>
+                    HAVE A QUESTION?
+                </small>
+
+                <h3>
+                    Chat With Skill Up AI
+                </h3>
+
+                <p>
+                    Get help with assessment, courses,
+                    academics, profile and career preparation.
+                </p>
+
+                <button onclick="openAIChat()">
+                    Chat With AI →
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer>
+
+        <p>
+            © 2026 Skill Up — Campus to Career
+        </p>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         AI CHAT MODAL
+    ===================================================== -->
+
+    <div
+        class="ai-chat-overlay"
+        id="aiChatOverlay">
+
+        <div class="ai-chat-box">
+
+
+            <!-- HEADER -->
+
+            <div class="ai-chat-header">
+
+                <div class="ai-chat-header-left">
+
+                    <div class="ai-avatar">
+                        🤖
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Skill Up AI
+                        </h3>
+
+                        <p>
+                            Your Campus to Career Assistant
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="ai-close"
+                    onclick="closeAIChat()">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <!-- MESSAGES -->
+
+            <div
+                class="ai-chat-messages"
+                id="aiChatMessages">
+
+                <div class="ai-message bot">
+
+                    👋 Hi! I'm <strong>Skill Up AI</strong>.<br><br>
+
+                    I can help you with your
+                    <strong>Assessment, Courses, Academics,
+                    Career, Dashboard, Profile, Resume
+                    and Portfolio.</strong><br><br>
+
+                    Ask me anything about the Skill Up portal.
+
+                </div>
+
+            </div>
+
+
+
+            <!-- INPUT -->
+
+            <div class="ai-chat-input">
+
+                <input
+                    type="text"
+                    id="aiChatInput"
+                    placeholder="Ask something about Skill Up..."
+                    autocomplete="off">
+
+                <button onclick="sendAIMessage()">
+                    Send
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         AI CHAT JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        /* =====================================================
+           OPEN / CLOSE
+        ===================================================== */
+
+        function openAIChat() {
+
+            document
+                .getElementById("aiChatOverlay")
+                .classList.add("active");
+
+            setTimeout(() => {
+
+                document
+                    .getElementById("aiChatInput")
+                    .focus();
+
+            }, 250);
+
+        }
+
+
+        function closeAIChat() {
+
+            document
+                .getElementById("aiChatOverlay")
+                .classList.remove("active");
+
+        }
+
+
+
+        /* =====================================================
+           ADD MESSAGE
+        ===================================================== */
+
+        function addAIMessage(
+            message,
+            type
+        ) {
+
+            const container =
+                document.getElementById(
+                    "aiChatMessages"
+                );
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                `ai-message ${type}`;
+
+            div.innerHTML =
+                message;
+
+            container.appendChild(div);
+
+            container.scrollTop =
+                container.scrollHeight;
+
+        }
+
+
+
+        /* =====================================================
+           BOT LOGIC
+        ===================================================== */
+
+        function getBotReply(message) {
+
+            const text =
+                message
+                    .toLowerCase()
+                    .trim();
+
+
+            /* GREETING */
+
+            if (
+                text.includes("hello") ||
+                text.includes("hi") ||
+                text.includes("hey")
+            ) {
+
+                return `
+                    👋 Hey! I'm <strong>Skill Up AI</strong>.<br><br>
+
+                    I can help you with:
+                    <br>🎯 Skill Assessment
+                    <br>📚 Courses
+                    <br>🎓 Academics
+                    <br>🚀 Career
+                    <br>📊 Dashboard
+                    <br>👤 Profile
+                    <br>📄 Resume
+                    <br>🌐 Portfolio
+                `;
+
+            }
+
+
+            /* ASSESSMENT */
+
+            if (
+                text.includes("assessment") ||
+                text.includes("skill test") ||
+                text.includes("skill gap")
+            ) {
+
+                return `
+                    🎯 <strong>Skill Assessment</strong><br><br>
+
+                    Open the <strong>Assessment</strong> page
+                    and select your domain, company and role.
+                    After completing the assessment, Skill Up
+                    calculates your skill match and identifies
+                    skills that need improvement.
+                `;
+
+            }
+
+
+            /* COURSES */
+
+            if (
+                text.includes("course") ||
+                text.includes("learning") ||
+                text.includes("learn")
+            ) {
+
+                return `
+                    📚 <strong>Courses</strong><br><br>
+
+                    Go to the <strong>Courses</strong> page to
+                    explore technical courses.<br><br>
+
+                    Your assessment can also provide
+                    recommended skills and learning resources
+                    based on your career target.
+                `;
+
+            }
+
+
+            /* ACADEMICS */
+
+            if (
+                text.includes("academic") ||
+                text.includes("college") ||
+                text.includes("semester") ||
+                text.includes("unit")
+            ) {
+
+                return `
+                    🎓 <strong>Academics</strong><br><br>
+
+                    The Academics section lets you track your
+                    semester subjects, units and academic
+                    progress.<br><br>
+
+                    Completed units are reflected in your
+                    Profile and Dashboard.
+                `;
+
+            }
+
+
+            /* PROFILE */
+
+            if (
+                text.includes("profile") ||
+                text.includes("personal information")
+            ) {
+
+                return `
+                    👤 <strong>Profile</strong><br><br>
+
+                    Your Profile contains your personal details,
+                    assessment analysis, academic progress,
+                    courses, projects, achievements and
+                    certifications.
+                `;
+
+            }
+
+
+            /* DASHBOARD */
+
+            if (
+                text.includes("dashboard") ||
+                text.includes("progress")
+            ) {
+
+                return `
+                    📊 <strong>Dashboard</strong><br><br>
+
+                    Your Dashboard provides an overview of:
+                    <br>• Skill Match
+                    <br>• Academic Progress
+                    <br>• Course Progress
+                    <br>• Career Readiness
+                    <br>• Recommended Skills
+                    <br><br>
+
+                    It brings your Skill Up journey together
+                    in one place.
+                `;
+
+            }
+
+
+            /* CAREER */
+
+            if (
+                text.includes("career") ||
+                text.includes("job") ||
+                text.includes("company") ||
+                text.includes("role")
+            ) {
+
+                return `
+                    🚀 <strong>Career</strong><br><br>
+
+                    Skill Up helps you explore career domains,
+                    companies and job roles, then understand
+                    the skills required for your selected path.
+                `;
+
+            }
+
+
+            /* RESUME */
+
+            if (
+                text.includes("resume") ||
+                text.includes("cv")
+            ) {
+
+                return `
+                    📄 <strong>Resume</strong><br><br>
+
+                    Complete your Profile with your skills,
+                    academics and projects. Then use the
+                    Resume option to generate your Skill Up
+                    resume.
+                `;
+
+            }
+
+
+            /* PORTFOLIO */
+
+            if (
+                text.includes("portfolio") ||
+                text.includes("project")
+            ) {
+
+                return `
+                    🌐 <strong>Portfolio</strong><br><br>
+
+                    Your portfolio can showcase your skills,
+                    career target, projects, achievements and
+                    certifications.
+                `;
+
+            }
+
+
+            /* CERTIFICATE */
+
+            if (
+                text.includes("certificate") ||
+                text.includes("certification")
+            ) {
+
+                return `
+                    📜 <strong>Certifications</strong><br><br>
+
+                    You can add your certifications from your
+                    Profile. The certificate verification
+                    feature will be connected to the proper
+                    verification workflow separately.
+                `;
+
+            }
+
+
+            /* DEFAULT */
+
+            return `
+                🤖 I'm here to help with the
+                <strong>Skill Up portal</strong>.<br><br>
+
+                Try asking:<br>
+
+                • How does the assessment work?<br>
+                • How can I track my courses?<br>
+                • How does academic progress work?<br>
+                • What is skill gap?<br>
+                • How can I generate my resume?<br>
+                • Where can I see my portfolio?
+            `;
+
+        }
+
+
+
+        /* =====================================================
+           SEND MESSAGE
+        ===================================================== */
+
+        function sendAIMessage() {
+
+            const input =
+                document.getElementById(
+                    "aiChatInput"
+                );
+
+            const message =
+                input.value.trim();
+
+
+            if (!message) {
+                return;
+            }
+
+
+            addAIMessage(
+                escapeChatHTML(message),
+                "user"
+            );
+
+
+            input.value = "";
+
+
+            /* THINKING MESSAGE */
+
+            const thinking =
+                document.createElement("div");
+
+            thinking.className =
+                "ai-message bot";
+
+            thinking.id =
+                "aiThinking";
+
+            thinking.innerHTML =
+                "🤔 Thinking...";
+
+
+            document
+                .getElementById("aiChatMessages")
+                .appendChild(thinking);
+
+
+            const container =
+                document.getElementById(
+                    "aiChatMessages"
+                );
+
+            container.scrollTop =
+                container.scrollHeight;
+
+
+            setTimeout(() => {
+
+                const oldThinking =
+                    document.getElementById(
+                        "aiThinking"
+                    );
+
+                if (oldThinking) {
+                    oldThinking.remove();
+                }
+
+
+                const reply =
+                    getBotReply(message);
+
+
+                addAIMessage(
+                    reply,
+                    "bot"
+                );
+
+            }, 500);
+
+        }
+
+
+
+        /* =====================================================
+           ESCAPE USER MESSAGE
+        ===================================================== */
+
+        function escapeChatHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+
+        /* =====================================================
+           ENTER KEY
+        ===================================================== */
+
+        document
+            .getElementById("aiChatInput")
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        sendAIMessage();
+
+                    }
+
+                }
+            );
+
+
+
+        /* =====================================================
+           CLICK OUTSIDE TO CLOSE
+        ===================================================== */
+
+        document
+            .getElementById("aiChatOverlay")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target === this
+                    ) {
+
+                        closeAIChat();
+
+                    }
+
+                }
+            );
+
+
+
+        /* =====================================================
+           ESCAPE KEY TO CLOSE
+        ===================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    closeAIChat();
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

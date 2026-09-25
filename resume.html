@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Skill Up | Resume Builder</title>
+<script src="api.js"></script>
+<script src="protect.js"></script>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #14213d;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            height: 70px;
+            background: #14213d;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #fca311;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #fca311;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            background: linear-gradient(135deg, #14213d, #1d3557);
+            color: white;
+            padding: 55px 8%;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 span {
+            color: #fca311;
+        }
+
+        .hero p {
+            color: #dce4f2;
+            max-width: 700px;
+            line-height: 1.7;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 35px auto;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 13px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .primary {
+            background: #fca311;
+            color: #14213d;
+        }
+
+        .secondary {
+            background: #14213d;
+            color: white;
+        }
+
+        .white {
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        /* ================= RESUME ================= */
+
+        .resume {
+            background: white;
+            padding: 45px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(20, 33, 61, 0.08);
+        }
+
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+            padding-bottom: 22px;
+            border-bottom: 2px solid #14213d;
+        }
+
+        .resume-header h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .resume-header p {
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .contact {
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .section {
+            margin-top: 28px;
+        }
+
+        .section h3 {
+            color: #14213d;
+            border-bottom: 2px solid #fca311;
+            padding-bottom: 7px;
+            margin-bottom: 13px;
+            font-size: 18px;
+        }
+
+        .section p {
+            line-height: 1.7;
+            color: #444;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill {
+            background: #eef3f9;
+            color: #14213d;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .project,
+        .achievement,
+        .certificate,
+        .course {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #fca311;
+        }
+
+        .project strong,
+        .achievement strong,
+        .certificate strong,
+        .course strong {
+            display: block;
+            margin-bottom: 6px;
+            color: #14213d;
+        }
+
+        .project p,
+        .achievement p,
+        .certificate p,
+        .course p {
+            margin: 4px 0;
+        }
+
+        .meta {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .resume-link {
+            display: inline-block;
+            margin-top: 7px;
+            color: #14213d;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .resume-link:hover {
+            color: #fca311;
+        }
+
+        .empty {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* ================= EDIT FORM ================= */
+
+        .editor {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(20, 33, 61, 0.06);
+        }
+
+        .editor h3 {
+            margin-bottom: 18px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d9dee7;
+            border-radius: 7px;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #14213d;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 700px) {
+
+            nav {
+                padding: 0 4%;
+            }
+
+            nav div:last-child {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .resume {
+                padding: 25px;
+            }
+
+            .resume-header {
+                flex-direction: column;
+            }
+
+            .contact {
+                text-align: left;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        /* ================= PRINT ================= */
+
+        @media print {
+
+            nav,
+            .hero,
+            .toolbar,
+            .editor,
+            footer {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .container {
+                width: 100%;
+                margin: 0;
+            }
+
+            .resume {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <div class="logo">
+            Skill<span>Up</span>
+        </div>
+
+        <div>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="courses.html">Courses</a>
+            <a href="assessment.html">Assessment</a>
+            <a href="academics.html">Academics</a>
+            <a href="profile.html">Profile</a>
+        </div>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <h1>
+            Resume <span>Builder</span>
+        </h1>
+
+        <p>
+            Your Skill Up profile data is automatically converted
+            into a professional career-ready resume.
+        </p>
+
+    </section>
+
+
+    <main class="container">
+
+        <!-- ================= TOOLBAR ================= -->
+
+        <div class="toolbar">
+
+            <button
+                class="primary"
+                onclick="window.print()">
+                🖨 Print / Save PDF
+            </button>
+
+            <button
+                class="secondary"
+                onclick="editResume()">
+                ✏ Edit Details
+            </button>
+
+            <button
+                class="white"
+                onclick="location.href='portfolio.html'">
+                View Portfolio
+            </button>
+
+        </div>
+
+
+        <!-- ================= EDITOR ================= -->
+
+        <div
+            class="editor"
+            id="editor"
+            style="display:none;">
+
+            <h3>Edit Resume Information</h3>
+
+            <div class="form-grid">
+
+                <input
+                    id="editName"
+                    placeholder="Full Name">
+
+                <input
+                    id="editEmail"
+                    placeholder="Email">
+
+                <input
+                    id="editPhone"
+                    placeholder="Phone">
+
+                <input
+                    id="editGithub"
+                    placeholder="GitHub">
+
+                <input
+                    id="editLinkedin"
+                    placeholder="LinkedIn">
+
+                <input
+                    id="editLocation"
+                    placeholder="Location">
+
+                <textarea
+                    class="full"
+                    id="editAbout"
+                    placeholder="About / Career Summary"></textarea>
+
+            </div>
+
+            <br>
+
+            <button
+                class="primary"
+                onclick="saveResumeDetails()">
+                Save Details
+            </button>
+
+        </div>
+
+
+        <!-- ================= RESUME ================= -->
+
+        <section
+            class="resume"
+            id="resume">
+
+
+            <!-- HEADER -->
+
+            <div class="resume-header">
+
+                <div>
+
+                    <h2 id="name">
+                        Student Name
+                    </h2>
+
+                    <p id="career">
+                        Career Target
+                    </p>
+
+                    <p id="education">
+                        College • Branch • Year
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="contact"
+                    id="contact">
+
+                    Email<br>
+                    Phone<br>
+                    GitHub<br>
+                    LinkedIn
+
+                </div>
+
+            </div>
+
+
+            <!-- SUMMARY -->
+
+            <div class="section">
+
+                <h3>Professional Summary</h3>
+
+                <p id="about">
+                    Aspiring technology professional focused on
+                    developing industry-relevant skills and
+                    building practical projects.
+                </p>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="section">
+
+                <h3>Technical Skills</h3>
+
+                <div
+                    class="skills"
+                    id="skills">
+                </div>
+
+            </div>
+
+
+            <!-- SKILLS TO IMPROVE -->
+
+            <div class="section">
+
+                <h3>Skills Currently Developing</h3>
+
+                <div
+                    class="skills"
+                    id="gapSkills">
+                </div>
+
+            </div>
+
+
+            <!-- COURSES -->
+
+            <div class="section">
+
+                <h3>Courses & Learning</h3>
+
+                <div id="courses"></div>
+
+            </div>
+
+
+            <!-- PROJECTS -->
+
+            <div class="section">
+
+                <h3>Projects</h3>
+
+                <div id="projects"></div>
+
+            </div>
+
+
+            <!-- ACHIEVEMENTS -->
+
+            <div class="section">
+
+                <h3>Achievements</h3>
+
+                <div id="achievements"></div>
+
+            </div>
+
+
+            <!-- CERTIFICATIONS -->
+
+            <div class="section">
+
+                <h3>Certifications</h3>
+
+                <div id="certifications"></div>
+
+            </div>
+
+
+            <!-- ACADEMICS -->
+
+            <div class="section">
+
+                <h3>Academic Progress</h3>
+
+                <p id="academic">
+                    Academic progress information
+                </p>
+
+            </div>
+
+
+            <!-- CAREER -->
+
+            <div class="section">
+
+                <h3>Career Target</h3>
+
+                <p id="target">
+                    Career target information
+                </p>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Skill Up • Learn Better. Build Better.
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        /* =====================================================
+           CENTRAL DATA
+        ===================================================== */
+
+        function getJSON(key, fallback = {}) {
+
+            try {
+
+                const data =
+                    JSON.parse(localStorage.getItem(key));
+
+                return data || fallback;
+
+            }
+            catch {
+
+                return fallback;
+
+            }
+
+        }
+
+
+        const profile =
+            getJSON("skillUpProfile", {});
+
+        const user =
+            getJSON("user", {});
+
+        const academics =
+            getJSON("skillUpAcademics", {});
+
+        const courseProgress =
+            getJSON("skillUpCourseProgress", {});
+
+
+        /* =====================================================
+           BASIC PROFILE DATA
+        ===================================================== */
+
+        const name =
+            profile.studentName ||
+            profile.name ||
+            user.studentName ||
+            user.name ||
+            "Student Name";
+
+
+        const email =
+            profile.email ||
+            user.email ||
+            "Email not added";
+
+
+        const college =
+            profile.college ||
+            user.college ||
+            "College";
+
+
+        const branch =
+            profile.branch ||
+            user.branch ||
+            "IT";
+
+
+        const year =
+            profile.year ||
+            user.year ||
+            "2nd Year";
+
+
+        const domain =
+            profile.domain ||
+            "Technology";
+
+
+        const company =
+            profile.company ||
+            "Industry";
+
+
+        const role =
+            profile.role ||
+            "Technology Professional";
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        document.getElementById("name")
+            .textContent = name;
+
+
+        document.getElementById("career")
+            .textContent =
+            `${role} • ${domain}`;
+
+
+        document.getElementById("education")
+            .textContent =
+            `${college} • ${branch} • ${year}`;
+
+
+        document.getElementById("contact")
+            .innerHTML =
+            `${email}<br>
+             ${localStorage.getItem("resumePhone") || "Phone not added"}<br>
+             ${localStorage.getItem("resumeGithub") || "GitHub not added"}<br>
+             ${localStorage.getItem("resumeLinkedin") || "LinkedIn not added"}`;
+
+
+        /* =====================================================
+           SUMMARY
+        ===================================================== */
+
+        document.getElementById("about")
+            .textContent =
+            profile.aiSummary ||
+            profile.summary ||
+            `Aspiring ${role} with an interest in ${domain}. Currently developing industry-relevant skills through academic learning, courses and practical projects.`;
+
+
+        /* =====================================================
+           TECHNICAL SKILLS
+        ===================================================== */
+
+        const skillsContainer =
+            document.getElementById("skills");
+
+
+        const strongSkills =
+            Array.isArray(profile.strongSkills)
+                ? profile.strongSkills
+                : [];
+
+
+        const skills =
+            strongSkills.length
+                ? strongSkills
+                : Object.keys(profile.skills || {});
+
+
+        if (skills.length) {
+
+            skills.forEach(skill => {
+
+                const tag =
+                    document.createElement("span");
+
+                tag.className = "skill";
+
+                tag.textContent = skill;
+
+                skillsContainer.appendChild(tag);
+
+            });
+
+        }
+        else {
+
+            skillsContainer.innerHTML =
+                `<span class="empty">
+                    Complete the assessment to add skills.
+                </span>`;
+
+        }
+
+
+        /* =====================================================
+           SKILL GAP
+        ===================================================== */
+
+        const gapContainer =
+            document.getElementById("gapSkills");
+
+
+        const gaps =
+            Array.isArray(profile.skillGap)
+                ? profile.skillGap
+                : [];
+
+
+        if (gaps.length) {
+
+            gaps.forEach(skill => {
+
+                const tag =
+                    document.createElement("span");
+
+                tag.className = "skill";
+
+                tag.textContent = skill;
+
+                gapContainer.appendChild(tag);
+
+            });
+
+        }
+        else {
+
+            gapContainer.innerHTML =
+                `<span class="empty">
+                    No skill gaps recorded.
+                </span>`;
+
+        }
+
+
+        /* =====================================================
+           COURSES
+        ===================================================== */
+
+        const courseContainer =
+            document.getElementById("courses");
+
+
+        const courseData =
+            courseProgress &&
+            typeof courseProgress === "object"
+                ? courseProgress
+                : {};
+
+
+        const completedCourses = [];
+
+
+        Object.entries(courseData)
+            .forEach(([course, data]) => {
+
+                let progress = 0;
+
+                if (typeof data === "number") {
+
+                    progress = Number(data);
+
+                }
+                else if (
+                    data &&
+                    typeof data === "object"
+                ) {
+
+                    progress =
+                        Number(data.progress || 0);
+
+                }
+
+
+                if (progress >= 100) {
+
+                    completedCourses.push(course);
+
+                }
+
+            });
+
+
+        if (completedCourses.length) {
+
+            completedCourses.forEach(course => {
+
+                const item =
+                    document.createElement("div");
+
+                item.className = "course";
+
+                const strong =
+                    document.createElement("strong");
+
+                strong.textContent = course;
+
+
+                const p =
+                    document.createElement("p");
+
+                p.textContent =
+                    "Completed through Skill Up";
+
+
+                item.appendChild(strong);
+                item.appendChild(p);
+
+                courseContainer.appendChild(item);
+
+            });
+
+        }
+        else {
+
+            courseContainer.innerHTML =
+                `<p class="empty">
+                    Complete courses to display them here.
+                </p>`;
+
+        }
+
+
+        /* =====================================================
+           PROJECTS
+        ===================================================== */
+
+        const projectsContainer =
+            document.getElementById("projects");
+
+
+        let projects =
+            Array.isArray(profile.projects)
+                ? profile.projects
+                : getJSON("skillUpProjects", []);
+
+
+        if (!Array.isArray(projects)) {
+
+            projects = [];
+
+        }
+
+
+        /* Default Skill Up Project */
+
+        const skillUpProject =
+            document.createElement("div");
+
+        skillUpProject.className = "project";
+
+
+        const skillUpTitle =
+            document.createElement("strong");
+
+        skillUpTitle.textContent =
+            "Skill Up";
+
+
+        const skillUpDescription =
+            document.createElement("p");
+
+        skillUpDescription.textContent =
+            "Student skill assessment and career development platform for skill mapping, career guidance and industry readiness.";
+
+
+        skillUpProject.appendChild(skillUpTitle);
+        skillUpProject.appendChild(skillUpDescription);
+
+        projectsContainer.appendChild(skillUpProject);
+
+
+        /* User Projects */
+
+        if (projects.length) {
+
+            projects.forEach(project => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "project";
+
+
+                const title =
+                    document.createElement("strong");
+
+                title.textContent =
+                    project.title ||
+                    "Untitled Project";
+
+
+                card.appendChild(title);
+
+
+                if (project.technologies) {
+
+                    const tech =
+                        document.createElement("p");
+
+                    tech.className = "meta";
+
+                    tech.textContent =
+                        `Technology: ${project.technologies}`;
+
+                    card.appendChild(tech);
+
+                }
+
+
+                if (project.description) {
+
+                    const desc =
+                        document.createElement("p");
+
+                    desc.textContent =
+                        project.description;
+
+                    card.appendChild(desc);
+
+                }
+
+
+                if (project.github) {
+
+                    const link =
+                        document.createElement("a");
+
+                    link.className = "resume-link";
+
+                    link.href = project.github;
+
+                    link.target = "_blank";
+
+                    link.rel = "noopener noreferrer";
+
+                    link.textContent =
+                        "GitHub ↗";
+
+                    card.appendChild(link);
+
+                }
+
+
+                if (project.demo) {
+
+                    const demo =
+                        document.createElement("a");
+
+                    demo.className = "resume-link";
+
+                    demo.href = project.demo;
+
+                    demo.target = "_blank";
+
+                    demo.rel = "noopener noreferrer";
+
+                    demo.textContent =
+                        "Live Demo ↗";
+
+                    card.appendChild(demo);
+
+                }
+
+
+                projectsContainer.appendChild(card);
+
+            });
+
+        }
+
+
+        /* =====================================================
+           ACHIEVEMENTS
+        ===================================================== */
+
+        const achievementsContainer =
+            document.getElementById("achievements");
+
+
+        let achievements =
+            Array.isArray(profile.achievements)
+                ? profile.achievements
+                : getJSON("skillUpAchievements", []);
+
+
+        if (!Array.isArray(achievements)) {
+
+            achievements = [];
+
+        }
+
+
+        if (achievements.length) {
+
+            achievements.forEach(item => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "achievement";
+
+
+                const title =
+                    document.createElement("strong");
+
+                title.textContent =
+                    item.title ||
+                    "Achievement";
+
+
+                card.appendChild(title);
+
+
+                if (item.date) {
+
+                    const date =
+                        document.createElement("p");
+
+                    date.className = "meta";
+
+                    date.textContent =
+                        `Date: ${item.date}`;
+
+                    card.appendChild(date);
+
+                }
+
+
+                if (item.description) {
+
+                    const description =
+                        document.createElement("p");
+
+                    description.textContent =
+                        item.description;
+
+                    card.appendChild(description);
+
+                }
+
+
+                achievementsContainer.appendChild(card);
+
+            });
+
+        }
+        else {
+
+            achievementsContainer.innerHTML =
+                `<p class="empty">
+                    Add your achievements from your Profile.
+                </p>`;
+
+        }
+
+
+        /* =====================================================
+           CERTIFICATIONS
+        ===================================================== */
+
+        const certificationsContainer =
+            document.getElementById("certifications");
+
+
+        let certifications =
+            Array.isArray(profile.certifications)
+                ? profile.certifications
+                : getJSON("skillUpCertifications", []);
+
+
+        if (!Array.isArray(certifications)) {
+
+            certifications = [];
+
+        }
+
+
+        if (certifications.length) {
+
+            certifications.forEach(item => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "certificate";
+
+
+                const title =
+                    document.createElement("strong");
+
+                title.textContent =
+                    item.name ||
+                    "Certification";
+
+
+                card.appendChild(title);
+
+
+                if (item.issuer) {
+
+                    const issuer =
+                        document.createElement("p");
+
+                    issuer.textContent =
+                        `Issuer: ${item.issuer}`;
+
+                    card.appendChild(issuer);
+
+                }
+
+
+                if (item.date) {
+
+                    const date =
+                        document.createElement("p");
+
+                    date.className = "meta";
+
+                    date.textContent =
+                        `Date: ${item.date}`;
+
+                    card.appendChild(date);
+
+                }
+
+
+                if (item.link) {
+
+                    const link =
+                        document.createElement("a");
+
+                    link.className = "resume-link";
+
+                    link.href = item.link;
+
+                    link.target = "_blank";
+
+                    link.rel = "noopener noreferrer";
+
+                    link.textContent =
+                        "View Certificate ↗";
+
+                    card.appendChild(link);
+
+                }
+
+
+                certificationsContainer.appendChild(card);
+
+            });
+
+        }
+        else {
+
+            certificationsContainer.innerHTML =
+                `<p class="empty">
+                    Add your certifications from your Profile.
+                </p>`;
+
+        }
+
+
+        /* =====================================================
+           ACADEMICS
+        ===================================================== */
+
+        const academicProgress =
+            academics.academicProgress ??
+            academics.progress ??
+            profile.academicProgress ??
+            0;
+
+
+        const semester =
+            academics.academicSemester ||
+            academics.semester ||
+            profile.academicSemester ||
+            "Current Semester";
+
+
+        document.getElementById("academic")
+            .textContent =
+            `${semester} • Academic Progress: ${academicProgress}%`;
+
+
+        /* =====================================================
+           CAREER TARGET
+        ===================================================== */
+
+        document.getElementById("target")
+            .textContent =
+            `${role} at ${company} • ${domain} • Skill Match ${profile.matchPercentage || 0}%`;
+
+
+        /* =====================================================
+           EDIT RESUME
+        ===================================================== */
+
+        function editResume() {
+
+            document.getElementById("editor")
+                .style.display = "block";
+
+
+            document.getElementById("editName")
+                .value = name;
+
+
+            document.getElementById("editEmail")
+                .value = email;
+
+
+            document.getElementById("editPhone")
+                .value =
+                localStorage.getItem("resumePhone") || "";
+
+
+            document.getElementById("editGithub")
+                .value =
+                localStorage.getItem("resumeGithub") || "";
+
+
+            document.getElementById("editLinkedin")
+                .value =
+                localStorage.getItem("resumeLinkedin") || "";
+
+
+            document.getElementById("editLocation")
+                .value =
+                localStorage.getItem("resumeLocation") || "";
+
+
+            document.getElementById("editAbout")
+                .value =
+                document.getElementById("about").textContent;
+
+        }
+
+
+        /* =====================================================
+           SAVE RESUME DETAILS
+        ===================================================== */
+
+        function saveResumeDetails() {
+
+            const updatedUser =
+                getJSON("user", {});
+
+
+            const newName =
+                document.getElementById("editName").value.trim();
+
+
+            const newEmail =
+                document.getElementById("editEmail").value.trim();
+
+
+            updatedUser.name =
+                newName;
+
+
+            updatedUser.studentName =
+                newName;
+
+
+            updatedUser.email =
+                newEmail;
+
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(updatedUser)
+            );
+
+
+            localStorage.setItem(
+                "resumePhone",
+                document.getElementById("editPhone").value.trim()
+            );
+
+
+            localStorage.setItem(
+                "resumeGithub",
+                document.getElementById("editGithub").value.trim()
+            );
+
+
+            localStorage.setItem(
+                "resumeLinkedin",
+                document.getElementById("editLinkedin").value.trim()
+            );
+
+
+            localStorage.setItem(
+                "resumeLocation",
+                document.getElementById("editLocation").value.trim()
+            );
+
+
+            document.getElementById("name")
+                .textContent =
+                newName || "Student Name";
+
+
+            document.getElementById("contact")
+                .innerHTML =
+                `${newEmail || "Email not added"}<br>
+                 ${document.getElementById("editPhone").value.trim() || "Phone not added"}<br>
+                 ${document.getElementById("editGithub").value.trim() || "GitHub not added"}<br>
+                 ${document.getElementById("editLinkedin").value.trim() || "LinkedIn not added"}`;
+
+
+            document.getElementById("about")
+                .textContent =
+                document.getElementById("editAbout").value.trim() ||
+                "Professional summary not added.";
+
+
+            document.getElementById("editor")
+                .style.display = "none";
+
+
+            alert("Resume updated successfully!");
+
+        }
+
+    </script>
+
+</body>
+
+</html>
