@@ -2302,15 +2302,135 @@ function removeProfilePhoto(){
 
 function loadAssessment(){
 
-    let data =
-        getCentralProfile();
+    /*
+     * Assessment is saved by assessment.html in:
+     * 1. skillUpProfile
+     * 2. assessmentResult
+     *
+     * Profile should always prefer the latest assessment.
+     */
 
-    let assessment =
-        data.assessment ||
-        getJSON(
-            "skillUpAssessment",
-            null
+    let assessment = null;
+
+    /* =====================================================
+       1. LATEST PROFILE DATA
+    ===================================================== */
+
+    try {
+
+        const profile =
+            JSON.parse(
+                localStorage.getItem(
+                    "skillUpProfile"
+                )
+            );
+
+        if(
+            profile &&
+            profile.assessmentCompleted
+        ){
+
+            assessment = profile;
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "skillUpProfile read error:",
+            error
         );
+
+    }
+
+
+    /* =====================================================
+       2. ASSESSMENT RESULT FALLBACK
+    ===================================================== */
+
+    if(!assessment){
+
+        try {
+
+            const result =
+                JSON.parse(
+                    localStorage.getItem(
+                        "assessmentResult"
+                    )
+                );
+
+            if(result){
+
+                assessment = result;
+
+            }
+
+        }
+        catch(error){
+
+            console.error(
+                "assessmentResult read error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       3. CENTRAL PROFILE FALLBACK
+    ===================================================== */
+
+    if(!assessment){
+
+        try {
+
+            const central =
+                getCentralProfile();
+
+            if(
+                central &&
+                central.assessment
+            ){
+
+                assessment =
+                    central.assessment;
+
+            }
+
+        }
+        catch(error){
+
+            console.error(
+                "Central profile read error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       4. OLD STORAGE FALLBACK
+    ===================================================== */
+
+    if(!assessment){
+
+        assessment =
+            getJSON(
+                "skillUpAssessment",
+                null
+            );
+
+    }
+
+
+    /* =====================================================
+       5. NO ASSESSMENT
+    ===================================================== */
 
     if(!assessment){
 
@@ -2323,175 +2443,51 @@ function loadAssessment(){
         ).style.display = "block";
 
         return;
+
     }
 
-    latestAssessment = assessment;
+
+    /* =====================================================
+       6. SAVE LATEST ASSESSMENT
+    ===================================================== */
+
+    latestAssessment =
+        assessment;
+
+
+    /*
+     * Keep all profile storage synchronized.
+     */
+
+    try {
+
+        localStorage.setItem(
+            "skillUpAssessment",
+            JSON.stringify(
+                assessment
+            )
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Assessment sync error:",
+            error
+        );
+
+    }
+
+
+    /* =====================================================
+       7. DISPLAY
+    ===================================================== */
 
     showAssessment(
         latestAssessment
     );
 
 }
-
-
-function showAssessment(data){
-
-    document.getElementById(
-        "noAssessment"
-    ).style.display = "none";
-
-    document.getElementById(
-        "assessmentData"
-    ).style.display = "block";
-
-
-    const match =
-        Number(
-            data.matchPercentage ??
-            data.matchScore ??
-            data.match ??
-            0
-        );
-
-
-    document.getElementById(
-        "matchScore"
-    ).textContent =
-        match + "%";
-
-
-    document.getElementById(
-        "readinessLevel"
-    ).textContent =
-        data.overallLevel ||
-        data.careerReadiness ||
-        data.readiness ||
-        "-";
-
-
-    document.getElementById(
-        "analysisDomain"
-    ).textContent =
-        data.domain ||
-        "-";
-
-
-    document.getElementById(
-        "analysisCompany"
-    ).textContent =
-        data.company ||
-        "-";
-
-
-    document.getElementById(
-        "analysisRole"
-    ).textContent =
-        data.role ||
-        "-";
-
-
-    document.getElementById(
-        "readinessText"
-    ).textContent =
-        getReadinessText(
-            data,
-            match
-        );
-
-
-    renderTags(
-        "strongSkills",
-        data.strongSkills ||
-        data.strongSkillsList ||
-        []
-    );
-
-
-    renderTags(
-        "skillGaps",
-        data.skillGap ||
-        data.skillGaps ||
-        data.skillsToImprove ||
-        [],
-        true
-    );
-
-
-    renderTags(
-        "recommendedSkills",
-        data.recommendedSkills ||
-        []
-    );
-
-
-    renderCourseTags(
-        data.recommendedCourses ||
-        data.courses ||
-        []
-    );
-
-
-    renderLearningPath(
-        data.learningPath ||
-        []
-    );
-
-
-    document.getElementById(
-        "careerPath"
-    ).textContent =
-        data.careerPath ||
-        "Your personalized career path will appear here.";
-
-}
-
-
-function getReadinessText(
-    data,
-    match
-){
-
-    const readiness =
-        data.careerReadiness ||
-        data.readiness ||
-        data.overallLevel;
-
-
-    if(readiness){
-
-        return (
-            "Your current career readiness for the selected role is " +
-            readiness +
-            ". Continue improving your identified skill gaps and completing recommended courses."
-        );
-
-    }
-
-
-    if(match >= 80){
-
-        return (
-            "Your assessment shows a strong skill match. Focus on advanced skills, projects and interview preparation."
-        );
-
-    }
-
-
-    if(match >= 60){
-
-        return (
-            "You have a good foundation. Strengthen your identified skill gaps and follow the recommended learning path."
-        );
-
-    }
-
-
-    return (
-        "You are building your foundation. Start with the recommended skills and courses to improve your role readiness."
-    );
-
-}
-
 
 /* =====================================================
    TAGS
