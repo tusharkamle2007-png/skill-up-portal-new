@@ -3,1128 +3,475 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>SkillUp | Skill Assessment</title>
-
-    <script src="api.js"></script>
-    <script src="protect.js"></script>
-
-    <style>
-
-        /* =====================================================
-           GLOBAL
-        ===================================================== */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: #f5f7fb;
-            color: #14213d;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        button,
-        input,
-        select {
-            font-family: inherit;
-        }
-
-
-        /* =====================================================
-           NAVBAR
-        ===================================================== */
-
-        .navbar {
-            width: 100%;
-            min-height: 70px;
-
-            background: #14213d !important;
-            color: #ffffff;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 7%;
-
-            position: sticky;
-            top: 0;
-            z-index: 9999;
-
-            box-shadow:
-                0 5px 20px rgba(20, 33, 61, 0.18);
-        }
-
-        .logo {
-            text-decoration: none;
-
-            font-size: 27px;
-            font-weight: 800;
-
-            color: #ffffff !important;
-
-            letter-spacing: 1px;
-
-            white-space: nowrap;
-        }
-
-        .logo span {
-            color: #ff6333 !important;
-        }
-
-        .navbar nav {
-            display: flex;
-            align-items: center;
-
-            gap: 30px;
-        }
-
-        .navbar nav a {
-            position: relative;
-
-            color: #ffffff !important;
-
-            text-decoration: none;
-
-            font-size: 14px;
-            font-weight: 600;
-
-            transition: 0.3s ease;
-        }
-
-        .navbar nav a::after {
-            content: "";
-
-            position: absolute;
-
-            left: 0;
-            bottom: -7px;
-
-            width: 0;
-            height: 2px;
-
-            background: #ff6333;
-
-            transition: width 0.3s ease;
-        }
-
-        .navbar nav a:hover {
-            color: #ff6333 !important;
-        }
-
-        .navbar nav a:hover::after {
-            width: 100%;
-        }
-
-        .navbar nav a.active {
-            color: #ff6333 !important;
-        }
-
-        .navbar nav a.active::after {
-            width: 100%;
-        }
-
-
-        /* =====================================================
-           HERO
-        ===================================================== */
-
-        .hero {
-            position: relative;
-
-            background:
-                radial-gradient(
-                    circle at 85% 20%,
-                    rgba(255, 99, 51, 0.14),
-                    transparent 30%
-                ),
-                linear-gradient(
-                    135deg,
-                    #14213d 0%,
-                    #20365f 100%
-                );
-
-            color: #ffffff;
-
-            text-align: center;
-
-            padding: 75px 20px;
-        }
-
-        .hero h1 {
-            font-size: clamp(34px, 5vw, 48px);
-
-            margin-bottom: 12px;
-
-            font-weight: 800;
-
-            line-height: 1.15;
-        }
-
-        .hero p {
-            color: #d9dfeb;
-
-            font-size: 17px;
-
-            line-height: 1.6;
-        }
-
-
-        /* =====================================================
-           CONTAINER
-        ===================================================== */
-
-        .container {
-            width: 90%;
-            max-width: 950px;
-
-            margin: 45px auto;
-        }
-
-
-        /* =====================================================
-           CARD
-        ===================================================== */
-
-        .card {
-            background: #ffffff;
-
-            padding: 30px;
-
-            border-radius: 18px;
-
-            margin-bottom: 25px;
-
-            box-shadow:
-                0 8px 30px rgba(20, 33, 61, 0.08);
-        }
-
-        .card h2 {
-            margin-bottom: 22px;
-
-            color: #14213d;
-
-            font-size: 25px;
-
-            line-height: 1.3;
-        }
-
-
-        /* =====================================================
-           INPUTS
-        ===================================================== */
-
-        label {
-            display: block;
-
-            margin: 15px 0 8px;
-
-            font-weight: 600;
-
-            color: #14213d;
-        }
-
-        input,
-        select {
-            width: 100%;
-
-            padding: 13px 15px;
-
-            border: 1px solid #d8dce5;
-
-            border-radius: 9px;
-
-            font-size: 15px;
-
-            outline: none;
-
-            background: #ffffff;
-
-            color: #14213d;
-
-            transition:
-                border-color 0.25s ease,
-                box-shadow 0.25s ease;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #ff6333;
-
-            box-shadow:
-                0 0 0 3px rgba(255, 99, 51, 0.10);
-        }
-
-
-        /* =====================================================
-           SKILLS
-        ===================================================== */
-
-        .skill-box {
-            margin-top: 18px;
-
-            padding: 18px;
-
-            border-radius: 12px;
-
-            background: #f7f8fb;
-
-            border: 1px solid #e5e8ef;
-        }
-
-        .skill-name {
-            font-weight: 700;
-
-            margin-bottom: 10px;
-
-            color: #14213d;
-        }
-
-        .skill-options {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 10px;
-        }
-
-        .skill-options label {
-            margin: 0;
-
-            padding: 11px;
-
-            background: #ffffff;
-
-            border: 1px solid #dddddd;
-
-            border-radius: 8px;
-
-            text-align: center;
-
-            cursor: pointer;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            transition:
-                border-color 0.25s ease,
-                background 0.25s ease,
-                transform 0.25s ease;
-        }
-
-        .skill-options label:hover {
-            border-color: #ff6333;
-
-            background: #fff8f5;
-
-            transform: translateY(-2px);
-        }
-
-        .skill-options input {
-            width: auto;
-
-            margin-right: 5px;
-        }
-
-
-        /* =====================================================
-           REQUIRED SKILLS
-        ===================================================== */
-
-        .required-info {
-            display: none;
-
-            margin-top: 18px;
-
-            padding: 15px 18px;
-
-            background: #fff8f5;
-
-            border: 1px solid #ffd6c9;
-
-            border-left: 4px solid #ff6333;
-
-            border-radius: 10px;
-
-            color: #14213d;
-        }
-
-        .required-info strong {
-            color: #ff6333;
-        }
-
-
-        /* =====================================================
-           BUTTON
-        ===================================================== */
-
-        .btn {
-            width: 100%;
-
-            border: none;
-
-            background: #ff6333;
-
-            color: #ffffff;
-
-            padding: 15px;
-
-            border-radius: 10px;
-
-            font-size: 17px;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            margin-top: 25px;
-
-            transition:
-                background 0.3s ease,
-                transform 0.3s ease,
-                box-shadow 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #e95122;
-
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 10px 25px rgba(255, 99, 51, 0.22);
-        }
-
-        .btn:disabled {
-            opacity: 0.7;
-
-            cursor: not-allowed;
-
-            transform: none;
-        }
-
-
-        /* =====================================================
-           RESULT
-        ===================================================== */
-
-        #resultSection {
-            display: none;
-
-            scroll-margin-top: 30px;
-        }
-
-        .score {
-            font-size: 52px;
-
-            font-weight: 800;
-
-            color: #ff6333;
-
-            text-align: center;
-
-            margin: 20px 0;
-        }
-
-        .result-item {
-            padding: 15px;
-
-            background: #f7f8fb;
-
-            border-radius: 10px;
-
-            margin: 10px 0;
-
-            color: #14213d;
-
-            overflow-wrap: anywhere;
-        }
-
-        .result-item strong {
-            display: block;
-
-            margin-bottom: 5px;
-        }
-
-        .skill-list {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 10px;
-
-            margin-top: 10px;
-        }
-
-        .tag {
-            background: #e9f8ef;
-
-            color: #16733b;
-
-            padding: 8px 13px;
-
-            border-radius: 20px;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            max-width: 100%;
-
-            overflow-wrap: anywhere;
-        }
-
-        .gap-tag {
-            background: #fff0eb;
-
-            color: #d84b20;
-        }
-
-        .success {
-            text-align: center;
-
-            color: #16803c;
-
-            font-weight: 700;
-
-            margin-top: 15px;
-        }
-
-
-        /* =====================================================
-           MATCH INFO
-        ===================================================== */
-
-        .match-box {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 12px;
-
-            margin: 20px 0;
-        }
-
-        .match-card {
-            padding: 15px;
-
-            border-radius: 12px;
-
-            background: #f7f8fb;
-
-            text-align: center;
-
-            border: 1px solid #e5e8ef;
-
-            overflow: hidden;
-        }
-
-        .match-card span {
-            display: block;
-
-            font-size: 12px;
-
-            color: #667085;
-
-            margin-bottom: 5px;
-        }
-
-        .match-card strong {
-            font-size: 20px;
-
-            color: #14213d;
-
-            overflow-wrap: anywhere;
-        }
-
-
-        /* =====================================================
-           TABLET
-        ===================================================== */
-
-        @media (max-width: 1000px) {
-
-            .navbar {
-                padding: 14px 30px;
-            }
-
-            .navbar nav {
-                gap: 16px;
-            }
-
-            .navbar nav a {
-                font-size: 13px;
-            }
-
-            .container {
-                width: 92%;
-            }
-
-            .skill-options {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-        }
-
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width: 700px) {
-
-            /* NAVBAR */
-
-            .navbar {
-                min-height: auto;
-
-                padding: 14px 16px;
-
-                flex-direction: column;
-
-                align-items: center;
-
-                justify-content: center;
-
-                gap: 13px;
-            }
-
-            .logo {
-                font-size: 24px;
-
-                line-height: 1;
-            }
-
-            .navbar nav {
-                width: 100%;
-
-                display: flex;
-
-                align-items: center;
-
-                justify-content: flex-start;
-
-                flex-wrap: nowrap;
-
-                gap: 7px;
-
-                overflow-x: auto;
-
-                white-space: nowrap;
-
-                padding: 3px 2px 8px;
-
-                scrollbar-width: none;
-            }
-
-            .navbar nav::-webkit-scrollbar {
-                display: none;
-            }
-
-            .navbar nav a {
-                flex-shrink: 0;
-
-                font-size: 12px;
-
-                padding: 7px 10px;
-            }
-
-            .navbar nav a::after {
-                bottom: -4px;
-            }
-
-
-            /* HERO */
-
-            .hero {
-                padding: 58px 18px 62px;
-
-                min-height: 275px;
-
-                display: flex;
-
-                flex-direction: column;
-
-                justify-content: center;
-
-                align-items: center;
-            }
-
-            .hero h1 {
-                font-size: 34px;
-
-                line-height: 1.15;
-
-                margin-bottom: 12px;
-            }
-
-            .hero p {
-                max-width: 520px;
-
-                font-size: 14px;
-
-                line-height: 1.7;
-            }
-
-
-            /* CONTAINER */
-
-            .container {
-                width: 94%;
-
-                max-width: none;
-
-                margin: 30px auto 40px;
-            }
-
-
-            /* CARD */
-
-            .card {
-                padding: 21px;
-
-                margin-bottom: 20px;
-
-                border-radius: 16px;
-            }
-
-            .card h2 {
-                font-size: 22px;
-
-                line-height: 1.3;
-
-                margin-bottom: 18px;
-            }
-
-
-            /* LABEL */
-
-            label {
-                margin: 14px 0 7px;
-
-                font-size: 14px;
-            }
-
-
-            /* INPUT */
-
-            input,
-            select {
-                width: 100%;
-
-                padding: 12px 13px;
-
-                font-size: 14px;
-
-                min-height: 45px;
-            }
-
-
-            /* REQUIRED INFO */
-
-            .required-info {
-                margin-top: 15px;
-
-                padding: 13px 14px;
-
-                font-size: 13px;
-
-                line-height: 1.6;
-            }
-
-
-            /* SKILLS */
-
-            .skill-box {
-                margin-top: 15px;
-
-                padding: 15px;
-
-                border-radius: 11px;
-            }
-
-            .skill-name {
-                font-size: 14px;
-
-                margin-bottom: 10px;
-            }
-
-            .skill-options {
-                grid-template-columns:
-                    1fr 1fr;
-
-                gap: 8px;
-            }
-
-            .skill-options label {
-                min-height: 44px;
-
-                display: flex;
-
-                align-items: center;
-
-                justify-content: center;
-
-                padding: 9px 6px;
-
-                font-size: 12px;
-
-                line-height: 1.3;
-            }
-
-            .skill-options input {
-                width: auto;
-
-                min-height: auto;
-
-                margin-right: 5px;
-            }
-
-
-            /* BUTTON */
-
-            .btn {
-                margin-top: 21px;
-
-                padding: 13px;
-
-                font-size: 15px;
-
-                border-radius: 9px;
-            }
-
-
-            /* RESULT */
-
-            .score {
-                font-size: 45px;
-
-                line-height: 1;
-
-                margin: 18px 0 22px;
-            }
-
-
-            /* MATCH */
-
-            .match-box {
-                grid-template-columns: 1fr;
-
-                gap: 10px;
-
-                margin: 18px 0;
-            }
-
-            .match-card {
-                padding: 13px;
-
-                border-radius: 10px;
-            }
-
-            .match-card span {
-                font-size: 11px;
-
-                margin-bottom: 4px;
-            }
-
-            .match-card strong {
-                font-size: 17px;
-
-                line-height: 1.4;
-            }
-
-
-            /* RESULT ITEMS */
-
-            .result-item {
-                padding: 13px;
-
-                margin: 9px 0;
-
-                font-size: 13px;
-
-                line-height: 1.6;
-            }
-
-            .result-item strong {
-                margin-bottom: 5px;
-
-                font-size: 13px;
-            }
-
-
-            /* TAGS */
-
-            .skill-list {
-                gap: 7px;
-
-                margin-top: 8px;
-            }
-
-            .tag {
-                padding: 7px 10px;
-
-                font-size: 11px;
-
-                line-height: 1.3;
-            }
-
-
-            /* CAREER PATH */
-
-            #careerPath {
-                font-size: 13px;
-
-                line-height: 1.7;
-            }
-
-            .success {
-                font-size: 13px;
-
-                line-height: 1.6;
-            }
-        }
-
-
-        /* =====================================================
-           SMALL MOBILE
-        ===================================================== */
-
-        @media (max-width: 480px) {
-
-            .navbar {
-                padding: 12px;
-            }
-
-            .logo {
-                font-size: 22px;
-            }
-
-            .navbar nav {
-                gap: 6px;
-            }
-
-            .navbar nav a {
-                font-size: 11px;
-
-                padding: 7px 9px;
-            }
-
-
-            .hero {
-                padding: 50px 15px 54px;
-
-                min-height: 245px;
-            }
-
-            .hero h1 {
-                font-size: 29px;
-            }
-
-            .hero p {
-                font-size: 13px;
-            }
-
-
-            .container {
-                width: 94%;
-
-                margin-top: 24px;
-            }
-
-
-            .card {
-                padding: 17px;
-
-                border-radius: 14px;
-            }
-
-            .card h2 {
-                font-size: 20px;
-
-                margin-bottom: 16px;
-            }
-
-
-            label {
-                font-size: 13px;
-
-                margin-top: 12px;
-            }
-
-            input,
-            select {
-                padding: 11px 12px;
-
-                font-size: 13px;
-
-                min-height: 43px;
-            }
-
-
-            .required-info {
-                padding: 12px;
-
-                font-size: 12px;
-            }
-
-
-            .skill-box {
-                padding: 12px;
-            }
-
-            .skill-name {
-                font-size: 13px;
-            }
-
-            .skill-options {
-                grid-template-columns: 1fr;
-
-                gap: 7px;
-            }
-
-            .skill-options label {
-                min-height: 42px;
-
-                justify-content: flex-start;
-
-                padding: 9px 11px;
-
-                text-align: left;
-
-                font-size: 12px;
-            }
-
-
-            .btn {
-                padding: 12px;
-
-                font-size: 14px;
-            }
-
-
-            .score {
-                font-size: 42px;
-            }
-
-            .match-card {
-                padding: 12px;
-            }
-
-            .match-card strong {
-                font-size: 16px;
-            }
-
-            .result-item {
-                padding: 12px;
-
-                font-size: 12px;
-            }
-
-            .tag {
-                padding: 6px 9px;
-
-                font-size: 10px;
-            }
-
-            .success {
-                font-size: 12px;
-            }
-        }
-
-
-        /* =====================================================
-           VERY SMALL MOBILE
-        ===================================================== */
-
-        @media (max-width: 350px) {
-
-            .navbar {
-                padding: 11px 9px;
-            }
-
-            .logo {
-                font-size: 21px;
-            }
-
-            .navbar nav {
-                gap: 5px;
-            }
-
-            .navbar nav a {
-                font-size: 10px;
-
-                padding: 6px 8px;
-            }
-
-
-            .hero {
-                padding: 45px 13px 50px;
-            }
-
-            .hero h1 {
-                font-size: 26px;
-            }
-
-            .hero p {
-                font-size: 12px;
-            }
-
-
-            .container {
-                width: 95%;
-            }
-
-            .card {
-                padding: 14px;
-            }
-
-            .card h2 {
-                font-size: 18px;
-            }
-
-
-            .skill-box {
-                padding: 11px;
-            }
-
-            .skill-options label {
-                font-size: 11px;
-
-                padding: 8px 9px;
-            }
-
-
-            .btn {
-                font-size: 13px;
-            }
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SkillUp | Skill Assessment</title>
+
+<script src="./api.js?v=3"></script>
+<script src="./protect.js"></script>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f5f7fb;
+    color: #14213d;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    width: 100%;
+    min-height: 70px;
+    background: #14213d !important;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    box-shadow: 0 5px 20px rgba(20,33,61,.18);
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 27px;
+    font-weight: 800;
+    color: #fff !important;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #ff6333 !important;
+}
+
+.navbar nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.navbar nav a {
+    position: relative;
+    color: #fff !important;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: .3s ease;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+    color: #ff6333 !important;
+}
+
+.navbar nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    width: 0;
+    height: 2px;
+    background: #ff6333;
+    transition: width .3s ease;
+}
+
+.navbar nav a:hover::after,
+.navbar nav a.active::after {
+    width: 100%;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    position: relative;
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(255,99,51,.14),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #14213d 0%,
+            #20365f 100%
+        );
+    color: #fff;
+    text-align: center;
+    padding: 75px 20px;
+}
+
+.hero h1 {
+    font-size: clamp(34px,5vw,48px);
+    margin-bottom: 12px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.hero p {
+    color: #d9dfeb;
+    font-size: 17px;
+}
+
+/* ================= CONTAINER ================= */
+
+.container {
+    width: 90%;
+    max-width: 950px;
+    margin: 45px auto;
+}
+
+/* ================= CARD ================= */
+
+.card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 30px rgba(20,33,61,.08);
+}
+
+.card h2 {
+    margin-bottom: 22px;
+    color: #14213d;
+    font-size: 25px;
+}
+
+/* ================= INPUT ================= */
+
+label {
+    display: block;
+    margin: 15px 0 8px;
+    font-weight: 600;
+    color: #14213d;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #d8dce5;
+    border-radius: 9px;
+    font-size: 15px;
+    outline: none;
+    background: #fff;
+    color: #14213d;
+}
+
+input:focus,
+select:focus {
+    border-color: #ff6333;
+    box-shadow: 0 0 0 3px rgba(255,99,51,.10);
+}
+
+/* ================= SKILLS ================= */
+
+.skill-box {
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #f7f8fb;
+    border: 1px solid #e5e8ef;
+}
+
+.skill-name {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.skill-options {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+}
+
+.skill-options label {
+    margin: 0;
+    padding: 11px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.skill-options label:hover {
+    border-color: #ff6333;
+    background: #fff8f5;
+}
+
+.skill-options input {
+    width: auto;
+    margin-right: 5px;
+}
+
+/* ================= REQUIRED ================= */
+
+.required-info {
+    display: none;
+    margin-top: 18px;
+    padding: 15px 18px;
+    background: #fff8f5;
+    border: 1px solid #ffd6c9;
+    border-left: 4px solid #ff6333;
+    border-radius: 10px;
+}
+
+.required-info strong {
+    color: #ff6333;
+}
+
+/* ================= BUTTON ================= */
+
+.btn {
+    width: 100%;
+    border: none;
+    background: #ff6333;
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+.btn:hover {
+    background: #e95122;
+}
+
+.btn:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+/* ================= RESULT ================= */
+
+#resultSection {
+    display: none;
+    scroll-margin-top: 30px;
+}
+
+.score {
+    font-size: 52px;
+    font-weight: 800;
+    color: #ff6333;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.result-item {
+    padding: 15px;
+    background: #f7f8fb;
+    border-radius: 10px;
+    margin: 10px 0;
+    overflow-wrap: anywhere;
+}
+
+.result-item strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.tag {
+    background: #e9f8ef;
+    color: #16733b;
+    padding: 8px 13px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.gap-tag {
+    background: #fff0eb;
+    color: #d84b20;
+}
+
+.success {
+    text-align: center;
+    color: #16803c;
+    font-weight: 700;
+    margin-top: 15px;
+}
+
+/* ================= MATCH ================= */
+
+.match-box {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.match-card {
+    padding: 15px;
+    border-radius: 12px;
+    background: #f7f8fb;
+    text-align: center;
+    border: 1px solid #e5e8ef;
+    overflow: hidden;
+}
+
+.match-card span {
+    display: block;
+    font-size: 12px;
+    color: #667085;
+    margin-bottom: 5px;
+}
+
+.match-card strong {
+    font-size: 20px;
+    color: #14213d;
+    overflow-wrap: anywhere;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:1000px) {
+
+    .navbar {
+        padding: 14px 30px;
+    }
+
+    .navbar nav {
+        gap: 16px;
+    }
+
+    .skill-options {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:700px) {
+
+    .navbar {
+        min-height: auto;
+        padding: 14px 16px;
+        flex-direction: column;
+        gap: 13px;
+    }
+
+    .navbar nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 7px;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+    }
+
+    .navbar nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .navbar nav a {
+        flex-shrink: 0;
+        font-size: 12px;
+        padding: 7px 10px;
+    }
+
+    .hero {
+        padding: 58px 18px 62px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .container {
+        width: 94%;
+        margin: 30px auto 40px;
+    }
+
+    .card {
+        padding: 21px;
+        border-radius: 16px;
+    }
+
+    .skill-options {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .match-box {
+        grid-template-columns: 1fr;
+    }
+
+    .score {
+        font-size: 45px;
+    }
+}
+
+@media(max-width:480px) {
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .hero {
+        padding: 50px 15px;
+    }
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+    .card {
+        padding: 17px;
+    }
+
+    .skill-options {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-options label {
+        text-align: left;
+    }
+
+    .score {
+        font-size: 42px;
+    }
+}
+
+</style>
 
 </head>
 
-
 <body>
-
-
-<!-- =========================================================
-     NAVBAR
-========================================================= -->
 
 <header class="navbar">
 
@@ -1134,52 +481,22 @@
 
     <nav>
 
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="career.html">
-            Career
-        </a>
-
-        <a href="courses.html">
-            Courses
-        </a>
-
-        <a href="assessment.html" class="active">
-            Assessment
-        </a>
-
-        <a href="academics.html">
-            Academics
-        </a>
-
-        <a href="about.html">
-            About Us
-        </a>
-
-        <a href="profile.html">
-            Profile
-        </a>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="career.html">Career</a>
+        <a href="courses.html">Courses</a>
+        <a href="assessment.html" class="active">Assessment</a>
+        <a href="academics.html">Academics</a>
+        <a href="about.html">About Us</a>
+        <a href="profile.html">Profile</a>
 
     </nav>
 
 </header>
 
-
-<!-- =========================================================
-     HERO
-========================================================= -->
-
 <section class="hero">
 
-    <h1>
-        Skill Assessment
-    </h1>
+    <h1>Skill Assessment</h1>
 
     <p>
         Discover your current skills and find the right career path.
@@ -1187,27 +504,13 @@
 
 </section>
 
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
 <div class="container">
-
-
-    <!-- =====================================================
-         STUDENT INFORMATION
-    ====================================================== -->
 
     <div class="card">
 
-        <h2>
-            Student Information
-        </h2>
+        <h2>Student Information</h2>
 
-        <label>
-            Your Name
-        </label>
+        <label>Your Name</label>
 
         <input
             type="text"
@@ -1215,50 +518,25 @@
             placeholder="Enter your name"
         >
 
-
-        <label>
-            Career Domain
-        </label>
+        <label>Career Domain</label>
 
         <select id="domain">
-
-            <option value="">
-                Select Domain
-            </option>
-
+            <option value="">Select Domain</option>
         </select>
 
-
-        <label>
-            Company
-        </label>
+        <label>Company</label>
 
         <select id="company">
-
-            <option value="">
-                Select Company
-            </option>
-
+            <option value="">Select Company</option>
         </select>
 
-
-        <label>
-            Role
-        </label>
+        <label>Role</label>
 
         <select id="role">
-
-            <option value="">
-                Select Role
-            </option>
-
+            <option value="">Select Role</option>
         </select>
 
-
-        <div
-            class="required-info"
-            id="requiredInfo"
-        >
+        <div class="required-info" id="requiredInfo">
 
             <strong>
                 Company Skill Requirement:
@@ -1270,25 +548,15 @@
 
     </div>
 
-
-    <!-- =====================================================
-         SKILLS
-    ====================================================== -->
-
     <div class="card">
 
-        <h2>
-            Rate Your Skills
-        </h2>
+        <h2>Rate Your Skills</h2>
 
         <div id="skillsContainer">
-
             <p>
                 Select a domain, company and role first.
             </p>
-
         </div>
-
 
         <button
             type="button"
@@ -1301,110 +569,49 @@
 
     </div>
 
+    <div class="card" id="resultSection">
 
-    <!-- =====================================================
-         RESULT
-    ====================================================== -->
+        <h2>AI Skill Analysis</h2>
 
-    <div
-        class="card"
-        id="resultSection"
-    >
-
-        <h2>
-            AI Skill Analysis
-        </h2>
-
-
-        <div
-            class="score"
-            id="score"
-        >
-            0%
-        </div>
-
+        <div class="score" id="score">0%</div>
 
         <div class="match-box">
 
             <div class="match-card">
-
-                <span>
-                    Company
-                </span>
-
-                <strong id="resultCompany">
-                    -
-                </strong>
-
+                <span>Company</span>
+                <strong id="resultCompany">-</strong>
             </div>
 
-
             <div class="match-card">
-
-                <span>
-                    Role
-                </span>
-
-                <strong id="resultRole">
-                    -
-                </strong>
-
+                <span>Role</span>
+                <strong id="resultRole">-</strong>
             </div>
 
-
             <div class="match-card">
-
-                <span>
-                    Readiness
-                </span>
-
-                <strong id="resultReadiness">
-                    -
-                </strong>
-
+                <span>Readiness</span>
+                <strong id="resultReadiness">-</strong>
             </div>
 
         </div>
 
-
         <div class="result-item">
-
-            <strong>
-                Student:
-            </strong>
-
+            <strong>Student:</strong>
             <span id="resultStudentName"></span>
-
         </div>
 
-
         <div class="result-item">
-
-            <strong>
-                Career:
-            </strong>
-
+            <strong>Career:</strong>
             <span id="resultCareer"></span>
-
         </div>
 
-
         <div class="result-item">
-
-            <strong>
-                Overall Level:
-            </strong>
-
+            <strong>Overall Level:</strong>
             <span id="overallLevel"></span>
-
         </div>
-
 
         <div class="result-item">
 
-            <strong>
-                Strong Skills
-            </strong>
+            <strong>Strong Skills</strong>
 
             <div
                 class="skill-list"
@@ -1413,12 +620,9 @@
 
         </div>
 
-
         <div class="result-item">
 
-            <strong>
-                Skill Gaps
-            </strong>
+            <strong>Skill Gaps</strong>
 
             <div
                 class="skill-list"
@@ -1427,12 +631,9 @@
 
         </div>
 
-
         <div class="result-item">
 
-            <strong>
-                Recommended Skills
-            </strong>
+            <strong>Recommended Skills</strong>
 
             <div
                 class="skill-list"
@@ -1441,17 +642,13 @@
 
         </div>
 
-
         <div class="result-item">
 
-            <strong>
-                Career Path
-            </strong>
+            <strong>Career Path</strong>
 
             <p id="careerPath"></p>
 
         </div>
-
 
         <p
             class="success"
@@ -1462,16 +659,10 @@
 
 </div>
 
-
 <script>
 
 /* =========================================================
    SKILL UP — ASSESSMENT ENGINE
-========================================================= */
-
-
-/* =========================================================
-   CAREER DATA
 ========================================================= */
 
 const careerData = {
@@ -1479,524 +670,258 @@ const careerData = {
     "Web Development": {
 
         "TCS": {
+            "Full Stack Developer":
+                ["HTML","CSS","JavaScript","React","Node.js","MongoDB"],
 
-            "Full Stack Developer": [
-                "HTML",
-                "CSS",
-                "JavaScript",
-                "React",
-                "Node.js",
-                "MongoDB"
-            ],
+            "Frontend Developer":
+                ["HTML","CSS","JavaScript","React"],
 
-            "Frontend Developer": [
-                "HTML",
-                "CSS",
-                "JavaScript",
-                "React"
-            ],
-
-            "Backend Developer": [
-                "Node.js",
-                "Express.js",
-                "MongoDB",
-                "REST API"
-            ]
-
+            "Backend Developer":
+                ["Node.js","Express.js","MongoDB","REST API"]
         },
 
         "Infosys": {
+            "Full Stack Developer":
+                ["HTML","CSS","JavaScript","React","Node.js","SQL"],
 
-            "Full Stack Developer": [
-                "HTML",
-                "CSS",
-                "JavaScript",
-                "React",
-                "Node.js",
-                "SQL"
-            ],
+            "Frontend Developer":
+                ["HTML","CSS","JavaScript","React"],
 
-            "Frontend Developer": [
-                "HTML",
-                "CSS",
-                "JavaScript",
-                "React"
-            ],
-
-            "Software Engineer": [
-                "JavaScript",
-                "Programming",
-                "SQL",
-                "Git"
-            ]
-
+            "Software Engineer":
+                ["JavaScript","Programming","SQL","Git"]
         },
 
         "Accenture": {
+            "Full Stack Developer":
+                ["HTML","CSS","JavaScript","React","Node.js","MongoDB"],
 
-            "Full Stack Developer": [
-                "HTML",
-                "CSS",
-                "JavaScript",
-                "React",
-                "Node.js",
-                "MongoDB"
-            ],
+            "Application Developer":
+                ["JavaScript","APIs","SQL","Git"],
 
-            "Application Developer": [
-                "JavaScript",
-                "APIs",
-                "SQL",
-                "Git"
-            ],
-
-            "Frontend Developer": [
-                "HTML",
-                "CSS",
-                "JavaScript",
-                "React"
-            ]
-
+            "Frontend Developer":
+                ["HTML","CSS","JavaScript","React"]
         },
 
         "Wipro": {
+            "Web Developer":
+                ["HTML","CSS","JavaScript","Bootstrap"],
 
-            "Web Developer": [
-                "HTML",
-                "CSS",
-                "JavaScript",
-                "Bootstrap"
-            ],
+            "Full Stack Developer":
+                ["HTML","CSS","JavaScript","Node.js","MongoDB"],
 
-            "Full Stack Developer": [
-                "HTML",
-                "CSS",
-                "JavaScript",
-                "Node.js",
-                "MongoDB"
-            ],
-
-            "Software Engineer": [
-                "Programming",
-                "SQL",
-                "Git",
-                "APIs"
-            ]
-
+            "Software Engineer":
+                ["Programming","SQL","Git","APIs"]
         },
 
         "Cognizant": {
+            "Full Stack Developer":
+                ["HTML","CSS","JavaScript","React","Node.js","SQL"],
 
-            "Full Stack Developer": [
-                "HTML",
-                "CSS",
-                "JavaScript",
-                "React",
-                "Node.js",
-                "SQL"
-            ],
+            "Frontend Developer":
+                ["HTML","CSS","JavaScript","React"],
 
-            "Frontend Developer": [
-                "HTML",
-                "CSS",
-                "JavaScript",
-                "React"
-            ],
-
-            "Backend Developer": [
-                "Node.js",
-                "Express.js",
-                "MongoDB",
-                "REST API"
-            ]
-
+            "Backend Developer":
+                ["Node.js","Express.js","MongoDB","REST API"]
         }
 
     },
-
 
     "AI / Machine Learning": {
 
         "Google": {
+            "Machine Learning Engineer":
+                ["Python","Machine Learning","Deep Learning","TensorFlow","Data Structures"],
 
-            "Machine Learning Engineer": [
-                "Python",
-                "Machine Learning",
-                "Deep Learning",
-                "TensorFlow",
-                "Data Structures"
-            ],
-
-            "AI Engineer": [
-                "Python",
-                "Machine Learning",
-                "Deep Learning",
-                "NLP"
-            ]
-
+            "AI Engineer":
+                ["Python","Machine Learning","Deep Learning","NLP"]
         },
 
         "Microsoft": {
+            "AI Engineer":
+                ["Python","Machine Learning","Azure AI","Deep Learning"],
 
-            "AI Engineer": [
-                "Python",
-                "Machine Learning",
-                "Azure AI",
-                "Deep Learning"
-            ],
-
-            "Machine Learning Engineer": [
-                "Python",
-                "Machine Learning",
-                "Statistics",
-                "TensorFlow"
-            ]
-
+            "Machine Learning Engineer":
+                ["Python","Machine Learning","Statistics","TensorFlow"]
         },
 
         "Amazon": {
+            "Machine Learning Engineer":
+                ["Python","Machine Learning","AWS","Statistics"],
 
-            "Machine Learning Engineer": [
-                "Python",
-                "Machine Learning",
-                "AWS",
-                "Statistics"
-            ],
-
-            "AI Engineer": [
-                "Python",
-                "Machine Learning",
-                "Deep Learning",
-                "AWS"
-            ]
-
+            "AI Engineer":
+                ["Python","Machine Learning","Deep Learning","AWS"]
         },
 
         "IBM": {
-
-            "AI Engineer": [
-                "Python",
-                "Machine Learning",
-                "NLP",
-                "IBM Watson"
-            ]
-
+            "AI Engineer":
+                ["Python","Machine Learning","NLP","IBM Watson"]
         },
 
         "NVIDIA": {
-
-            "AI Engineer": [
-                "Python",
-                "Deep Learning",
-                "CUDA",
-                "Machine Learning"
-            ]
-
+            "AI Engineer":
+                ["Python","Deep Learning","CUDA","Machine Learning"]
         }
 
     },
-
 
     "Data Science": {
 
         "Deloitte": {
-
-            "Data Scientist": [
-                "Python",
-                "SQL",
-                "Statistics",
-                "Machine Learning",
-                "Power BI"
-            ]
-
+            "Data Scientist":
+                ["Python","SQL","Statistics","Machine Learning","Power BI"]
         },
 
         "PwC": {
-
-            "Data Scientist": [
-                "Python",
-                "SQL",
-                "Statistics",
-                "Machine Learning"
-            ]
-
+            "Data Scientist":
+                ["Python","SQL","Statistics","Machine Learning"]
         },
 
         "EY": {
-
-            "Data Analyst": [
-                "SQL",
-                "Excel",
-                "Python",
-                "Power BI"
-            ]
-
+            "Data Analyst":
+                ["SQL","Excel","Python","Power BI"]
         },
 
         "KPMG": {
-
-            "Data Analyst": [
-                "SQL",
-                "Python",
-                "Excel",
-                "Power BI"
-            ]
-
+            "Data Analyst":
+                ["SQL","Python","Excel","Power BI"]
         },
 
         "Mu Sigma": {
-
-            "Data Analyst": [
-                "Python",
-                "SQL",
-                "Statistics",
-                "Excel"
-            ]
-
+            "Data Analyst":
+                ["Python","SQL","Statistics","Excel"]
         }
 
     },
-
 
     "Cloud Computing": {
 
         "Amazon Web Services": {
-
-            "Cloud Engineer": [
-                "AWS",
-                "Linux",
-                "Networking",
-                "Docker"
-            ]
-
+            "Cloud Engineer":
+                ["AWS","Linux","Networking","Docker"]
         },
 
         "Microsoft Azure": {
-
-            "Cloud Engineer": [
-                "Azure",
-                "Linux",
-                "Networking",
-                "Docker"
-            ]
-
+            "Cloud Engineer":
+                ["Azure","Linux","Networking","Docker"]
         },
 
         "Google Cloud": {
-
-            "Cloud Engineer": [
-                "GCP",
-                "Linux",
-                "Networking",
-                "Docker"
-            ]
-
+            "Cloud Engineer":
+                ["GCP","Linux","Networking","Docker"]
         },
 
         "Oracle": {
-
-            "Cloud Engineer": [
-                "Oracle Cloud",
-                "Linux",
-                "Networking",
-                "SQL"
-            ]
-
+            "Cloud Engineer":
+                ["Oracle Cloud","Linux","Networking","SQL"]
         },
 
         "IBM": {
-
-            "Cloud Engineer": [
-                "IBM Cloud",
-                "Linux",
-                "Networking",
-                "Docker"
-            ]
-
+            "Cloud Engineer":
+                ["IBM Cloud","Linux","Networking","Docker"]
         }
 
     },
-
 
     "Cyber Security": {
 
         "Cisco": {
-
-            "Cyber Security Analyst": [
-                "Networking",
-                "Cyber Security",
-                "Linux",
-                "Firewalls"
-            ]
-
+            "Cyber Security Analyst":
+                ["Networking","Cyber Security","Linux","Firewalls"]
         },
 
         "Palo Alto Networks": {
-
-            "Security Engineer": [
-                "Cyber Security",
-                "Networking",
-                "Firewalls",
-                "Linux"
-            ]
-
+            "Security Engineer":
+                ["Cyber Security","Networking","Firewalls","Linux"]
         },
 
         "Fortinet": {
-
-            "Security Engineer": [
-                "Networking",
-                "Cyber Security",
-                "Firewalls",
-                "Linux"
-            ]
-
+            "Security Engineer":
+                ["Networking","Cyber Security","Firewalls","Linux"]
         },
 
         "IBM": {
-
-            "Cyber Security Analyst": [
-                "Cyber Security",
-                "Networking",
-                "Linux",
-                "SIEM"
-            ]
-
+            "Cyber Security Analyst":
+                ["Cyber Security","Networking","Linux","SIEM"]
         },
 
         "Accenture": {
-
-            "Cyber Security Analyst": [
-                "Cyber Security",
-                "Networking",
-                "Cloud Security",
-                "Linux"
-            ]
-
+            "Cyber Security Analyst":
+                ["Cyber Security","Networking","Cloud Security","Linux"]
         }
 
     },
 
-
     "Mobile App Development": {
 
         "Google": {
-
-            "Android Developer": [
-                "Java",
-                "Kotlin",
-                "Android",
-                "Firebase"
-            ]
-
+            "Android Developer":
+                ["Java","Kotlin","Android","Firebase"]
         },
 
         "Microsoft": {
-
-            "Mobile Developer": [
-                "JavaScript",
-                "React Native",
-                "APIs",
-                "Git"
-            ]
-
+            "Mobile Developer":
+                ["JavaScript","React Native","APIs","Git"]
         },
 
         "Samsung": {
-
-            "Android Developer": [
-                "Kotlin",
-                "Android",
-                "Java",
-                "Firebase"
-            ]
-
+            "Android Developer":
+                ["Kotlin","Android","Java","Firebase"]
         },
 
         "Accenture": {
-
-            "Mobile Developer": [
-                "React Native",
-                "JavaScript",
-                "APIs",
-                "Git"
-            ]
-
+            "Mobile Developer":
+                ["React Native","JavaScript","APIs","Git"]
         },
 
         "TCS": {
-
-            "Mobile Developer": [
-                "Java",
-                "Android",
-                "Firebase",
-                "Git"
-            ]
-
+            "Mobile Developer":
+                ["Java","Android","Firebase","Git"]
         }
 
     }
 
 };
 
-
 /* =========================================================
-   COURSE MAPPING
+   COURSE MAP
 ========================================================= */
 
 const courseMap = {
 
     "HTML": "HTML & CSS",
     "CSS": "HTML & CSS",
-
     "JavaScript": "JavaScript",
     "React": "React",
-
     "Node.js": "Node.js",
     "Express.js": "Express.js",
     "MongoDB": "MongoDB",
-
     "SQL": "SQL & Databases",
-
     "Python": "Python",
-
     "Machine Learning": "Machine Learning",
     "Deep Learning": "Deep Learning",
-
     "Power BI": "Power BI",
-
     "AWS": "AWS Fundamentals",
     "Azure": "Cloud Computing",
     "GCP": "Cloud Computing",
-
     "Networking": "Computer Networking",
-
     "Cyber Security": "Cyber Security",
-
     "Linux": "Computer Networking",
     "Docker": "Cloud Computing",
-
     "Git": "Git & GitHub",
-
-    "Java": "Java",
+    "Java": "Mobile App Development",
     "Kotlin": "Mobile App Development",
     "Android": "Mobile App Development",
     "Firebase": "Mobile App Development",
     "React Native": "Mobile App Development",
-
     "Statistics": "Data Analytics",
     "Data Structures": "Data Structures",
-
     "NLP": "Machine Learning",
     "Excel": "Data Analytics",
-
     "APIs": "Node.js",
     "REST API": "Node.js",
-
     "Bootstrap": "HTML & CSS"
 
 };
-
 
 /* =========================================================
    DOM
@@ -2023,229 +948,173 @@ const requiredInfo =
 const requiredSkillsText =
     document.getElementById("requiredSkillsText");
 
-
 /* =========================================================
    LOAD DOMAINS
 ========================================================= */
 
 Object.keys(careerData).forEach(domain => {
 
-    const option =
-        document.createElement("option");
+    const option = document.createElement("option");
 
     option.value = domain;
-
     option.textContent = domain;
 
     domainSelect.appendChild(option);
 
 });
 
-
 /* =========================================================
    DOMAIN CHANGE
 ========================================================= */
 
-domainSelect.addEventListener(
-    "change",
-    function () {
+domainSelect.addEventListener("change", function() {
 
-        companySelect.innerHTML =
-            '<option value="">Select Company</option>';
+    companySelect.innerHTML =
+        '<option value="">Select Company</option>';
 
-        roleSelect.innerHTML =
-            '<option value="">Select Role</option>';
+    roleSelect.innerHTML =
+        '<option value="">Select Role</option>';
 
-        skillsContainer.innerHTML =
-            "<p>Select a company and role.</p>";
+    skillsContainer.innerHTML =
+        "<p>Select a company and role.</p>";
 
-        requiredInfo.style.display =
-            "none";
+    requiredInfo.style.display = "none";
 
-        const companies =
-            careerData[this.value];
+    const companies = careerData[this.value];
 
-        if (!companies) return;
+    if (!companies) return;
 
-        Object.keys(companies).forEach(
-            company => {
+    Object.keys(companies).forEach(company => {
 
-                const option =
-                    document.createElement(
-                        "option"
-                    );
+        const option =
+            document.createElement("option");
 
-                option.value =
-                    company;
+        option.value = company;
+        option.textContent = company;
 
-                option.textContent =
-                    company;
+        companySelect.appendChild(option);
 
-                companySelect.appendChild(
-                    option
-                );
+    });
 
-            }
-        );
-
-    }
-);
-
+});
 
 /* =========================================================
    COMPANY CHANGE
 ========================================================= */
 
-companySelect.addEventListener(
-    "change",
-    function () {
+companySelect.addEventListener("change", function() {
 
-        roleSelect.innerHTML =
-            '<option value="">Select Role</option>';
+    roleSelect.innerHTML =
+        '<option value="">Select Role</option>';
 
-        skillsContainer.innerHTML =
-            "<p>Select a role.</p>";
+    skillsContainer.innerHTML =
+        "<p>Select a role.</p>";
 
-        requiredInfo.style.display =
-            "none";
+    requiredInfo.style.display = "none";
 
-        const companyData =
-            careerData[
-                domainSelect.value
-            ]?.[
-                this.value
-            ];
+    const companyData =
+        careerData[domainSelect.value]?.[this.value];
 
-        if (!companyData) return;
+    if (!companyData) return;
 
-        Object.keys(companyData).forEach(
-            role => {
+    Object.keys(companyData).forEach(role => {
 
-                const option =
-                    document.createElement(
-                        "option"
-                    );
+        const option =
+            document.createElement("option");
 
-                option.value =
-                    role;
+        option.value = role;
+        option.textContent = role;
 
-                option.textContent =
-                    role;
+        roleSelect.appendChild(option);
 
-                roleSelect.appendChild(
-                    option
-                );
+    });
 
-            }
-        );
-
-    }
-);
-
+});
 
 /* =========================================================
    ROLE CHANGE
 ========================================================= */
 
-roleSelect.addEventListener(
-    "change",
-    function () {
+roleSelect.addEventListener("change", function() {
 
-        const skills =
-            careerData[
-                domainSelect.value
-            ]?.[
-                companySelect.value
-            ]?.[
-                this.value
-            ];
+    const skills =
+        careerData[
+            domainSelect.value
+        ]?.[
+            companySelect.value
+        ]?.[
+            this.value
+        ];
 
-        if (!skills) return;
+    if (!skills) return;
 
+    requiredInfo.style.display = "block";
 
-        requiredInfo.style.display =
-            "block";
+    requiredSkillsText.textContent =
+        " " + skills.join(", ");
 
-        requiredSkillsText.textContent =
-            " " + skills.join(", ");
+    skillsContainer.innerHTML = "";
 
+    skills.forEach((skill,index) => {
 
-        skillsContainer.innerHTML =
-            "";
+        const box =
+            document.createElement("div");
 
+        box.className = "skill-box";
 
-        skills.forEach(
-            (skill, index) => {
+        box.innerHTML = `
 
-                const box =
-                    document.createElement(
-                        "div"
-                    );
+            <div class="skill-name">
+                ${skill}
+            </div>
 
-                box.className =
-                    "skill-box";
+            <div class="skill-options">
 
+                <label>
+                    <input
+                        type="radio"
+                        name="skill${index}"
+                        value="0"
+                        checked
+                    >
+                    Not Started
+                </label>
 
-                box.innerHTML = `
+                <label>
+                    <input
+                        type="radio"
+                        name="skill${index}"
+                        value="1"
+                    >
+                    Beginner
+                </label>
 
-                    <div class="skill-name">
-                        ${skill}
-                    </div>
+                <label>
+                    <input
+                        type="radio"
+                        name="skill${index}"
+                        value="2"
+                    >
+                    Intermediate
+                </label>
 
-                    <div class="skill-options">
+                <label>
+                    <input
+                        type="radio"
+                        name="skill${index}"
+                        value="3"
+                    >
+                    Advanced
+                </label>
 
-                        <label>
-                            <input
-                                type="radio"
-                                name="skill${index}"
-                                value="0"
-                                checked
-                            >
-                            Not Started
-                        </label>
+            </div>
+        `;
 
-                        <label>
-                            <input
-                                type="radio"
-                                name="skill${index}"
-                                value="1"
-                            >
-                            Beginner
-                        </label>
+        skillsContainer.appendChild(box);
 
-                        <label>
-                            <input
-                                type="radio"
-                                name="skill${index}"
-                                value="2"
-                            >
-                            Intermediate
-                        </label>
+    });
 
-                        <label>
-                            <input
-                                type="radio"
-                                name="skill${index}"
-                                value="3"
-                            >
-                            Advanced
-                        </label>
-
-                    </div>
-
-                `;
-
-
-                skillsContainer.appendChild(
-                    box
-                );
-
-            }
-        );
-
-    }
-);
-
+});
 
 /* =========================================================
    CALCULATE ASSESSMENT
@@ -2254,32 +1123,20 @@ roleSelect.addEventListener(
 async function calculateAssessment() {
 
     const studentName =
-        document
-            .getElementById("studentName")
-            .value
-            .trim();
+        document.getElementById("studentName")
+        .value
+        .trim();
 
-    const domain =
-        domainSelect.value;
-
-    const company =
-        companySelect.value;
-
-    const role =
-        roleSelect.value;
-
-
-    /* VALIDATION */
+    const domain = domainSelect.value;
+    const company = companySelect.value;
+    const role = roleSelect.value;
 
     if (!studentName) {
 
-        alert(
-            "Please enter your name."
-        );
-
+        alert("Please enter your name.");
         return;
-    }
 
+    }
 
     if (!domain || !company || !role) {
 
@@ -2288,8 +1145,8 @@ async function calculateAssessment() {
         );
 
         return;
-    }
 
+    }
 
     const skills =
         careerData[
@@ -2300,20 +1157,14 @@ async function calculateAssessment() {
             role
         ];
 
-
     if (!skills || skills.length === 0) {
 
-        alert(
-            "No skills found for this role."
-        );
-
+        alert("No skills found for this role.");
         return;
+
     }
 
-
-    /* =====================================================
-       SKILL ANALYSIS
-    ===================================================== */
+    /* ================= SKILL ANALYSIS ================= */
 
     let total = 0;
 
@@ -2321,229 +1172,148 @@ async function calculateAssessment() {
     const intermediateSkills = [];
     const beginnerSkills = [];
     const skillGap = [];
-
     const studentSkills = {};
     const skillScores = [];
 
+    skills.forEach((skill,index) => {
 
-    skills.forEach(
-        (skill, index) => {
+        const selected =
+            document.querySelector(
+                `input[name="skill${index}"]:checked`
+            );
 
-            const selected =
-                document.querySelector(
-                    `input[name="skill${index}"]:checked`
-                );
+        const value =
+            selected
+                ? Number(selected.value)
+                : 0;
 
-            const value =
-                selected
-                    ? Number(selected.value)
-                    : 0;
+        studentSkills[skill] = value;
 
+        total += value;
 
-            studentSkills[skill] =
-                value;
+        skillScores.push({
+            skill: skill,
+            score: value
+        });
 
-            total += value;
+        if (value === 3) {
 
-
-            skillScores.push({
-
-                skill: skill,
-
-                score: value
-
-            });
-
-
-            if (value === 3) {
-
-                strongSkills.push(
-                    skill
-                );
-
-            }
-            else if (value === 2) {
-
-                intermediateSkills.push(
-                    skill
-                );
-
-            }
-            else if (value === 1) {
-
-                beginnerSkills.push(
-                    skill
-                );
-
-                skillGap.push(
-                    skill
-                );
-
-            }
-            else {
-
-                skillGap.push(
-                    skill
-                );
-
-            }
+            strongSkills.push(skill);
 
         }
-    );
+        else if (value === 2) {
 
+            intermediateSkills.push(skill);
 
-    /* =====================================================
-       MATCH %
-    ===================================================== */
+        }
+        else if (value === 1) {
 
-    const max =
-        skills.length * 3;
+            beginnerSkills.push(skill);
+            skillGap.push(skill);
+
+        }
+        else {
+
+            skillGap.push(skill);
+
+        }
+
+    });
+
+    /* ================= MATCH ================= */
+
+    const max = skills.length * 3;
 
     const percentage =
         Math.round(
             (total / max) * 100
         );
 
+    /* ================= LEVEL ================= */
 
-    /* =====================================================
-       LEVEL
-    ===================================================== */
-
-    let overallLevel =
-        "Getting Started";
-
+    let overallLevel = "Getting Started";
 
     if (percentage >= 80) {
 
-        overallLevel =
-            "Advanced";
+        overallLevel = "Advanced";
 
     }
     else if (percentage >= 55) {
 
-        overallLevel =
-            "Intermediate";
+        overallLevel = "Intermediate";
 
     }
     else if (percentage >= 30) {
 
-        overallLevel =
-            "Beginner";
+        overallLevel = "Beginner";
 
     }
 
-
-    /* =====================================================
-       READINESS
-    ===================================================== */
+    /* ================= READINESS ================= */
 
     let careerReadiness = "";
 
-
     if (percentage >= 85) {
 
-        careerReadiness =
-            "Highly Ready";
+        careerReadiness = "Highly Ready";
 
     }
     else if (percentage >= 70) {
 
-        careerReadiness =
-            "Job Ready Soon";
+        careerReadiness = "Job Ready Soon";
 
     }
     else if (percentage >= 50) {
 
-        careerReadiness =
-            "Developing";
+        careerReadiness = "Developing";
 
     }
     else {
 
-        careerReadiness =
-            "Needs Foundation";
+        careerReadiness = "Needs Foundation";
 
     }
 
-
-    /* =====================================================
-       PRIORITY SKILLS
-    ===================================================== */
+    /* ================= PRIORITY ================= */
 
     const prioritySkills =
         [...skillScores]
-            .filter(
-                item =>
-                    item.score < 3
-            )
-            .sort(
-                (a, b) =>
-                    a.score - b.score
-            )
-            .map(
-                item =>
-                    item.skill
-            )
-            .slice(0, 5);
+        .filter(item => item.score < 3)
+        .sort((a,b) => a.score - b.score)
+        .map(item => item.skill)
+        .slice(0,5);
 
-
-    /* =====================================================
-       RECOMMENDED SKILLS
-    ===================================================== */
+    /* ================= RECOMMENDED ================= */
 
     const recommendedSkills =
         [...skillScores]
-            .filter(
-                item =>
-                    item.score < 2
-            )
-            .sort(
-                (a, b) =>
-                    a.score - b.score
-            )
-            .map(
-                item =>
-                    item.skill
-            )
-            .slice(0, 5);
+        .filter(item => item.score < 2)
+        .sort((a,b) => a.score - b.score)
+        .map(item => item.skill)
+        .slice(0,5);
 
-
-    /* =====================================================
-       RECOMMENDED COURSES
-    ===================================================== */
+    /* ================= COURSES ================= */
 
     const recommendedCourses = [];
 
+    prioritySkills.forEach(skill => {
 
-    prioritySkills.forEach(
-        skill => {
+        const course = courseMap[skill];
 
-            const course =
-                courseMap[skill];
+        if (
+            course &&
+            !recommendedCourses.includes(course)
+        ) {
 
-            if (
-                course &&
-                !recommendedCourses.includes(
-                    course
-                )
-            ) {
-
-                recommendedCourses.push(
-                    course
-                );
-
-            }
+            recommendedCourses.push(course);
 
         }
-    );
 
+    });
 
-    /* =====================================================
-       CAREER PATH
-    ===================================================== */
+    /* ================= CAREER PATH ================= */
 
     let careerPath = "";
-
 
     if (percentage >= 85) {
 
@@ -2570,13 +1340,9 @@ async function calculateAssessment() {
 
     }
 
-
-    /* =====================================================
-       AI SUMMARY
-    ===================================================== */
+    /* ================= AI SUMMARY ================= */
 
     let aiSummary = "";
-
 
     if (percentage >= 85) {
 
@@ -2603,20 +1369,12 @@ async function calculateAssessment() {
 
     }
 
-
-    /* =====================================================
-       LEARNING PATH
-    ===================================================== */
-
     const learningPath =
         prioritySkills.length > 0
             ? prioritySkills.join(" → ")
             : "Advanced Projects → Interview Preparation";
 
-
-    /* =====================================================
-       EXISTING PROFILE
-    ===================================================== */
+    /* ================= EXISTING PROFILE ================= */
 
     let existingProfile = {};
 
@@ -2630,80 +1388,54 @@ async function calculateAssessment() {
             ) || {};
 
     }
-    catch (error) {
+    catch(error) {
 
         existingProfile = {};
 
     }
 
-
-    /* =====================================================
-       PROFILE DATA
-    ===================================================== */
+    /* ================= PROFILE ================= */
 
     const profileData = {
 
         ...existingProfile,
 
-        studentName:
-            studentName,
+        studentName,
+        domain,
+        company,
+        role,
 
-        domain:
-            domain,
+        requiredSkills: skills,
 
-        company:
-            company,
+        skills: studentSkills,
 
-        role:
-            role,
+        skillScores,
 
-        requiredSkills:
-            skills,
+        matchPercentage: percentage,
 
-        skills:
-            studentSkills,
+        overallLevel,
 
-        skillScores:
-            skillScores,
+        careerReadiness,
 
-        matchPercentage:
-            percentage,
+        strongSkills,
 
-        overallLevel:
-            overallLevel,
+        intermediateSkills,
 
-        careerReadiness:
-            careerReadiness,
+        beginnerSkills,
 
-        strongSkills:
-            strongSkills,
+        skillGap,
 
-        intermediateSkills:
-            intermediateSkills,
+        prioritySkills,
 
-        beginnerSkills:
-            beginnerSkills,
+        recommendedSkills,
 
-        skillGap:
-            skillGap,
+        recommendedCourses,
 
-        prioritySkills:
-            prioritySkills,
+        aiSummary,
 
-        recommendedSkills:
-            recommendedSkills,
+        learningPath,
 
-        recommendedCourses:
-            recommendedCourses,
-
-        aiSummary:
-            aiSummary,
-
-        learningPath:
-            learningPath,
-
-        careerPath:
-            careerPath,
+        careerPath,
 
         assessmentDate:
             new Date().toISOString(),
@@ -2711,15 +1443,11 @@ async function calculateAssessment() {
         completedAt:
             new Date().toISOString(),
 
-        assessmentCompleted:
-            true
+        assessmentCompleted: true
 
     };
 
-
-    /* =====================================================
-       ACADEMIC DATA SYNC
-    ===================================================== */
+    /* ================= ACADEMIC SYNC ================= */
 
     try {
 
@@ -2730,51 +1458,38 @@ async function calculateAssessment() {
                 )
             );
 
-
         if (academicData) {
 
             profileData.academicProgress =
                 academicData.academicProgress ??
                 academicData.progress ??
-                profileData.academicProgress ??
                 0;
-
 
             profileData.academicSemester =
                 academicData.academicSemester ??
                 academicData.semester ??
-                profileData.academicSemester ??
                 "";
-
 
             profileData.academicCompletedUnits =
                 academicData.academicCompletedUnits ??
                 academicData.completedUnits ??
-                profileData.academicCompletedUnits ??
                 0;
-
 
             profileData.academicTotalUnits =
                 academicData.academicTotalUnits ??
                 academicData.totalUnits ??
-                profileData.academicTotalUnits ??
                 0;
 
         }
 
     }
-    catch (error) {
+    catch(error) {
 
-        console.log(
-            "Academic sync skipped."
-        );
+        console.log("Academic sync skipped.");
 
     }
 
-
-    /* =====================================================
-       COURSE PROGRESS SYNC
-    ===================================================== */
+    /* ================= COURSE SYNC ================= */
 
     try {
 
@@ -2785,162 +1500,73 @@ async function calculateAssessment() {
                 )
             );
 
-
         if (courseData) {
 
             let totalCourses = 18;
-
             let completedCourses = 0;
-
             let totalProgress = 0;
-
             let courseCount = 0;
 
+            const processCourse = course => {
+
+                let progress = 0;
+
+                if (typeof course === "number") {
+
+                    progress = Number(course);
+
+                }
+                else if (
+                    typeof course === "object" &&
+                    course !== null
+                ) {
+
+                    progress =
+                        Number(
+                            course.progress || 0
+                        );
+
+                }
+
+                progress =
+                    Math.max(
+                        0,
+                        Math.min(
+                            100,
+                            progress
+                        )
+                    );
+
+                totalProgress += progress;
+                courseCount++;
+
+                if (progress >= 100) {
+                    completedCourses++;
+                }
+
+            };
 
             if (Array.isArray(courseData)) {
 
-                courseData.forEach(
-                    course => {
-
-                        let progress = 0;
-
-
-                        if (
-                            typeof course ===
-                            "number"
-                        ) {
-
-                            progress =
-                                Number(course);
-
-                        }
-                        else if (
-                            typeof course ===
-                                "object" &&
-                            course !== null
-                        ) {
-
-                            progress =
-                                Number(
-                                    course.progress ||
-                                    0
-                                );
-
-                        }
-
-
-                        progress =
-                            Math.max(
-                                0,
-                                Math.min(
-                                    100,
-                                    progress
-                                )
-                            );
-
-
-                        totalProgress +=
-                            progress;
-
-                        courseCount++;
-
-
-                        if (
-                            progress >= 100
-                        ) {
-
-                            completedCourses++;
-
-                        }
-
-                    }
-                );
+                courseData.forEach(processCourse);
 
             }
             else if (
-                typeof courseData ===
-                "object"
+                typeof courseData === "object"
             ) {
 
-                Object.values(
-                    courseData
-                ).forEach(
-                    course => {
-
-                        let progress = 0;
-
-
-                        if (
-                            typeof course ===
-                            "number"
-                        ) {
-
-                            progress =
-                                Number(course);
-
-                        }
-                        else if (
-                            typeof course ===
-                                "object" &&
-                            course !== null
-                        ) {
-
-                            progress =
-                                Number(
-                                    course.progress ||
-                                    0
-                                );
-
-                        }
-
-
-                        progress =
-                            Math.max(
-                                0,
-                                Math.min(
-                                    100,
-                                    progress
-                                )
-                            );
-
-
-                        totalProgress +=
-                            progress;
-
-                        courseCount++;
-
-
-                        if (
-                            progress >= 100
-                        ) {
-
-                            completedCourses++;
-
-                        }
-
-                    }
-                );
+                Object.values(courseData)
+                    .forEach(processCourse);
 
             }
 
-
-            if (courseCount > 0) {
-
-                profileData.courseProgress =
-                    Math.round(
+            profileData.courseProgress =
+                courseCount > 0
+                    ? Math.round(
                         totalProgress /
                         courseCount
-                    );
-
-            }
-            else {
-
-                profileData.courseProgress =
-                    existingProfile.courseProgress ||
-                    0;
-
-            }
-
+                    )
+                    : existingProfile.courseProgress || 0;
 
             profileData.totalCourses =
                 totalCourses;
@@ -2954,103 +1580,58 @@ async function calculateAssessment() {
         }
 
     }
-    catch (error) {
+    catch(error) {
 
-        console.log(
-            "Course sync skipped."
-        );
+        console.log("Course sync skipped.");
 
     }
 
-
-    /* =====================================================
-       SAVE PROFILE
-    ===================================================== */
+    /* ================= LOCAL SAVE ================= */
 
     localStorage.setItem(
         "skillUpProfile",
         JSON.stringify(profileData)
     );
 
-
     localStorage.setItem(
         "assessmentResult",
         JSON.stringify(profileData)
     );
-
 
     localStorage.setItem(
         "skillGap",
         JSON.stringify(skillGap)
     );
 
-
-    /* =====================================================
-       AI ANALYSIS
-    ===================================================== */
+    /* ================= AI SAVE ================= */
 
     localStorage.setItem(
         "skillUpAIAnalysis",
         JSON.stringify({
 
-            matchPercentage:
-                percentage,
-
-            overallLevel:
-                overallLevel,
-
-            careerReadiness:
-                careerReadiness,
-
-            strongSkills:
-                strongSkills,
-
-            intermediateSkills:
-                intermediateSkills,
-
-            beginnerSkills:
-                beginnerSkills,
-
-            skillGap:
-                skillGap,
-
-            prioritySkills:
-                prioritySkills,
-
-            recommendedSkills:
-                recommendedSkills,
-
-            recommendedCourses:
-                recommendedCourses,
-
-            aiSummary:
-                aiSummary,
-
-            learningPath:
-                learningPath,
-
-            careerPath:
-                careerPath,
-
-            company:
-                company,
-
-            role:
-                role,
-
-            domain:
-                domain,
-
+            matchPercentage: percentage,
+            overallLevel,
+            careerReadiness,
+            strongSkills,
+            intermediateSkills,
+            beginnerSkills,
+            skillGap,
+            prioritySkills,
+            recommendedSkills,
+            recommendedCourses,
+            aiSummary,
+            learningPath,
+            careerPath,
+            company,
+            role,
+            domain,
             completedAt:
                 new Date().toISOString()
 
         })
     );
 
-
-    /* =====================================================
-       UPDATE USER
-    ===================================================== */
+    /* ================= USER UPDATE ================= */
 
     let user = {};
 
@@ -3058,18 +1639,15 @@ async function calculateAssessment() {
 
         user =
             JSON.parse(
-                localStorage.getItem(
-                    "user"
-                )
+                localStorage.getItem("user")
             ) || {};
 
     }
-    catch (error) {
+    catch(error) {
 
         user = {};
 
     }
-
 
     user.name =
         user.name ||
@@ -3078,16 +1656,12 @@ async function calculateAssessment() {
     user.studentName =
         studentName;
 
-
     localStorage.setItem(
         "user",
         JSON.stringify(user)
     );
 
-
-    /* =====================================================
-       DASHBOARD SYNC
-    ===================================================== */
+    /* ================= DASHBOARD ================= */
 
     localStorage.setItem(
         "skillUpDashboardSync",
@@ -3097,15 +1671,12 @@ async function calculateAssessment() {
                 percentage,
 
             academicProgress:
-                profileData.academicProgress ||
-                0,
+                profileData.academicProgress || 0,
 
             courseProgress:
-                profileData.courseProgress ||
-                0,
+                profileData.courseProgress || 0,
 
-            careerReadiness:
-                careerReadiness,
+            careerReadiness,
 
             updatedAt:
                 new Date().toISOString()
@@ -3113,53 +1684,41 @@ async function calculateAssessment() {
         })
     );
 
-
-    /* =====================================================
-       UPDATE EVENT
-    ===================================================== */
+    /* ================= EVENT ================= */
 
     window.dispatchEvent(
         new CustomEvent(
             "skillUpAssessmentUpdated",
             {
-                detail:
-                    profileData
+                detail: profileData
             }
         )
     );
 
-
     /* =====================================================
-       BACKEND SAVE
+       LIVE RENDER BACKEND SAVE
     ===================================================== */
 
     const token =
-        localStorage.getItem(
-            "token"
-        );
+        localStorage.getItem("token");
 
-    let backendSaved =
-        false;
-
+    let backendSaved = false;
 
     if (token) {
 
         try {
 
-            analyzeBtn.disabled =
-                true;
+            analyzeBtn.disabled = true;
 
             analyzeBtn.textContent =
                 "Saving Assessment...";
 
-
             const response =
                 await fetch(
-                    "http://localhost:5000/api/assessment",
+                    "https://skill-up-portal-backend.onrender.com/api/assessment",
                     {
 
-                        method:
-                            "POST",
+                        method: "POST",
 
                         headers: {
 
@@ -3167,8 +1726,7 @@ async function calculateAssessment() {
                                 "application/json",
 
                             "Authorization":
-                                "Bearer " +
-                                token
+                                "Bearer " + token
 
                         },
 
@@ -3195,18 +1753,40 @@ async function calculateAssessment() {
                     }
                 );
 
+            console.log(
+                "Assessment backend status:",
+                response.status
+            );
 
-            const data =
-                await response.json();
+            let data = null;
 
+            try {
+
+                data =
+                    await response.json();
+
+            }
+            catch(error) {
+
+                console.error(
+                    "Invalid backend response:",
+                    error
+                );
+
+            }
+
+            console.log(
+                "Assessment backend response:",
+                data
+            );
 
             if (
                 response.ok &&
+                data &&
                 data.success
             ) {
 
-                backendSaved =
-                    true;
+                backendSaved = true;
 
                 console.log(
                     "Assessment saved successfully:",
@@ -3224,7 +1804,7 @@ async function calculateAssessment() {
             }
 
         }
-        catch (error) {
+        catch(error) {
 
             console.error(
                 "Backend connection error:",
@@ -3234,8 +1814,7 @@ async function calculateAssessment() {
         }
         finally {
 
-            analyzeBtn.disabled =
-                false;
+            analyzeBtn.disabled = false;
 
             analyzeBtn.textContent =
                 "Analyze My Skills";
@@ -3244,10 +1823,7 @@ async function calculateAssessment() {
 
     }
 
-
-    /* =====================================================
-       SHOW RESULT
-    ===================================================== */
+    /* ================= SHOW RESULT ================= */
 
     showResults(
         profileData,
@@ -3255,7 +1831,6 @@ async function calculateAssessment() {
     );
 
 }
-
 
 /* =========================================================
    SHOW RESULTS
@@ -3268,51 +1843,42 @@ function showResults(
 
     document.getElementById(
         "resultSection"
-    ).style.display =
-        "block";
-
+    ).style.display = "block";
 
     document.getElementById(
         "score"
     ).textContent =
         data.matchPercentage + "%";
 
-
     document.getElementById(
         "resultStudentName"
     ).textContent =
         data.studentName;
-
 
     document.getElementById(
         "resultCareer"
     ).textContent =
         `${data.domain} • ${data.company} • ${data.role}`;
 
-
     document.getElementById(
         "resultCompany"
     ).textContent =
         data.company;
-
 
     document.getElementById(
         "resultRole"
     ).textContent =
         data.role;
 
-
     document.getElementById(
         "resultReadiness"
     ).textContent =
         data.careerReadiness;
 
-
     document.getElementById(
         "overallLevel"
     ).textContent =
         data.overallLevel;
-
 
     renderTags(
         "strongSkills",
@@ -3320,13 +1886,11 @@ function showResults(
         false
     );
 
-
     renderTags(
         "skillGap",
         data.skillGap,
         true
     );
-
 
     renderTags(
         "recommendedSkills",
@@ -3334,18 +1898,15 @@ function showResults(
         true
     );
 
-
     document.getElementById(
         "careerPath"
     ).textContent =
         data.careerPath;
 
-
     const saveMessage =
         document.getElementById(
             "saveMessage"
         );
-
 
     if (backendSaved) {
 
@@ -3356,64 +1917,25 @@ function showResults(
     else {
 
         saveMessage.textContent =
-            "✓ Assessment saved locally. Login/backend connection is required for database saving.";
+            "✓ Assessment saved locally. Database save was not completed.";
 
     }
 
-
     console.log(
         "Skill Up AI Analysis:",
-        {
-
-            Company:
-                data.company,
-
-            Role:
-                data.role,
-
-            Match:
-                data.matchPercentage +
-                "%",
-
-            Level:
-                data.overallLevel,
-
-            Readiness:
-                data.careerReadiness,
-
-            StrongSkills:
-                data.strongSkills,
-
-            SkillGaps:
-                data.skillGap,
-
-            PrioritySkills:
-                data.prioritySkills,
-
-            Courses:
-                data.recommendedCourses,
-
-            LearningPath:
-                data.learningPath
-
-        }
+        data
     );
-
 
     document.getElementById(
         "resultSection"
     ).scrollIntoView({
 
-        behavior:
-            "smooth",
-
-        block:
-            "start"
+        behavior: "smooth",
+        block: "start"
 
     });
 
 }
-
 
 /* =========================================================
    RENDER TAGS
@@ -3430,10 +1952,7 @@ function renderTags(
             elementId
         );
 
-
-    container.innerHTML =
-        "";
-
+    container.innerHTML = "";
 
     if (
         !items ||
@@ -3441,57 +1960,38 @@ function renderTags(
     ) {
 
         const emptyTag =
-            document.createElement(
-                "span"
-            );
+            document.createElement("span");
 
-
-        emptyTag.className =
-            "tag";
-
+        emptyTag.className = "tag";
 
         emptyTag.textContent =
             "No data";
-
 
         container.appendChild(
             emptyTag
         );
 
-
         return;
 
     }
 
+    items.forEach(item => {
 
-    items.forEach(
-        item => {
+        const tag =
+            document.createElement("span");
 
-            const tag =
-                document.createElement(
-                    "span"
-                );
+        tag.className =
+            gap
+                ? "tag gap-tag"
+                : "tag";
 
+        tag.textContent = item;
 
-            tag.className =
-                gap
-                    ? "tag gap-tag"
-                    : "tag";
+        container.appendChild(tag);
 
-
-            tag.textContent =
-                item;
-
-
-            container.appendChild(
-                tag
-            );
-
-        }
-    );
+    });
 
 }
-
 
 /* =========================================================
    LOAD SAVED NAME
@@ -3505,11 +2005,8 @@ window.addEventListener(
 
             const user =
                 JSON.parse(
-                    localStorage.getItem(
-                        "user"
-                    )
+                    localStorage.getItem("user")
                 );
-
 
             if (
                 user &&
@@ -3524,7 +2021,7 @@ window.addEventListener(
             }
 
         }
-        catch (error) {
+        catch(error) {
 
             console.log(
                 "No saved user data"
@@ -3538,5 +2035,4 @@ window.addEventListener(
 </script>
 
 </body>
-
 </html>
