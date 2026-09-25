@@ -8,7 +8,7 @@
 
     // LIVE RAILWAY BACKEND
     const API_BASE =
-        "https://skill-up-portal-production.up.railway.app/api";
+       "https://skill-up-portal-backend.onrender.com/api"
 
 
     // =====================================================
